@@ -16,7 +16,7 @@ class CategoryComposer
                         ->paginate(1);
         $view->with([
             'result' => Category::take(3)->orderBy('created_at', 'desc')->get(),
-            'result1' => $result1,
+            'result1' => $result1,   
         ]);
     }
 }

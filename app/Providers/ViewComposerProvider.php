@@ -12,7 +12,7 @@ use App\View\Composers\CategoryComposer;
 class ViewComposerProvider extends ServiceProvider
 {
     /**
-     * Register services.
+     * Register services.  ssss
      *
      * @return void
      */

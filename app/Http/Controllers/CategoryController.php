@@ -59,7 +59,7 @@ class CategoryController extends Controller
         if (!$target) {
             return redirect()->route('category.index')->with('error', 'Category cannot found!');
         }
-        $target->delete();
+        $target->delete(); 
         return redirect()->route('category.index')->with('success', 'Category delete success!');
     }
 }

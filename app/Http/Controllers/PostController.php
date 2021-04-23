@@ -20,7 +20,7 @@ class PostController extends Controller
         //                 ->join('categories', 'posts.cat_id', '=', 'categories.id')
         //                 ->join('users', 'posts.user_id', '=', 'users.id')
         //                 ->select('posts.*', 'categories.cat_name', 'users.name')
-        //                 ->get();  
+        //                 ->get();   aaa
         // return $result;  asdfsdf
         return view('backend.post.index', ['result' => $result]);
     }
