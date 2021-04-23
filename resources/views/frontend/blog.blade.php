@@ -75,7 +75,7 @@
                                     </div>
                                     <ul class="blog_meta list">
                                         <li><a href="#">{{ $row->name }}<i class="lnr lnr-user"></i></a></li>
-                                        <li><a href="#">{{ $row->created_at }}<i class="lnr lnr-calendar-full"></i></a></li>
+                                        <li><a href="#">{{ date('d/m/Y', strtotime($row->created_at)) }}<i class="lnr lnr-calendar-full"></i></a></li>
                                         <li><a href="#">{{ $row->view_number }} Views<i class="lnr lnr-eye"></i></a></li>
                                         <li><a href="#">{{ $row->comment_number }} Comments<i class="lnr lnr-bubble"></i></a></li>
                                     </ul>
@@ -83,7 +83,7 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="blog_post">
-                                    <img src="{{ asset('assets/img/blog/main-blog/m-blog-1.jpg') }}" alt="">
+                                    <img src="{{ asset('images/'.$row->image) }}" alt="">
                                     <div class="blog_details">
                                         <a href="single-blog.html"><h2>{{ $row->title }}</h2></a>
                                         <p>{{ strip_tags(substr($row->content, 0, 200)) }}</p>

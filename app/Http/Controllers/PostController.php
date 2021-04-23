@@ -14,14 +14,9 @@ class PostController extends Controller
     {   
         $this->middleware('auth');
     }
-    public function index(){
+    public function index(Request $request){
+        $page = $request->
         $result = Post::all();
-        // $result = DB::table('posts')
-        //                 ->join('categories', 'posts.cat_id', '=', 'categories.id')
-        //                 ->join('users', 'posts.user_id', '=', 'users.id')
-        //                 ->select('posts.*', 'categories.cat_name', 'users.name')
-        //                 ->get();   aaa
-        // return $result;  asdfsdf
         return view('backend.post.index', ['result' => $result]);
     }
     public function create(){
