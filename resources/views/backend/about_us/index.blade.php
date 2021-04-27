@@ -11,7 +11,6 @@
                 <tr>
                     <th scope="col">ID: </th>
                     <th scope="col">Title: </th>
-                    <th scope="col">Content: </th>
                     <th scope="col">Link: </th>
                     <th scope="col">Image: </th>
                     <th scope="col">Action: </th>
@@ -22,7 +21,6 @@
                 <tr>
                     <td>{{ $row->id }}</td>
                     <td>{{ $row->title }}</td>
-                    <td>{{ $row->content }}</td>
                     <td>{{ $row->link }}</td>
                     <td>
                         @if ($row->image)

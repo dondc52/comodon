@@ -7,8 +7,8 @@
 				<div class="section_content">
 					<h6>About Us</h6>
 					<h1>{{ $result->title }}</h1>
-					<p>{{ $result->content }}</p>
-					<a class="primary_btn" href="#">Learn More</a>
+					<p>{{ strip_tags(substr($result->content, 0, 150)) }}</p>
+					<a class="primary_btn" href="">Learn More</a>
 				</div>
 			</div>
 			<div class="col-lg-6">

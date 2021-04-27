@@ -18,19 +18,18 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <div class="form-group">
-                <label for="">New Content: </label>
-                <input type="text" class="form-control @error('content') is-invalid @enderror" placeholder="Content input" name="content" value="{{ $about_us->content }}">
-            </div>
-            @error('content')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
-            <div class="form-group">
                 <label for="">New Link: </label>
-                <input type="text" class="form-control @error('link') is-invalid @enderror" placeholder="Link input" name="link" value="{{ $about_us->link }}">
+                <input type="text" name="link" class="form-control @error('link') is-invalid @enderror" placeholder="Link input" value="{{ $about_us->link }}">
             </div>
             @error('link')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
+            <div class="form-group">
+                <label for="">New Content: </label>
+                <textarea id="summernote" class="form-control" name="content">
+                    {{ $result->content }}
+                </textarea>
+            </div>
             <div class="form-group">
                 <label for="">Image: </label>
                 @if ($about_us->image !== null)

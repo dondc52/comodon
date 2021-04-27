@@ -30,9 +30,6 @@
                     {{ $result->content }}
                 </textarea>
             </div>
-            @error('content')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
             <select class="form-control" name="cat_id" id="cat_id">
                 <option value="0">Select category</option>
                 @foreach ($result1 as $row)

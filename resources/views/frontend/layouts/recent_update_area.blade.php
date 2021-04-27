@@ -24,7 +24,7 @@
                                 <div class="section_content">
                                     <h6>About Us</h6>
                                     <h1>{{$row->title}}</h1>
-                                    <p>{{$row->content}}</p>
+                                    <p>{{ strip_tags(substr($row->content, 0, 150)) }}</p>
                                     <a class="primary_btn" href="#">Learn More</a>
                                 </div>
                             </div>
