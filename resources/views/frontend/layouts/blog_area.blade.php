@@ -11,57 +11,24 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="blog_items">
-                    <div class="blog_img_box">
-                        <img class="img-fluid" src="{{ asset('assets/img/blog_img1.png') }}" alt="">
-                    </div>
-                    <div class="blog_content">
-                        <a class="title" href="blog.html">Portable Fashion for women</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-                        <div class="date">
-                            <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i>13th Dec </a>
-                            <a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 15</a>
-                            <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 05</a>
+            @foreach ($result as $row)
+                <div class="col-lg-4 col-md-6">
+                    <div class="blog_items">
+                        <div class="blog_img_box">
+                            <img class="img-fluid" src="{{ asset('assets/img/blog_img1.png') }}" alt="">
+                        </div>
+                        <div class="blog_content">
+                            <a class="title" href="{{route('post.show', $row->id)}}">{{$row->title}}</a>
+                            <p>{{strip_tags(substr($row->content, 0, 100))}}</p>
+                            <div class="date">
+                                <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i>{{date('m-Y', strtotime($row->created_at))}}</a>
+                                <a href="#"><i class="fa fa-heart" aria-hidden="true"></i>{{$row->like_number}}</a>
+                                <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i>{{$row->comment_number}}</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="blog_items">
-                    <div class="blog_img_box">
-                        <img class="img-fluid" src="{{ asset('assets/img/blog_img2.png') }}" alt="">
-                    </div>
-                    <div class="blog_content">
-                        <a class="title" href="blog.html">Portable Fashion for women</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-                        <div class="date">
-                            <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i>13th Dec </a>
-                            <a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 15</a>
-                            <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 05</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 hidden-md">
-                <div class="blog_items">
-                    <div class="blog_img_box">
-                        <img class="img-fluid" src="{{ asset('assets/img/blog_img3.png') }}" alt="">
-                    </div>
-                    <div class="blog_content">
-                        <a class="title" href="blog.html">Portable Fashion for women</a>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-                        <div class="date">
-                            <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i>13th Dec </a>
-                            <a href="#"><i class="fa fa-heart" aria-hidden="true"></i> 15</a>
-                            <a href="#"><i class="fa fa-comments-o" aria-hidden="true"></i> 05</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach 
         </div>
     </div>
 </section>

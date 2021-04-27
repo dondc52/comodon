@@ -39,7 +39,7 @@
 						<ul class="nav navbar-nav menu_nav justify-content-center">
 							<li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Home</a></li>
 							<li class="nav-item"><a class="nav-link" href="{{ route('about') }}">About</a></li>
-							<li class="nav-item"><a class="nav-link" href="{{ route('gallery')}}">Gallery</a>
+							<li class="nav-item"><a class="nav-link" href="{{ route('gallery')}}">Gallery</a></li>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Pages</a>
@@ -49,14 +49,7 @@
 									<li class="nav-item"><a class="nav-link" href="{{ route('elements')}}">Elements</a>
 								</ul>
 							</li>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Blog</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="{{ route('blog')}}">Blog</a></li>
-									<li class="nav-item"><a class="nav-link" href="{{ route('single-blog')}}">Blog Details</a></li>
-								</ul>
-							</li>
+							<li class="nav-item"><a class="nav-link" href="{{ route('blog')}}">Blog</a></li>
 							<li class="nav-item"><a class="nav-link" href="{{ route('contact')}}">Contact</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
@@ -77,5 +70,7 @@
 				</div>
 			</nav>
 		</div>
+		@include('layouts.flash-message')
 	</header>
+
 	<!--================Header Menu Area =================-->

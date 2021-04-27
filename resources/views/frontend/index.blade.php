@@ -7,22 +7,19 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="home_left_img">
-						<img class="img-fluid" src="{{ asset('assets/img/banner/home-left.png') }}" alt="">
+						@if ($bannerresult->image !== null)
+							<img class="img-fluid" src="{{ asset('images/'.$bannerresult->image) }}" alt="">
+						@else 
+							<img class="img-fluid" src="{{ asset('assets/img/banner/home-left.png') }}" alt="">
+						@endif 
 					</div>
 				</div>
 				<div class="col-lg-6">
 					<div class="banner_content">
-						<h2>
-							For All Occasion <br>
-							HairStyle is a Must <br>
-							Try Fashion
-						</h2>
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore
-							magna aliqua. Ut enim ad minim.
-						</p>
+						<h2>{{$bannerresult->title}}</h2>
+						<p>{{$bannerresult->content}}</p>
 						<div class="d-flex align-items-center">
-							<a id="play-home-video" class="video-play-button" href="https://www.youtube.com/watch?v=vParh5wE-tM">
+							<a id="play-home-video" class="video-play-button" href="{{$bannerresult->video_link}}">
 								<span></span>
 							</a>
 							<div class="watch_video text-uppercase">

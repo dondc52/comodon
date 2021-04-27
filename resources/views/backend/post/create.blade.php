@@ -17,6 +17,13 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <div class="form-group">
+                <label for="">Description: </label>
+                <input type="text" name="description" class="form-control @error('description') is-invalid @enderror" placeholder="Description input" value="{{ old('title') }}">
+            </div>
+            @error('description')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            <div class="form-group">
                 <label for="">Content: </label>
                 <textarea id="summernote" class="form-control" name="content">
                     Content input...
@@ -28,7 +35,7 @@
             <select class="form-control" name="cat_id" id="cat_id">
                 <option value="0">Select category</option>
                 @foreach ($result as $row)
-                    <option value="{{$row->id}}">{{$row->name}}</option>
+                    <option value="{{$row->id}}">{{$row->cat_name}}</option>
                 @endforeach
             </select>
             @error('cat_id')

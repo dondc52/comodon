@@ -22,9 +22,7 @@
         <li class="nav-item">
           <a href="{{ route('user.index') }}" class="nav-link">
             <i class="nav-icon fas fa-user"></i>
-            <p>
-                Users
-            </p>
+            <p>Users</p>
           </a>
         </li>
         <li class="nav-item">
@@ -36,65 +34,61 @@
         <li class="nav-item">
           <a href="{{ route('category.index') }}" class="nav-link">
             <i class="nav-icon fas fa-list"></i>
-            <p>
-              Categories
-            </p>
+            <p>Categories</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="{{ route('gallery.index') }}" class="nav-link">
             <i class="nav-icon fas fa-images"></i>
-            <p>
-              Galleries
-            </p>
+            <p>Galleries</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="{{ route('post.index') }}" class="nav-link">
             <i class="nav-icon far fa-newspaper"></i>
-            <p>
-              Posts
-            </p>
+            <p>Posts</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('user.index') }}" class="nav-link">
+          <a href="{{ route('faq.index') }}" class="nav-link">
             <i class="nav-icon fas fa-question-circle"></i>
-            <p>
-              Faq
-            </p>
+            <p>Faq</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('user.index') }}" class="nav-link">
+          <a href="{{ route('banner.index') }}" class="nav-link">
             <i class="nav-icon fas fa-image"></i>
-            <p>
-                Banner
-            </p>
+            <p>Banner</p>
           </a>
         </li>
         <li class="nav-item">
           <a href="{{ route('about_us.index') }}" class="nav-link">
             <i class="nav-icon fas fa-users"></i>
-            <p>
-                About us
-            </p>
+            <p>About us</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('user.index') }}" class="nav-link">
+          <a href="{{ route('package.index') }}" class="nav-link">
             <i class="nav-icon fas fa-box-open"></i>
-            <p>
-                Packages
-            </p>
+            <p>Packages</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route('user.index') }}" class="nav-link">
+          <a href="{{ route('ratting.index') }}" class="nav-link">
             <i class="nav-icon fas fa-star-half-alt"></i>
-            <p>
-                User ratting
-            </p>
+            <p>User ratting</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ route('author.index') }}" class="nav-link">
+            <i class="nav-icon fas fa-user-graduate"></i>
+            <p>Author</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ route('customer.index') }}" class="nav-link">
+            <i class="nav-icon fas fa-wheelchair"></i>
+            <p>Customer</p>
           </a>
         </li>
       </ul>

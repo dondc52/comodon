@@ -12,7 +12,7 @@
             @csrf
             <div class="form-group">
                 <label for="">New Name: </label>
-                <input type="text" name="name" class="form-control @error('title') is-invalid @enderror" placeholder="Name input" value="{{ $result->cat_name }}">
+                <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Name input" value="{{ $result->cat_name }}">
             </div>
             @error('name')
                 <div class="alert alert-danger">{{ $message }}</div>

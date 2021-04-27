@@ -18,6 +18,13 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <div class="form-group">
+                <label for="">New Description: </label>
+                <input type="text" name="description" class="form-control @error('description') is-invalid @enderror" placeholder="Description input" value="{{ $result->description }}">
+            </div>
+            @error('description')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+            <div class="form-group">
                 <label for="">New Content: </label>
                 <textarea id="summernote" class="form-control" name="content">
                     {{ $result->content }}
@@ -29,7 +36,7 @@
             <select class="form-control" name="cat_id" id="cat_id">
                 <option value="0">Select category</option>
                 @foreach ($result1 as $row)
-                    <option value="{{$row->id}}" {{ $row->id == $result2->id ? 'selected' : '' }}>{{$row->name}}</option>
+                    <option value="{{$row->id}}" {{ $row->id == $result2->id ? 'selected' : '' }}>{{$row->cat_name}}</option>
                 @endforeach
             </select>
             @error('cat_id')

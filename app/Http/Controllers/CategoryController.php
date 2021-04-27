@@ -11,13 +11,17 @@ class CategoryController extends Controller
     {
         $this->middleware('auth');
     }
+    
     public function index(){
         $result = Category::all();
         return view('backend.category.index', ['result' => $result]);
+        // echo count($result->posts);
     }
+
     public function create(){
         return view('backend.category.create');
     }
+
     public function store(Request $request){
         $request->validate([
             'name' => ['required', 'max:50'],
@@ -34,10 +38,12 @@ class CategoryController extends Controller
         $result->save();
         return redirect()->route('category.index')->with('success', 'Category created successfully');
     }
+
     public function edit($id){
         $result = Category::find($id);
         return view('backend.category.edit', ['result' => $result]);
     }
+
     public function update(Request $request, $id){
         $request->validate([
             'name' => ['required', 'max:50'],
@@ -54,6 +60,7 @@ class CategoryController extends Controller
         $target->save();
         return redirect()->route('category.index')->with('success', 'Category updated successfully');
     }
+
     public function destroy($id){
         $target = Category::find($id);
         if (!$target) {

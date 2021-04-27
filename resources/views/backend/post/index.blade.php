@@ -10,6 +10,10 @@
                 <tr>
                     <th scope="col">ID: </th>
                     <th scope="col">Title: </th>
+                    <th scope="col">View: </th>
+                    <th scope="col">Comment: </th>
+                    <th scope="col">Like: </th>
+                    <th scope="col">Desciption: </th>
                     <th scope="col">Image: </th>
                     <th scope="col">Action: </th>
                 </tr>
@@ -19,6 +23,10 @@
                 <tr>
                     <td>{{ $row->id }}</td>
                     <td>{{ $row->title }}</td>
+                    <td>{{ $row->view_number }}</td>
+                    <td>{{ $row->comment_number }}</td>
+                    <td>{{ $row->like_number }}</td>
+                    <td>{{ $row->description }}</td>
                     <td>
                         @if ($row->image !== null)
                             <img height="70px" src="{{ asset('images/'.$row->image) }}" alt="">

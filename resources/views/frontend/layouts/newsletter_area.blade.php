@@ -11,13 +11,15 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <aside class="newsletter_widget">
-                    <div id="mc_embed_signup">
-                        <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
-                            method="get" class="subscribe_form relative">
+                    <div id="">
+                        <form action="{{route('sendemail')}}" method="post" enctype="multipart/form-data">
+                            @csrf 
                             <div class="input-group d-flex flex-row">
-                                <input name="EMAIL" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your email address'"
-                                    required="" type="email">
-                                <button class="btn primary_btn">Subscribe</button>
+                                <input name="email" placeholder="Enter email address" type="email">
+                                @error('email')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                                <button type="submit" class="btn primary_btn">Subscribe</button>
                             </div>
                         </form>
                     </div>

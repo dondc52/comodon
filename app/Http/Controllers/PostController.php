@@ -5,17 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Post;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
+    const NUM_PER_PAGE=10;
     public function __construct()
     {   
         $this->middleware('auth');
     }
     public function index(Request $request){
-        $page = $request->
         $result = Post::all();
         return view('backend.post.index', ['result' => $result]);
     }
@@ -26,6 +25,7 @@ class PostController extends Controller
     public function store(Request $request){
         $request->validate([
             'title' => ['required', 'max:500'],
+            'description' => ['required', 'max:500'],
             'content' => ['required'],
             'cat_id' => ['numeric', 'not_in:0'],
             'like_number' => ['numeric'],
@@ -34,6 +34,7 @@ class PostController extends Controller
         ]);
         $result = new Post;
         $result->title = $request->title;
+        $result->description = $request->description;
         $result->content = $this->handleUploadImages($request->content);
         $result->cat_id = $request->cat_id;
         $result->user_id = Auth::user()->id;
@@ -92,6 +93,7 @@ class PostController extends Controller
     
         return $output_file;
     }
+    
     public function edit($id){
         $result = Post::find($id);
         $result1 = Category::all();
@@ -102,6 +104,7 @@ class PostController extends Controller
         $target = Post::find($id);
         $request->validate([
             'title' => ['required', 'max:500'],
+            'description' => ['required', 'max:500'],
             'content' => ['required'],
             'cat_id' => ['numeric', 'not_in:0'],
             'like_number' => ['numeric'],
@@ -109,6 +112,7 @@ class PostController extends Controller
             'view_number' => ['numeric'],
         ]);
         $target->title = $request->title;
+        $target->description = $request->description;
         $target->content = $this->handleUploadImages($request->content);
         $target->cat_id = $request->cat_id;
         if($request->image !== null){
@@ -121,5 +125,32 @@ class PostController extends Controller
         $target->view_number = $request->view_number !== null ? $request->view_number : 0;
         $target->save();
         return redirect()->route('post.index')->with('success', 'Post updated success');
+    }
+    public function listpost(Request $request){
+        $page = $request->get('page') !== null ? (int) $request->get('page') : 1;
+        $numPerPage = $request->get('numPerPage') !== null ? (int) $request->get('numPerPage') : self::NUM_PER_PAGE;
+        $totalItems = Post::count();
+        $totalPages = ceil($totalItems/$numPerPage);
+        $result = Post::join('users', 'posts.user_id', '=', 'users.id')
+                        ->join('categories', 'posts.cat_id', '=', 'categories.id')
+                        ->limit($numPerPage)->offset(($page - 1)*$numPerPage)
+                        ->get(['posts.*', 'categories.cat_name', 'users.name']);
+        // $result = Post::limit($numPerPage)->offset(($page - 1)*$numPerPage)->get();
+        return view('frontend.blog', [
+            'result1' => $result,
+            'totalPages' => $totalPages,
+            'currentPage' => $page,
+        ]);
+    }
+    public function show($id)
+    {
+        $result3 = Post::find($id);
+        $result4 = Post::find($id)->user;
+        $result5 = Post::find($id)->cat;
+        return view('frontend.single_blog', [
+            'result3' => $result3,
+            'result4' => $result4,
+            'result5' => $result5,
+        ]);
     }
 }
