@@ -14,7 +14,7 @@ class AboutUsController extends Controller
 
     public function index()
     {
-        return view('backend.about_us.index', ['about_us' => AboutUs::all()]);
+        return view('backend.about_us.index', ['about_us' => AboutUs::paginate(5)]);
     }
 
     public function create()
@@ -27,7 +27,6 @@ class AboutUsController extends Controller
         $request->validate([
             'title' => ['required', 'max:300'],
             'content' => ['required'],
-            'link' => ['required'],
         ]);
         $about_us = new AboutUs;
         $about_us->title = $request->title;
@@ -92,7 +91,6 @@ class AboutUsController extends Controller
         $request->validate([
             'title' => ['required', 'max:300'],
             'content' => ['required'],
-            'link' => ['required'],
         ]);
         $about_us = AboutUs::find($id);
         $about_us->content = $request->content;

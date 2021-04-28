@@ -19,6 +19,9 @@ use App\Http\Controllers\RattingsController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\FooterLinksController;
+use App\Http\Controllers\ShowSinglesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +45,7 @@ Route::get('/home', function () {return view('frontend.index');})->name('home');
 Route::get('/about', function () {return view('frontend.about');})->name('about');
 Route::get('/gallery', function () {return view('frontend.gallery');})->name('gallery');
 Route::get('/contact', function () {return view('frontend.contact');})->name('contact');
-Route::get('/blog', [PostController::class, 'listpost'])->name('blog');
+Route::get('/blog', [BlogsController::class, 'listpost'])->name('blog');
 Route::get('/games', function () {return view('frontend.games');})->name('games');
 Route::get('/price', function () {return view('frontend.pricing');})->name('price');
 Route::get('/elements', function () {return view('frontend.elements');})->name('elements');
@@ -78,6 +81,7 @@ Route::post('/admin/about-us/store', [AboutUsController::class, 'store'])->name(
 Route::post('/admin/about-us/{id}/destroy', [AboutUsController::class, 'destroy'])->name('about_us.destroy');
 Route::post('/admin/about-us/{id}/update', [AboutUsController::class, 'update'])->name('about_us.update');
 Route::get('/admin/about-us/{id}/edit', [AboutUsController::class, 'edit'])->name('about_us.edit');
+Route::get('/about/{id}/show', [ShowSinglesController::class, 'showAbout'])->name('about.show');
 
 //gallery
 Route::get('/admin/galleries', [GalleryController::class, 'index'])->name('gallery.index');
@@ -99,6 +103,14 @@ Route::post('/admin/faq/store', [FaqsController::class, 'store'])->name('faq.sto
 Route::post('/admin/faq/{id}/destroy', [FaqsController::class, 'destroy'])->name('faq.destroy');
 Route::post('/admin/faq/{id}/update', [FaqsController::class, 'update'])->name('faq.update');
 Route::get('/admin/faq/{id}/edit', [FaqsController::class, 'edit'])->name('faq.edit');
+
+//footer_link
+Route::get('/admin/footer_links', [FooterLinksController::class, 'index'])->name('footer_link.index');
+Route::get('/admin/footer_link/create', [FooterLinksController::class, 'create'])->name('footer_link.create');
+Route::post('/admin/footer_link/store', [FooterLinksController::class, 'store'])->name('footer_link.store');
+Route::post('/admin/footer_link/{id}/destroy', [FooterLinksController::class, 'destroy'])->name('footer_link.destroy');
+Route::post('/admin/footer_link/{id}/update', [FooterLinksController::class, 'update'])->name('footer_link.update');
+Route::get('/admin/footer_link/{id}/edit', [FooterLinksController::class, 'edit'])->name('footer_link.edit');
 
 //customer
 Route::get('/admin/customers', [CustomersController::class, 'index'])->name('customer.index');
@@ -139,7 +151,7 @@ Route::post('/admin/post/store', [PostController::class, 'store'])->name('post.s
 Route::post('/admin/post/{id}/destroy', [PostController::class, 'destroy'])->name('post.destroy');
 Route::post('/admin/post/{id}/update', [PostController::class, 'update'])->name('post.update');
 Route::get('/admin/post/{id}/edit', [PostController::class, 'edit'])->name('post.edit');
-Route::get('/post/{id}/show', [PostController::class, 'show'])->name('post.show');
+Route::get('/post/{id}/show', [ShowSinglesController::class, 'showPost'])->name('post.show');
 
 //form seed mail 
 Route::get('/form', function () {

@@ -40,6 +40,9 @@
             </tbody>
         </table>
     </div>
+    <div class="card-footer">
+        {{$result->links()}}
+    </div>
 </div>
 <div class="pb-3">
     <a class="btn btn-success py-20" href="{{ route('category.create')}}">Create</a>

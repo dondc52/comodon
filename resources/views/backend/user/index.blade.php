@@ -39,6 +39,9 @@
             </tbody>
         </table>
     </div>
+    <div class="card-footer">
+        {{$users->links()}}
+    </div>
 </div>
 <div class="pb-3">
     <a class="btn btn-success py-20" href="{{ route('user.create')}}">Create</a>

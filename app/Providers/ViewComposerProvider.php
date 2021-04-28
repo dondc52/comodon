@@ -12,6 +12,7 @@ use App\View\Composers\CategoryComposer;
 use App\View\Composers\BlogSidebarComposer;
 use App\View\Composers\BlogAreaComposer;
 use App\View\Composers\FaqComposer;
+use App\View\Composers\FooterComposer;
 use App\View\Composers\PackageComposer;
 use App\View\Composers\RattingComposer;
 
@@ -45,5 +46,6 @@ class ViewComposerProvider extends ServiceProvider
         View::composer('frontend.layouts.pricing_plans_area', PackageComposer::class);
         View::composer('frontend.layouts.testimonials_area', RattingComposer::class);
         View::composer('frontend.index', BannerComposer::class);
+        View::composer('frontend.layouts.footer_area', FooterComposer::class);
     }
 }

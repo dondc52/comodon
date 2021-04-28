@@ -38,6 +38,9 @@
             </tbody>
         </table>
     </div>
+    <div class="card-footer">
+        {{$packages->links()}}
+    </div>
 </div>
 <div class="pb-3">
     <a class="btn btn-success py-20" href="{{ route('package.create')}}">Create</a>

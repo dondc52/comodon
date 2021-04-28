@@ -91,6 +91,12 @@
             <p>Customer</p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{ route('footer_link.index') }}" class="nav-link">
+            <i class="nav-icon fas fa-external-link-alt"></i>
+            <p>Footer_link</p>
+          </a>
+        </li>
       </ul>
     </nav>
   </div>

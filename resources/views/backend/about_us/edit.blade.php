@@ -27,7 +27,7 @@
             <div class="form-group">
                 <label for="">New Content: </label>
                 <textarea id="summernote" class="form-control" name="content">
-                    {{ $result->content }}
+                    {{ $about_us->content }}
                 </textarea>
             </div>
             <div class="form-group">

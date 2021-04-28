@@ -5,7 +5,7 @@
 		<div class="testi_slider owl-carousel">
 			@foreach ($rattingresult as $row)
 				<div class="testi_item">
-					<h1>{{$row->score}}</h1>
+					<h1 style="font-size:50px; color:white;">{{$row->score}}</h1>
 					<h4>{{$row->user_name}}</h4>
 					<ul class="list">
 						@for ($i = 1; $i <= $row->star_number; $i++)

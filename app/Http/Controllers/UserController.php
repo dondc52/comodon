@@ -15,7 +15,7 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('backend.user.index', ['users' => User::all()]);
+        return view('backend.user.index', ['users' => User::paginate(5)]);
     }
 
     public function create()

@@ -16,7 +16,7 @@
                 <img class="author_img rounded-circle" src="{{ asset('images/1618897571-abc.png') }}" alt="" />
             @endif 
             <h4>{{$result[0]->author_name}}</h4>
-            <p><h4>{{$result[0]->title}}</h4></p>
+            <p>{{$result[0]->title}}</p>
             <div class="social_icon">
                 <a href="#"><i class="fa fa-facebook"></i></a>
                 <a href="#"><i class="fa fa-twitter"></i></a>
@@ -31,9 +31,9 @@
             @foreach ($result1 as $row)
                 <div class="media post_item">
                     @if ($row->image !== null)
-                        <img class="author_img rounded-circle" src="{{ asset('images/'.$row->image) }}" alt="post" />
+                        <img width="100" height="60px" src="{{ asset('images/'.$row->image) }}" alt="post" />
                     @else
-                        <img class="author_img rounded-circle" src="{{ asset('images/1618897571-abc.png') }}" alt="post" />
+                        <img width="100" height="60px" src="{{ asset('images/1618897571-abc.png') }}" alt="post" />
                     @endif 
                     <div class="media-body">
                         <a href="blog-details.html"><h3>{{$row->title}}</h3></a>

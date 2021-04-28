@@ -15,11 +15,15 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="blog_items">
                         <div class="blog_img_box">
-                            <img class="img-fluid" src="{{ asset('assets/img/blog_img1.png') }}" alt="">
+                            @if ($row->image !== null)
+                                <img class="img-fluid" src="{{asset('images/'.$row->image)}}" alt="">
+                            @else 
+                                <img class="img-fluid" src="{{ asset('assets/img/blog_img1.png') }}" alt="">
+                            @endif
                         </div>
                         <div class="blog_content">
                             <a class="title" href="{{route('post.show', $row->id)}}">{{$row->title}}</a>
-                            <p>{{strip_tags(substr($row->content, 0, 100))}}</p>
+                            <p>{{$row->description}}</p>
                             <div class="date">
                                 <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i>{{date('m-Y', strtotime($row->created_at))}}</a>
                                 <a href="#"><i class="fa fa-heart" aria-hidden="true"></i>{{$row->like_number}}</a>

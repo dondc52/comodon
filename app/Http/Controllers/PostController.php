@@ -9,13 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
-    const NUM_PER_PAGE=10;
     public function __construct()
     {   
         $this->middleware('auth');
     }
     public function index(Request $request){
-        $result = Post::all();
+        $result = Post::paginate(5);
         return view('backend.post.index', ['result' => $result]);
     }
     public function create(){
@@ -125,32 +124,5 @@ class PostController extends Controller
         $target->view_number = $request->view_number !== null ? $request->view_number : 0;
         $target->save();
         return redirect()->route('post.index')->with('success', 'Post updated success');
-    }
-    public function listpost(Request $request){
-        $page = $request->get('page') !== null ? (int) $request->get('page') : 1;
-        $numPerPage = $request->get('numPerPage') !== null ? (int) $request->get('numPerPage') : self::NUM_PER_PAGE;
-        $totalItems = Post::count();
-        $totalPages = ceil($totalItems/$numPerPage);
-        $result = Post::join('users', 'posts.user_id', '=', 'users.id')
-                        ->join('categories', 'posts.cat_id', '=', 'categories.id')
-                        ->limit($numPerPage)->offset(($page - 1)*$numPerPage)
-                        ->get(['posts.*', 'categories.cat_name', 'users.name']);
-        // $result = Post::limit($numPerPage)->offset(($page - 1)*$numPerPage)->get();
-        return view('frontend.blog', [
-            'result1' => $result,
-            'totalPages' => $totalPages,
-            'currentPage' => $page,
-        ]);
-    }
-    public function show($id)
-    {
-        $result3 = Post::find($id);
-        $result4 = Post::find($id)->user;
-        $result5 = Post::find($id)->cat;
-        return view('frontend.single_blog', [
-            'result3' => $result3,
-            'result4' => $result4,
-            'result5' => $result5,
-        ]);
     }
 }

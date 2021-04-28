@@ -24,9 +24,10 @@
     </div>
     <div class="card-body d-flex flex-wrap" id="gallery">
         @foreach ($result as $row)
-            <div class="image position-relative">
+            <div class="p-3 position-relative">
                 <img width="180px" height="180px" src="{{ asset('images/'.$row->image) }}" alt="" >
-                <a style="top:2px; right:2px" data-action="{{ route('gallery.destroy', $row->id ) }}" class="btn btn-sm btn-danger position-absolute deleteStudent" >
+                <a style="top:2px; right:2px" data-action="{{ route('gallery.destroy', $row->id ) }}" class="btn btn-sm btn-danger position-absolute deleteStudent" 
+                    data-toggle="modal" data-target="#exampleModal">
                     <i class="fas fa-trash-alt"></i>
                 </a>
             </div>

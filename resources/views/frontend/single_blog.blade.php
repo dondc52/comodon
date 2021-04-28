@@ -204,7 +204,7 @@
                         <div class="form-group">
                             <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
                         </div>
-                        <a href="#" class="primary-btn primary_btn">Post Comment</a>	
+                        <a href="" class="primary-btn primary_btn">Post Comment</a>	
                     </form>
                 </div>
             </div>

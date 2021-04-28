@@ -6,7 +6,7 @@
                 @foreach ($result1 as $row)
                     <li class="nav-item">
                         <a class="nav-link" id="home-tab" data-toggle="tab" href="#{{$row->link}}" role="tab" aria-controls="{{$row->link}}" aria-selected="true">
-                            Live Streaming
+                            {{$row->link}}
                         </a>
                     </li>
                 @endforeach 
@@ -25,7 +25,7 @@
                                     <h6>About Us</h6>
                                     <h1>{{$row->title}}</h1>
                                     <p>{{ strip_tags(substr($row->content, 0, 150)) }}</p>
-                                    <a class="primary_btn" href="#">Learn More</a>
+                                    <a class="primary_btn" href="{{route('about.show', $result->id)}}">Learn More</a>
                                 </div>
                             </div>
                         </div>

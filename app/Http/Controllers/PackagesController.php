@@ -13,7 +13,7 @@ class PackagesController extends Controller
     }
 
     public function index(){
-        $result = Package::all();
+        $result = Package::paginate(5);
         return view('backend.package.index', ['packages' => $result]);
     }
 

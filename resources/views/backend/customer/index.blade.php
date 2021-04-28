@@ -49,6 +49,9 @@
             </tbody>
         </table>
     </div>
+    <div class="card-footer">
+        {{$customers->links()}}
+    </div>
 </div>
 @include('backend.layouts.modal')
 @endsection

@@ -13,7 +13,7 @@ class BannerController extends Controller
     }
     
     public function index(){
-        $result = Banner::all();
+        $result = Banner::paginate(5);
         return view('backend.banner.index', ['result' => $result]);
         // echo count($result->posts);
     }

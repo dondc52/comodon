@@ -7,13 +7,9 @@ use Illuminate\Http\Request;
 
 class CustomersController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index(){
-        $result = Customer::all();
+        $this->middleware('auth');
+        $result = Customer::paginate(5);
         return view('backend.customer.index', ['customers' => $result]);
     }
 
@@ -28,6 +24,7 @@ class CustomersController extends Controller
     }
 
     public function storefrontend(Request $request){
+        $this->middleware('auth');
         $request->validate([
             'email' => ['required', 'string', 'email', 'max:255', 'unique:customers'],
         ]);
@@ -38,6 +35,7 @@ class CustomersController extends Controller
     }
 
     public function destroy($id){
+        $this->middleware('auth');
         $target = Customer::find($id);
         if (!$target) {
             return redirect()->route('customer.index')->with('error', 'Customer cannot found!');

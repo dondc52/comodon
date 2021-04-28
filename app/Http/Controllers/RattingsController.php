@@ -13,7 +13,7 @@ class RattingsController extends Controller
     }
 
     public function index(){
-        $result = Ratting::all();
+        $result = Ratting::paginate(5);
         return view('backend.ratting.index', ['rattings' => $result]);
     }
 

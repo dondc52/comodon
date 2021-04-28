@@ -14,7 +14,7 @@ class AuthorsController extends Controller
 
     public function index()
     {
-        $result = Author::all();
+        $result = Author::paginate(5);
         return view('backend.author.index', ['result' => $result]);
     }
 

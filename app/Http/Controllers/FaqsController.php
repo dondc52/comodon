@@ -13,7 +13,7 @@ class FaqsController extends Controller
     }
 
     public function index(){
-        $result = Faq::all();
+        $result = Faq::paginate(5);
         return view('backend.faq.index', ['faqs' => $result]);
     }
 

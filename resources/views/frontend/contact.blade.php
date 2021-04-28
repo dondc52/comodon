@@ -19,15 +19,9 @@
 <!--================Contact Area =================-->
 <section class="contact_area section_gap">
     <div class="container">
-        <div id="mapBox" class="mapBox" 
-            data-lat="40.701083" 
-            data-lon="-74.1522848" 
-            data-zoom="13" 
-            data-info="PO Box CT16122 Collins Street West, Victoria 8007, Australia."
-            data-mlat="40.701083"
-            data-mlon="-74.1522848">
-        </div>
-        @include('layouts.flash-message')
+        <iframe class="mb-5" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.808674193889!2d105.7880043154025!3d21.040340092757674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab36e43cf6eb%3A0xc420d35b1d1a47ac!2zMTA3IE5ndXnhu4VuIFBob25nIFPhuq9jLCBE4buLY2ggVuG7jW5nIEjhuq11LCBD4bqndSBHaeG6pXksIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1619577872850!5m2!1svi!2s"
+         width="100%" height="550px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        
         <div class="row">
             <div class="col-lg-3">
                 <div class="contact_info">
@@ -53,19 +47,31 @@
                     @csrf 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                            <input type="text" class="form-control" id="name" name="name" value="{{old('title')}}" placeholder="Enter your name">
                         </div>
+                        @error('name')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <div class="form-group">
-                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address">
+                            <input type="email" class="form-control" id="email" name="email" value="{{old('email')}}" placeholder="Enter email address">
                         </div>
+                        @error('email')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <div class="form-group">
-                            <input type="text" class="form-control" id="subject" name="subject" placeholder="Enter Subject">
+                            <input type="text" class="form-control" id="subject" name="subject" value="{{old('subject')}}"  placeholder="Enter Subject">
                         </div>
+                        @error('subject')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <textarea class="form-control" name="message" id="message" rows="1" placeholder="Enter Message"></textarea>
+                            <textarea class="form-control" name="message" id="message" rows="1" value="{{old('message')}}" placeholder="Enter Message"></textarea>
                         </div>
+                        @error('message')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-md-12 text-right">
                         <button type="submit" value="submit" class="primary_btn">Send Message</button>

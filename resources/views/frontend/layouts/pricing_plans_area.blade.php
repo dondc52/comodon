@@ -23,7 +23,7 @@
                         </ul>
                     </div>
                     <div class="p_btn">
-                        <a class="gradient_btn" href="#"><span>Order Now</span></a>
+                        <a class="gradient_btn" href="{{route('price')}}"><span>Order Now</span></a>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                         </ul>
                     </div>
                     <div class="p_btn">
-                        <a class="gradient_btn" href="#"><span>Order Now</span></a>
+                        <a class="gradient_btn" href="{{route('price')}}"><span>Order Now</span></a>
                     </div>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                         </ul>
                     </div>
                     <div class="p_btn">
-                        <a class="gradient_btn" href="#"><span>Order Now</span></a>
+                        <a class="gradient_btn" href="{{route('price')}}"><span>Order Now</span></a>
                     </div>
                 </div>
             </div>

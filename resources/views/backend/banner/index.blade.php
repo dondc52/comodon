@@ -21,8 +21,8 @@
                 <tr>
                     <td>{{ $row->id }}</td>
                     <td>{{ $row->title }}</td>
-                    <td width="60%">{{ $row->content }}</td>
-                    <td>{{ $row->video_link }}</td>
+                    <td width="40%">{{ $row->content }}</td>
+                    <td width="10%">{{ $row->video_link }}</td>
                     <td>
                         @if ($row->image)
                             <img height="70px" src="{{ asset('images/'.$row->image) }}" alt="">
@@ -41,6 +41,9 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+    <div class="card-footer">
+        {{$result->links()}}
     </div>
 </div>
 <div class="pb-3">

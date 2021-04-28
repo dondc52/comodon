@@ -10,6 +10,12 @@ class ContactController extends Controller
 {
     public function sendEmailContact(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'email',
+            'subject' => 'required',
+            'message' => 'required',
+        ]);
         $details = [
             'name' => $request->name,
             'email' => $request->email,

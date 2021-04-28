@@ -90,14 +90,16 @@
                                     @endif 
                                     <div class="blog_details">
                                         <a href="{{route('post.show', $row->id)}}"><h2>{{ $row->title }}</h2></a>
-                                        <p>{{ strip_tags(substr($row->content, 0, 200)) }}</p>
+                                        <p>{{$row->description }}</p>
                                         <a href="{{route('post.show', $row->id)}}" class="blog_btn">View More</a>
                                     </div>
                                 </div>
                             </div>
                         </article>
                     @endforeach 
-                    <div class="card-footer">
+                    <div class="row">
+                    <div class="col-md-3"></div>
+                    <div class="col-md-9 right">
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
                                 @if($currentPage > 1)
@@ -160,6 +162,7 @@
                                 @endif
                             </ul>
                           </nav>
+                        </div>
                     </div>
                 </div>
             </div>

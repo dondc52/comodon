@@ -3,65 +3,21 @@
 		<footer class="footer_area section_gap_top">
 			<div class="container">
 				<div class="row footer_inner">
+					@foreach ($footer_links as $linkItem)
 					<div class="col-lg-3 col-sm-6">
 						<aside class="f_widget ab_widget">
-							<div class="f_title">
-								<h4>About Farfly</h4>
-							</div>
-							<ul>
-								<li><a href="#"></a>For Business</a></li><a href="#">
-									<li><a href="#"></a>Premium Plans
-								</a></li>
-								<li><a href="#"></a>Reviews</a></li>
-								<li><a href="#"></a>How it Works</a></li>
-								<li><a href="#"></a>Farfly Blog</a></li>
-							</ul>
+								<div class="f_title">
+									<h4>{{$linkItem->link_name}}</h4>
+								</div>
+								<ul>
+									@foreach ($linkItem->children as $children)
+										<li><a href="{{$children->link_content}}"></a>{{$children->link_name}}</a></li>
+									@endforeach
+								</ul>
+							
 						</aside>
 					</div>
-					<div class="col-lg-3 col-sm-6">
-						<aside class="f_widget ab_widget">
-							<div class="f_title">
-								<h4>Company</h4>
-							</div>
-							<ul>
-								<li><a href="#"></a>Product Tour</a></li><a href="#">
-									<li><a href="#"></a>Pricing
-								</a></li>
-								<li><a href="#"></a>Founding Members</a></li>
-								<li><a href="#"></a>Case Studies</a></li>
-								<li><a href="#"></a>Product Updates</a></li>
-							</ul>
-						</aside>
-					</div>
-					<div class="col-lg-3 col-sm-6">
-						<aside class="f_widget ab_widget">
-							<div class="f_title">
-								<h4>Support</h4>
-							</div>
-							<ul>
-								<li><a href="#"></a>Documentation</a></li><a href="#">
-									<li><a href="#"></a>Data Securiry
-								</a></li>
-								<li><a href="#"></a>Site Performance</a></li>
-								<li><a href="#"></a>Action Plan</a></li>
-								<li><a href="#"></a>Resources</a></li>
-							</ul>
-						</aside>
-					</div>
-					<div class="col-lg-3 col-sm-6">
-						<aside class="f_widget ab_widget">
-							<div class="f_title">
-								<h4>Legal</h4>
-							</div>
-							<ul>
-								<li><a href="#"></a>Terms and conditions</a></li><a href="#">
-									<li><a href="#"></a>Privacy Policy
-								</a></li>
-								<li><a href="#"></a>Cookie Information</a></li>
-								<li><a href="#"></a>Opt - Out</a></li>
-							</ul>
-						</aside>
-					</div>
+					@endforeach
 				</div>
 				<div class="row single-footer-widget">
 					<div class="col-lg-6 col-md-6 col-sm-12">

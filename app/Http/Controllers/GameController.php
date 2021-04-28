@@ -14,7 +14,7 @@ class GameController extends Controller
 
     public function index()
     {
-        return view('backend.game.index', ['games' => Game::all()]);
+        return view('backend.game.index', ['games' => Game::paginate(5)]);
     }
 
     public function create()
