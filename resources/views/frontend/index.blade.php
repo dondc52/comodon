@@ -16,8 +16,8 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="banner_content">
-						<h2>{{$bannerresult->title}}</h2>
-						<p>{{$bannerresult->content}}</p>
+						<h2>{{substr($bannerresult->title, 0, 50)}}</h2>
+						<p>{{substr($bannerresult->content, 0, 150)}}</p>
 						<div class="d-flex align-items-center">
 							<a id="play-home-video" class="video-play-button" href="{{$bannerresult->video_link}}">
 								<span></span>

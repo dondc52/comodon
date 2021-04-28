@@ -23,7 +23,7 @@
                             <div class="col-lg-6">
                                 <div class="section_content">
                                     <h6>About Us</h6>
-                                    <h1>{{$row->title}}</h1>
+                                    <h1>{{substr($row->title, 0, 50)}}</h1>
                                     <p>{{ strip_tags(substr($row->content, 0, 150)) }}</p>
                                     <a class="primary_btn" href="{{route('about.show', $result->id)}}">Learn More</a>
                                 </div>

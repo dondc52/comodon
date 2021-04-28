@@ -46,7 +46,7 @@
         </table>
     </div>
     <div class="card-footer">
-        {{$result->links()}}
+        {{$result->onEachSide(5)->links()}}
     </div>
 </div>
 <div class="pb-3">

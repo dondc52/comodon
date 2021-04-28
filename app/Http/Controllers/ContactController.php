@@ -12,7 +12,7 @@ class ContactController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'email' => 'email',
+            'email' => 'email:rfc,dns',
             'subject' => 'required',
             'message' => 'required',
         ]);

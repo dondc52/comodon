@@ -20,7 +20,7 @@
                             <img src="{{ asset('images/1618900850-Best Ps4 Games.png') }}" alt="">
                         @endif
                         <div class="upcoming_title">
-                            <h3><a href="{{route('games')}}">{{ $game->name }}</a></h3>
+                            <h3><a href="{{route('games')}}">{{ substr($game->name, 0, 20) }}</a></h3>
                         </div>
                     </div>
                 </div>

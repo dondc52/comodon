@@ -22,8 +22,8 @@
                             @endif
                         </div>
                         <div class="blog_content">
-                            <a class="title" href="{{route('post.show', $row->id)}}">{{$row->title}}</a>
-                            <p>{{$row->description}}</p>
+                            <a class="title" href="{{route('post.show', $row->id)}}">{{substr($row->title, 0, 35)}}</a>
+                            <p>{{substr($row->description, 0, 150)}}</p>
                             <div class="date">
                                 <a href="#"><i class="fa fa-calendar" aria-hidden="true"></i>{{date('m-Y', strtotime($row->created_at))}}</a>
                                 <a href="#"><i class="fa fa-heart" aria-hidden="true"></i>{{$row->like_number}}</a>
