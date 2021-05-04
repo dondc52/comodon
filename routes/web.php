@@ -96,6 +96,10 @@ Route::post('/admin/category/{id}/destroy', [CategoryController::class, 'destroy
 Route::post('/admin/category/{id}/update', [CategoryController::class, 'update'])->name('category.update');
 Route::get('/admin/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
 
+//contact infor
+Route::get('/admin/contact_infor', [ContactController::class, 'index'])->name('contact_infor.index');
+Route::post('/admin/contact_infor/update', [ContactController::class, 'update'])->name('contact_infor.update');
+
 //faq
 Route::get('/admin/faqs', [FaqsController::class, 'index'])->name('faq.index');
 Route::get('/admin/faq/create', [FaqsController::class, 'create'])->name('faq.create');
@@ -165,6 +169,6 @@ Route::get('/send-email', [MailController::class, 'sendEmail']);
 
 Route::post('/sendmessage', [ContactController::class, 'sendEmailContact'])->name('contact.send');
 
-Route::post('/sendemail', [CustomersController::class, 'storefrontend'])->name('sendemail');
+Route::post('/sendemail', [CustomersController::class, 'storeCustomer'])->name('sendemail');
 
 

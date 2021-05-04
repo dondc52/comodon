@@ -68,6 +68,7 @@
             Here, I focus on a range of items and features that we use in life without
             giving them a second thought.
             </p>
+            @include('layouts.flash-message')
             <form action="{{route('sendemail')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group d-flex flex-row">
@@ -102,3 +103,37 @@
         </aside>
     </div>
 </div>
+<div class="modal fade" id="mailPopupSuccess" tabindex="-1" role="dialog"
+                    aria-labelledby="mailPopupSuccessTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Notification</h5>
+                            </div>
+                            <div class="modal-body">
+                                Sign up for our newsletter successfully!
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- mailPopupError -->
+                <div class="modal fade" id="mailPopupError" tabindex="-1" role="dialog"
+                    aria-labelledby="mailPopupErrorsTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Notification</h5>
+                            </div>
+                            <div class="modal-body">
+                                Our newsletter registration was unsuccessful!
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>

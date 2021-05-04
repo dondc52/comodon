@@ -1,39 +1,19 @@
 @include('frontend.layouts.header_area')
 
 <!--================Home Banner Area =================-->
-<section class="home_banner_area">
-    <div class="banner_inner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="home_left_img">
-                        <img class="img-fluid" src="{{ asset('assets/img/banner/home-left.png') }}" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="banner_content">
-                        <h2>
-                            For All Occasion <br>
-                            HairStyle is a Must <br>
-                            Try Fashion
-                        </h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod temp or incididunt ut labore et dolore
-                            magna aliqua. Ut enim ad minim.
-                        </p>
-                        <div class="d-flex align-items-center">
-                            <a id="play-home-video" class="video-play-button" href="https://www.youtube.com/watch?v=vParh5wE-tM">
-                                <span></span>
-                            </a>
-                            <div class="watch_video text-uppercase">
-                                watch the video
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<section class="banner_area">
+	<div class="banner_inner d-flex align-items-center">
+		<div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+		<div class="container">
+			<div class="banner_content text-center">
+				<div class="page_link">
+					<a href="index.html">Home</a>
+					<a href="about-us.html">Blog</a>
+				</div>
+				<h2>Blog</h2>
+			</div>
+		</div>
+	</div>
 </section>
 <!--================End Home Banner Area =================-->
     
@@ -47,7 +27,7 @@
                         <img src="{{ asset('images/'.$row->image) }}" alt="post">
                         <div class="categories_details">
                             <div class="categories_text">
-                                <a href="single-blog.html"><h5>{{ $row->cat_name }}</h5></a>
+                                <a href="{{route('blog')}}?cate={{$row->id}}"><h5>{{ $row->cat_name }}</h5></a>
                                 <div class="border_line"></div>
                                 <p>{{ $row->description }}</p>
                             </div>
@@ -84,9 +64,9 @@
                             <div class="col-md-9">
                                 <div class="blog_post">
                                     @if ($row->image !== null)
-                                        <img src="{{ asset('images/'.$row->image) }}" alt="" />
+                                        <img width="540px" height="252" src="{{ asset('images/'.$row->image) }}" alt="" />
                                     @else
-                                        <img src="{{ asset('images/1618897571-abc.png') }}" alt="" />
+                                        <img width="540px" height="252" src="{{ asset('images/1618897571-abc.png') }}" alt="" />
                                     @endif 
                                     <div class="blog_details">
                                         <a href="{{route('post.show', $row->id)}}"><h2>{{ $row->title }}</h2></a>
@@ -103,40 +83,40 @@
                         <nav aria-label="Page navigation example">
                             <ul class="pagination">
                                 @if($currentPage > 1)
-                                    <li class="page-item"><a class="page-link" href="?page={{ $currentPage - 1 }}">Prev</a></li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ $currentPage - 1 }}?cate={{$cateNumber}}">Prev</a></li>
                                 @endif
             
                                 @if ($currentPage >= 5)
-                                    <li class="page-item"><a class="page-link" href="?page={{ 1 }}">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ 1 }}?cate={{$cateNumber}}">1</a></li>
                                 @endif
-            
                                 <!-- total pages greater than 8   -->
                                 @if($totalPages > 7)
                                     @if ($currentPage < 5)
                                         @for($i = 1; $i <= 5; $i++)
                                             <li class="page-item {{ $i == $currentPage ? 'active': ''}}">
-                                                <a class="page-link" href="?page={{ $i }}">{{$i}}</a>
+                                                <a class="page-link" href="?page={{ $i }}&cate={{$cateNumber}}">{{$i}}</a>
                                             </li>
                                         @endfor
                                         <li class="page-item"><a class="page-link">...</a></li>
+                                        <li class="page-item"><a class="page-link" href="?page={{ $totalPages }}&cate={{$cateNumber}}">{{$totalPages}}</a></li>
                                     @endif
             
                                     @if ($currentPage >= 5 && $currentPage <= $totalPages - 5 )
                                         <li class="page-item"><a class="page-link">...</a></li>
                                         @for($i = $currentPage - 2 ; $i <= $currentPage + 2; $i++)
                                             <li class="page-item {{ $i == $currentPage ? 'active': ''}}">
-                                                <a class="page-link" href="?page={{ $i }}">{{$i}}</a>
+                                                <a class="page-link" href="?page={{ $i }}&cate={{$cateNumber}}">{{$i}}</a>
                                             </li>
                                          @endfor
                                          <li class="page-item"><a class="page-link">...</a></li>
-                                         <li class="page-item"><a class="page-link" href="?page={{ $totalPages }}">{{$totalPages}}</a></li>
+                                         <li class="page-item"><a class="page-link" href="?page={{ $totalPages }}&cate={{$cateNumber}}">{{$totalPages}}</a></li>
                                     @endif
             
                                     @if ($currentPage >= 5 && $currentPage < $totalPages &&  $currentPage > $totalPages - 5)
                                         <li class="page-item"><a class="page-link">...</a></li>
                                         @for($i = $totalPages - 5 ; $i <= $totalPages; $i++)
                                             <li class="page-item {{ $i == $currentPage ? 'active': ''}}">
-                                                <a class="page-link" href="?page={{ $i }}">{{$i}}</a>
+                                                <a class="page-link" href="?page={{ $i }}&cate={{$cateNumber}}">{{$i}}</a>
                                             </li>
                                         @endfor
                                     @endif 
@@ -145,20 +125,20 @@
                                         <li class="page-item"><a class="page-link">...</a></li>
                                         @for($i = $totalPages - 5 ; $i <= $totalPages; $i++)
                                             <li class="page-item {{ $i == $currentPage ? 'active': ''}}">
-                                                <a class="page-link" href="?page={{ $i }}">{{$i}}</a>
+                                                <a class="page-link" href="?page={{ $i }}&cate={{$cateNumber}}">{{$i}}</a>
                                             </li>
                                         @endfor
                                     @endif
                                 @else
                                     @for($i = 1; $i <= $totalPages; $i++)
                                         <li class="page-item {{ $i == $currentPage ? 'active': ''}}">
-                                            <a class="page-link" href="?page={{ $i }}">{{$i}}</a>
+                                            <a class="page-link" href="?page={{ $i }}&cate={{$cateNumber}}">{{$i}}</a>
                                         </li>
                                     @endfor
                                 @endif
                                 
                                 @if ($currentPage <= $totalPages - 1) 
-                                    <li class="page-item"><a class="page-link" href="?page={{ $currentPage + 1 }}">Next</a></li>
+                                    <li class="page-item"><a class="page-link" href="?page={{ $currentPage + 1 }}&cate={{$cateNumber}}">Next</a></li>
                                 @endif
                             </ul>
                           </nav>

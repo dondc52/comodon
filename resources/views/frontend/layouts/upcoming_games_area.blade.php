@@ -15,9 +15,9 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="new_games_item">
                         @if ($game->image !== null)
-                            <img src="{{ asset('images/'.$game->image) }}" alt="">
+                            <img width="255px" height="340px" src="{{ asset('images/'.$game->image) }}" alt="">
                         @else
-                            <img src="{{ asset('images/1618900850-Best Ps4 Games.png') }}" alt="">
+                            <img width="255px" height="340px" src="{{ asset('images/1618900850-Best Ps4 Games.png') }}" alt="">
                         @endif
                         <div class="upcoming_title">
                             <h3><a href="{{route('games')}}">{{ substr($game->name, 0, 20) }}</a></h3>

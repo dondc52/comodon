@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="index3.html" class="brand-link">
+  <a href="{{route('home')}}" class="brand-link">
     <img src="{{ asset('admin/dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     <span class="brand-text font-weight-light">Comodo</span>
   </a>
@@ -94,7 +94,13 @@
         <li class="nav-item">
           <a href="{{ route('footer_link.index') }}" class="nav-link">
             <i class="nav-icon fas fa-external-link-alt"></i>
-            <p>Footer_link</p>
+            <p>Footer link</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ route('contact_infor.index') }}" class="nav-link">
+            <i class="nav-icon fas fa-id-card-alt"></i>
+            <p>Contact infor</p>
           </a>
         </li>
       </ul>

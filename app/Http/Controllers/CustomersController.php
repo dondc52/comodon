@@ -14,8 +14,9 @@ class CustomersController extends Controller
     }
 
     public function store(Request $request){
+        $this->middleware('auth');
         $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:customers'],
+            'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:customers'],
         ]);
         Customer::create([
             'email' => $request->email,
@@ -23,15 +24,14 @@ class CustomersController extends Controller
         return redirect()->route('customer.index')->with('success', 'Customer created successfully');
     }
 
-    public function storefrontend(Request $request){
-        $this->middleware('auth');
+    public function storeCustomer(Request $request){
         $request->validate([
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:customers'],
+            'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:customers'],
         ]);
         Customer::create([
             'email' => $request->email,
         ]);
-        return redirect()->route('home')->with('success', 'Your Subscribed Our Newsletter Successfully');
+        return redirect()->back()->with('success_home', 'Customer created successfully');
     }
 
     public function destroy($id){

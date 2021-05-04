@@ -59,5 +59,11 @@
 		<script src="{{ asset('assets/js/gmaps.min.js') }}"></script>
 		<script src="{{ asset('assets/js/theme.js') }}"></script>
 		<script src="{{ asset('admin/fontend.js') }}"></script>
+		
+		@if (Session::get('sendfiled'))
+		<script type="text/javascript">
+			swal("Good job!", "You clicked the button!", "success");
+		</script>
+		@endif
 	</body>
 </html>

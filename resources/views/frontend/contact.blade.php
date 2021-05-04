@@ -27,27 +27,28 @@
                 <div class="contact_info">
                     <div class="info_item">
                         <i class="lnr lnr-home"></i>
-                        <h6>California, United States</h6>
-                        <p>Santa monica bullevard</p>
+                        <h6>{{$contactInfor->contact_address}}</h6>
+                        <p>{{$contactInfor->contact_address_des}}</p>
                     </div>
                     <div class="info_item">
                         <i class="lnr lnr-phone-handset"></i>
-                        <h6><a href="#">00 (440) 9865 562</a></h6>
-                        <p>Mon to Fri 9am to 6 pm</p>
+                        <h6><a href="">{{$contactInfor->contact_phone}}</a></h6>
+                        <p>{{$contactInfor->contact_phone_des}}</p>
                     </div>
                     <div class="info_item">
                         <i class="lnr lnr-envelope"></i>
-                        <h6><a href="#">support@colorlib.com</a></h6>
-                        <p>Send us your query anytime!</p>
+                        <h6><a href="">{{$contactInfor->contact_email}}</a></h6>
+                        <p>{{$contactInfor->contact_email_des}}</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-9">
+                @include('layouts.flash-message')
                 <form class="row contact_form" action="{{route('contact.send')}}" method="post" id="contactForm" novalidate="novalidate" enctype="multipart/form-data">
                     @csrf 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" id="name" name="name" value="{{old('title')}}" placeholder="Enter your name">
+                            <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}" placeholder="Enter your name">
                         </div>
                         @error('name')
                             <div class="alert alert-danger">{{ $message }}</div>
