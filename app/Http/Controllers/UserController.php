@@ -15,6 +15,7 @@ class UserController extends Controller
 
     public function index()
     {
+        // echo User::first()->id;
         return view('backend.user.index', ['users' => User::paginate(5)]);
     }
 
@@ -28,6 +29,7 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'max:50'],
             'email' => ['email', 'required', 'unique:users'],
+            'title' => 'required',
             'password' => ['required'],
             'password_confirm' => 'required|same:password',
         ]);
@@ -36,15 +38,14 @@ class UserController extends Controller
         $user->title = $request->title;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        if($request->image !== null){
+        if ($request->image !== null) {
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $newImageName);
             $user->image = $newImageName;
         }
         $user->save();
 
-        return redirect()->route('user.index')->with('success', 'User created successfully');
-
+        return redirect()->route('user.index')->with('success', 'Created Successfully');
     }
 
     public function edit($id)
@@ -52,32 +53,50 @@ class UserController extends Controller
         return view('backend.user.edit', ['user' => User::find($id)]);
     }
 
+    public function editpw($id)
+    {
+        return view('backend.user.editpw', ['user' => User::find($id)]);
+    }
+
     public function update(Request $request, $id)
     {
         $request->validate([
             'name' => ['required', 'max:50'],
+            'title' => 'required',
             'password' => ['required'],
         ]);
         $user = User::find($id);
         $user->name = $request->name;
         $user->title = $request->title;
         $user->password = Hash::make($request->password);
-        if($request->image !== null){
+        if ($request->image !== null) {
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $newImageName);
             $user->image = $newImageName;
         }
         $user->save();
-        return redirect()->route('user.index')->with('success', 'User updated success!');
+        return redirect()->route('user.index')->with('success', 'Updated Success!');
+    }
+
+    public function updatepw(Request $request, $id)
+    {
+        $request->validate([
+            'password' => ['required'],
+            'password_confirm' => 'required|same:password',
+        ]);
+        $user = User::find($id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return redirect()->route('user.index')->with('success', 'Updated Success!');
     }
 
     public function destroy($id)
     {
         $user = User::find($id);
         if (!$user) {
-            return redirect()->route('user.index')->with('error', 'User cannot found!');
+            return redirect()->route('user.index')->with('error', 'Cannot Found!');
         }
         $user->delete();
-        return redirect()->route('user.index')->with('success', 'User delete success!');
+        return redirect()->route('user.index')->with('success', 'Delete Success!');
     }
 }

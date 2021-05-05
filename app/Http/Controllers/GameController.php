@@ -12,9 +12,30 @@ class GameController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('backend.game.index', ['games' => Game::paginate(5)]);
+        
+        $page = $request->get('page') !== null ? (int) $request->get('page') : 1;
+        $numPerPage = env('NUM_PER_PAGE');
+
+            $result = Game::limit($numPerPage)->offset(($page - 1) * $numPerPage)
+                ->get();
+            $totalItems = Game::count();
+        
+        $totalPages = ceil($totalItems / $numPerPage);
+        if ($page <= 0 || $page > $totalPages) {
+            $page = 1;
+            $result = Game::limit($numPerPage)->offset(($page - 1) * $numPerPage)
+                ->get();
+            
+        }
+        // $result = Post::limit($numPerPage)->offset(($page - 1)*$numPerPage)->get();
+        return view('backend.game.index', [
+            'games' => $result,
+            'totalPages' => $totalPages,
+            'currentPage' => $page,
+        ]);
+        // return view('backend.game.index', ['games' => Game::paginate(5)]);
     }
 
     public function create()

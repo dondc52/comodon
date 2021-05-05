@@ -58,7 +58,9 @@ Route::get('/admin/user/create', [UserController::class, 'create'])->name('user.
 Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.store');
 Route::post('/admin/user/{id}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
 Route::post('/admin/user/{id}/update', [UserController::class, 'update'])->name('user.update');
+Route::post('/admin/user/{id}/updatepw', [UserController::class, 'updatepw'])->name('user.updatepw');
 Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::get('/admin/user/{id}/editpw', [UserController::class, 'editpw'])->name('user.editpw');
 
 //author
 Route::get('/admin/authors', [AuthorsController::class, 'index'])->name('author.index');
