@@ -31,7 +31,7 @@ class CustomersController extends Controller
         Customer::create([
             'email' => $request->email,
         ]);
-        return redirect()->back()->with('success_home', 'Customer created successfully');
+        return redirect()->back()->with('success', 'Customer created successfully');
     }
 
     public function destroy($id){

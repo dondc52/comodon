@@ -23,7 +23,7 @@ class ContactController extends Controller
             'subject' => $request->subject,
             'message' => $request->message,
         ];
-        Mail::to('dinhcongdonatbn@gmail.com')->send(new ContactMail($details));
+        Mail::to(env('MAIL_FROM_ADDRESS'))->send(new ContactMail($details));
         return redirect()->route('contact')->with('success', 'Your message has been sent successfully!');
     }
 

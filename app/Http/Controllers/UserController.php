@@ -28,13 +28,19 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'max:50'],
             'email' => ['email', 'required', 'unique:users'],
-            'password' => ['required', 'min:6', 'max:50'],
+            'password' => ['required'],
+            'password_confirm' => 'required|same:password',
         ]);
         $user = new User;
         $user->name = $request->name;
+        $user->title = $request->title;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-
+        if($request->image !== null){
+            $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $newImageName);
+            $user->image = $newImageName;
+        }
         $user->save();
 
         return redirect()->route('user.index')->with('success', 'User created successfully');
@@ -50,11 +56,17 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'max:50'],
-            'password' => ['required', 'min:6', 'max:50'],
+            'password' => ['required'],
         ]);
         $user = User::find($id);
         $user->name = $request->name;
+        $user->title = $request->title;
         $user->password = Hash::make($request->password);
+        if($request->image !== null){
+            $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $newImageName);
+            $user->image = $newImageName;
+        }
         $user->save();
         return redirect()->route('user.index')->with('success', 'User updated success!');
     }

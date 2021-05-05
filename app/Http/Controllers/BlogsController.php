@@ -7,11 +7,10 @@ use App\Models\Post;
 
 class BlogsController extends Controller
 {
-    const NUM_PER_PAGE=5;
     public function listpost(Request $request){
         $page = $request->get('page') !== null ? (int) $request->get('page') : 1;
         $cate = $request->get('cate');
-        $numPerPage = self::NUM_PER_PAGE;
+        $numPerPage = env('NUM_PER_PAGE');
         
         if($cate == null){
             $result = Post::join('users', 'posts.user_id', '=', 'users.id')

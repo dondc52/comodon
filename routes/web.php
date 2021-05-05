@@ -50,6 +50,8 @@ Route::get('/games', function () {return view('frontend.games');})->name('games'
 Route::get('/price', function () {return view('frontend.pricing');})->name('price');
 Route::get('/elements', function () {return view('frontend.elements');})->name('elements');
 
+// Route::get('/home#');
+
 //user
 Route::get('/admin/users', [UserController::class, 'index'])->name('user.index');
 Route::get('/admin/user/create', [UserController::class, 'create'])->name('user.create');

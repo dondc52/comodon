@@ -27,9 +27,9 @@
                         <img src="{{ asset('images/'.$row->image) }}" alt="post">
                         <div class="categories_details">
                             <div class="categories_text">
-                                <a href="{{route('blog')}}?cate={{$row->id}}"><h5>{{ $row->cat_name }}</h5></a>
+                                <a href="{{route('blog')}}?cate={{$row->id}}"><h5>{{ substr($row->cat_name, 0, 30) }}</h5></a>
                                 <div class="border_line"></div>
-                                <p>{{ $row->description }}</p>
+                                <p>{{ substr($row->description, 0, 40) }}</p>
                             </div>
                         </div>
                     </div>
@@ -64,13 +64,13 @@
                             <div class="col-md-9">
                                 <div class="blog_post">
                                     @if ($row->image !== null)
-                                        <img width="540px" height="252" src="{{ asset('images/'.$row->image) }}" alt="" />
+                                        <img width="540px" src="{{ asset('images/'.$row->image) }}" alt="" />
                                     @else
-                                        <img width="540px" height="252" src="{{ asset('images/1618897571-abc.png') }}" alt="" />
+                                        <img width="540px" src="{{ asset('images/1618897571-abc.png') }}" alt="" />
                                     @endif 
                                     <div class="blog_details">
-                                        <a href="{{route('post.show', $row->id)}}"><h2>{{ $row->title }}</h2></a>
-                                        <p>{{$row->description }}</p>
+                                        <a href="{{route('post.show', $row->id)}}"><h2>{{ substr($row->title, 0, 50) }}</h2></a>
+                                        <p>{{ substr($row->description, 0, 200) }}</p>
                                         <a href="{{route('post.show', $row->id)}}" class="blog_btn">View More</a>
                                     </div>
                                 </div>
@@ -153,3 +153,11 @@
 <!--================Blog Area =================-->
 
 @include('frontend.layouts.footer_area')
+<script>
+	$(document).ready(function () {
+
+    if($(".alertflash").length){
+        window.location.href = "#contact-main";
+    }
+});
+</script>

@@ -21,10 +21,10 @@
                                 <div class="chart_img">
 
                                     @if ($row->image !== null)
-                                        <img width="540px" height="480px" class="img-fluid"
+                                        <img width="540px" class="img-fluid"
                                             src="{{ asset('images/' . $row->image) }}" alt="">
                                     @else
-                                        <img width="540px" height="480px" class="img-fluid"
+                                        <img width="540px" class="img-fluid"
                                             src="{{ asset('images/1619074957-.png') }}" alt="">
                                     @endif
                                 </div>

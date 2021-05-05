@@ -1,0 +1,747 @@
+khởi tạo project mới: 
+	composer global require laravel/installer
+	laravel new name_project
+	
+chuyển đến thư mục:
+	cd name_project
+	
+chạy serve:
+	php artisan serve
+	
+cài breeze (triển khai đơn giản, tối thiểu của tất cả các tính năng xác thực của Laravel)
+	php artisan migrate
+	composer require laravel/breeze --dev
+	php artisan breeze:install or php artisan breeze:install --inertia
+	npm install
+	npm run dev
+
+cài bootstrap 4
+	composer require laravel/ui
+	php artisan ui bootstrap hoặc php artisan ui bootstrap --auth
+	npm install or npm install admin-lte --save
+	npm run dev
+	
+	//cai them admin lte 
+	resources/sass/app.scss them -> @import '~admin-lte/dist/css/adminlte.css';
+	resources/js/bootstrap.js them -> try{ require('admin-lte'); }
+	
+phần route:
+	Route::get('/greeting', function(){
+		ruturn 'welcom';
+	});
+		
+	Route::get('/user', [UserController::class, 'index']);
+		
+	Route::get('/user/{id}', function($id){
+		return 'User'.$id;
+	});
+	//{id} chắc chắc phải có tham số id
+		
+	Route::get('/name/{name?}', function($name){
+		return 'Name: '.$name;
+	});
+	//{name?} có thể có hoặc không có tham số name
+		
+	Route::get('/user/profile', function(){
+		return 'acn';
+	})->name('profile');
+		
+	Route::get('/user/profile', [UserController::class, 'index'])->name('profile');
+		
+	//tạo route cache
+		php artisan route:cache
+		
+	//xóa bộ đệm ẩn của cache
+		php artisan route:clear
+
+
+middleware:
+	tạo: 
+		php artisan make:middleware Age
+		
+	web.php:
+		use App\Http\Middleware\Age;
+		Route::get('/age/{age?}', function($age){
+			return 'bạn đã: '.$age.' tuổi';
+		}->middleware(Age::class);
+		
+	Age.php -> function handle:
+		if($request->age <= 18){
+			return response('bạn chưa đủ 18 nháy'); -- trả về 1 data
+			//return redirect($URI) -- chuyển hướng đến URI
+			//redirect('/') -> http:/localhost:8000
+			//redirect()->route('home') -- gọi route home
+		}
+		return $next($request); -- cho phép ruquest tiếp tục
+	
+	cách dùng khác:
+		app/Http/Kernel.php
+			protected $routeMiddleware = [
+				// ...
+				'Age' => \App\Http\Middleware\Age::class,
+			];
+			
+	tham số middleware: middleware có thế nhận các tham số tùy chọn, chẳng hạn trước khi xử lý request /post thì phải kiểm tra
+	xem user có phải là tác giả bài viết không
+		tạo middle Role:
+			php artisan make:middleware Role
+			
+		đăng ký tại app/Http/Kernel.php -> protected $routeMiddleware
+			'Role' => \App\Http\Middleware\Role:class,
+	
+
+
+controller:
+	tạo một controller:
+		php artisan make:controller HomeController
+	
+	app/http/Controllers/HomeController.php -> class HomeController:
+		public function show()
+		{
+			return 'home page';
+		}
+		
+		//thêm tham số 
+		public function showa($page = 1)
+		{
+			return 'home'.$page;
+		}
+	
+	routes/web.php:
+		use App\Http\Controllers\HomeController;
+		Route::get('/homepage',[HomeController::class, 'show']);
+		
+		//thêm tham số
+		Route::get('/homepagea/{page}, [HomeController::class, 'showa']);
+		
+	single action controller (controller chỉ làm một hành động nhất định)
+		tạo:
+			php artisan make:controller ShowDashboard --invokable
+			
+		routes/web.php:
+			use App\Http\Controllers\ShowDashboard;
+			Route::get('/dashboard', ShowDashboard::class);
+		
+		ShowDashboard.php -> __invoke(Request $request){}:
+			return 'dashboard';
+			
+	resource controller (thực thi CRUD với một tài nguyên nào đó như bài viết, chuyên mục..., không cần phải khai báo từng 
+	thêm sửa xóa)
+		tạo: 
+			php artisan make:controller PostController --resource
+			
+		web.php:
+			use App\Http\Controllers\PostController;
+			Route::resource('/post', PostController::class);
+			
+		dùng resources để gộp nhiều route:
+			Route::resources([
+				'posts' => PostController::class,
+				'cats' => CatController::class,
+			]);
+			
+	resource model (ràng buộc mô hình chỉ định tài nguyên)
+		tạo:
+			php artisan make:controller PostController --resource --model=Post
+			
+	findOrFail($id) //tim va tra ve ban ghi co id = $id, khong thay thi se throw ra error 
+	
+	first() //tra ve ban ghi dau tien 
+	
+	firstOrCreate(
+		['email' => 'anc@gmail.com'],
+		['full_name' => 'don'],
+	) // tim hoac tao mot cai moi
+	
+	latest() //lay ra ban ghi moi nhat
+	
+	take() //gioi han so ket qua tra ve 
+	
+	take(2)->orderBy('created_at', 'desc') //lay 2 row moi nhat 
+	
+	avg('score') //tra ve gia tri trung binh cua cac score trong bang 
+	
+	chunk(4) //chia mang thanh cac mang nho co do dai 4
+		@foreach ($products->chunk(3) as $chunk)
+		<div class="row">
+			@foreach ($chunk as $product)
+				<div class="col-xs-4">{{ $product->name }}</div>
+			@endforeach
+		</div>
+		@endforeach //vidu su dung chunk() 
+		
+	collapse() //thu gon cac mang nho thanh mot mang dai duy nhat 
+	
+	collect() //gan sang bien moi
+		$collectionA = collect([1, 2, 3]);
+		$collectionB = $collectionA->collect();
+		
+	concat() //noi them cac gia tri 
+	
+	contains //kiem tra gia tri true hay false
+		$collection = collect([1, 2, 3, 4, 5]);
+		$collection->contains(function ($value, $key) {
+			return $value > 5;
+			}); //false
+		or:
+		$collection = collect(['name' => 'Desk', 'price' => 100]);
+		$collection->contains('Desk'); //true
+		
+		or:
+		$collection = collect([
+			['product' => 'Desk', 'price' => 200],
+			['product' => 'Chair', 'price' => 100],
+		]);
+		$collection->contains('product', 'Bookcase'); //false 
+		
+	count() //so ban ghi 
+	
+	countBy() //so lan suat hien cua moi ban ghi 
+	
+	dd() //ket xuat cac muc 
+	
+	diff([1,3,4]) //lay cac muc ban ghi con lai
+	
+	dump() //ket xuat cac muc 
+	
+	duplicates() //tra ve vi tri va value cac ban gi bi trung lap 
+	
+	each() //lap lai va gan cac value 
+		$collection->each(function ($item, $key) {
+			if (/* condition */) {
+				return false;
+			}
+		});
+	every() //kiem tra moi phan tu 
+		collect([1, 2, 3, 4])->every(function ($value, $key) {
+			return $value > 2;
+		});// false
+	except('pass') //tra ve cac gia tri tru pass 
+	
+	filter() //tra ve cac muc vuot qua chi dinh 
+		$collection = collect([1, 2, 3, 4]);
+		$filtered = $collection->filter(function ($value, $key) {
+			return $value > 2;
+		});
+		$filtered->all(); // [3, 4]
+		
+	forget() //xoa mot muc trong cac truong cua ban ghi 
+	
+	forPage(2,3) //tra ve mot tap moi chua cac tap tu vi tri 2 va lay 3 gia tri
+	
+	get('name') //lay gia tri name, hoac co the gan gia tri gia dinh 
+		get('age', 34);
+	groupBy('account') //nhom cac gia tri trung lap voi nhau account 
+	
+	has(id) //xac dinh xem co truong id ton tai khong 
+	
+	implode(id, '-') //tra ve mot mang noi chuoi - 
+	
+	isEmpty() //true neu mang rong 
+	
+	isNotEmty() //false neu mang rong 
+	
+	join() // noi cac mang 
+	
+	keys() //tra ve cac khoa cua ban ghi 
+	
+	max('foo') //tra ve gia tri lon nhat cua foo trong cac ban ghi 
+	
+	median() //tra ve gia tri trung binh 
+	
+	min() //tra ve gia tri nho nhat 
+	
+	mode() //tra ve cac gia tri bi lap trong cac truong nhat dinh 
+	
+	only() //tra ve cac muc trong ban ghi chi dinh la duy nhat 
+	
+	pad() //din vao mang gia tri da cho cho den khi mang dat den kich thuoc chi dinh 
+	
+	partition() //chia mang thanh cac vung co chi dinh 
+		$collection = collect([1, 2, 3, 4, 5, 6]);
+		[$underThree, $equalOrAboveThree] = $collection->partition(function ($i) {
+			return $i < 3;
+		});
+		$underThree->all();// [1, 2]
+		$equalOrAboveThree->all();// [3, 4, 5, 6]
+	
+	pipe() //tra ve mot mang duoc gan truoc do 
+	
+	pluck('name') //lay cac gia tri trong cac ban ghi o truong name 
+		$collection = collect([
+			[
+				'speakers' => [
+					'first_day' => ['Rosa', 'Judith'],
+					'second_day' => ['Angela', 'Kathleen'],
+				],
+			],
+		]);
+		$plucked = $collection->pluck('speakers.first_day');
+		$plucked->all();// ['Rosa', 'Judith']
+		
+	pop() //xoa va tra ve muc cuoi cung trong mang 
+	
+	prepend() //them mot ban ghi vao dau mang 
+	
+	pull() //tra ve va loai bo mot truong trong ban ghi duoc chi dinh 
+	
+	random(2) //tra ve ngau nhien 2 ban ghi trong mang 
+	
+	reject() //xoa cac ban ghi theo chi dinh 
+		$collection = collect([1, 2, 3, 4]);
+			$filtered = $collection->reject(function ($value, $key) {
+				return $value > 2;
+			});
+			$filtered->all(); // [1, 2]
+	
+	replace() //ghi de cac muc duoc chi dinh 
+	
+	reverse() //dao nguoc cac mang nhung van giu cac key 
+	
+	search() //tra ve so cac ban ghi trong mang 
+	
+	shift() //xoa va tra ve ban ghi dau tien trong mang 
+	
+	skip() //tra ve mot mang moi va khong co cac phan tu da bi bo qua 
+	
+	slice() //tra ve mot mang moi bat dau tu muc chi dinh 
+	
+	sort() or sortBy //sap xep lai cac ban ghi theo muc duoc chi dinh 
+	
+	sortDesc() //nguoc lai cua sort() 
+	
+	splice() //loai bo va tra ve cac muc duoc chi dinh 
+	
+	split(3) //tach mang thanh 3 mang nho 
+	
+	splitIn() //nhu split() nhung nhom du se o mang cuoi cung nhu phan trang 
+	
+	sum() //tinh tong 
+	
+	toArray() //chuyen thanh dang mang 
+	
+	toJson() //chuyen thanh dang json 
+	
+	unique() //tra ve cac ban ghi va khong co cac ban ghi bi lap 
+	
+	unless() //kiem tra dieu kien true or false truoc khi thuc hien hanh dong tiep theo 
+	
+	values() //gan ve mang moi voi cac tap gia chi la so nguyen lien tiep 
+	
+	when() //tuong tu unless()
+	
+	whereIn('price', [100, 200]) //tuong tu where nhung co gia tri trong khoang 100 -. 200 
+	
+	whereNotIn //nguoc lai whereIn 
+	
+	whereNotNull('name') //tra ve cac ban ghi co truong name khong null 
+	
+	whereNull //nguoc lai cua whereNotNull 
+	
+	zip() //hop nhat cac gia tri them vao mang 
+		$collection = collect(['Chair', 'Desk']);
+		$zipped = $collection->zip([100, 200]);
+		$zipped->all(); // [['Chair', 100], ['Desk', 200]]
+	
+check current page menu {{Request::routeIs('home') ? 'active' : ''}}
+						{{request()->is('admin/user*') ? 'active' : ''}}
+
+check tồn tại id if ($('#error_home').length)
+
+
+request
+	truy cập request:
+		PostController.php:
+		+ store(Request $request):
+			$name = $request->name;
+		
+		+ update(Request $request, $id):
+			...
+		  web.php:
+			use use App\Http\Controllers\PostController;
+			Route::put('/post/{id}', [PostController::class, 'update']);
+	
+	$request->path(); //truy suat duong dan theo yeu cau
+	
+	$request->id('admin/*') {} //kiem tra duong dan cua khop voi yeu cau khong 		
+	
+	$request->url();  //truy xuat url day du 
+			
+	$request->header('X-Header-Name');
+	$request->hasHeader('X-Header-Name') //xac minh xem co chua header-name khong 
+	
+	if ($request->accepts(['text/html', 'application/json'])) {
+		// tra ve true or false 
+	}
+	
+	$request->query('name') //chi lay cac gia tri tu chuoi truy van 
+	$name = $request->query('name', 'Helen'); //neu khong cua chuoi truy van gia tri thu 2 se duoc tra ve 
+	
+	$name = $request->input('name'); //truy xuat gia tri cua nguoi nhap 
+	$name = $request->input('name', 'Sally');  //neu rong se lay gia tri sau 
+	
+	$request->boolean('archived'); //tra ve cac gia tri true or false 
+	
+	$request->has('name')) //tra ve true or false 
+	
+	$request->whenHas('name', function ($input) {
+			//se thuc hien khi co name 
+		});
+		
+	$request->hasAny(['name', 'email'])  //tra ve true neu co bat ki truong nao 
+	
+	if ($request->filled('name')) {//true or false 
+			...
+		}//xac dinh name co rong hay khong 
+	
+	$request->whenFilled('name', function ($input) {
+		//tuong tu nhu filled 
+	});	
+	
+	$request->missing('name') //tra ve true or false 
+	
+	$request->flash() //hanh dong se duoc thuc hien o lan tiep theo 
+	
+	$request->old('username'); //lay du lieu dau vao da nhap truoc do 
+	
+	$request->file('photo');
+	$request->hasFile('photo');
+	
+	$request->file('photo')->isValid() //kiem tra xem co loi gi khi tai tep len khong 
+	
+	$path = $request->photo->store('images');
+	$path = $request->photo->store('images', 's3'); //luu tru tep 
+	
+response 
+	Route::get('/home', function () {
+		return response('Hello World', 200)
+					  ->header('Content-Type', 'text/plain');
+	}); //gan header 
+	
+	return response('Hello World')->cookie(
+		'name', 'value', $minutes
+	); //gan cookie vao phien 
+	
+	Route::get('/dashboard', function () {
+		return redirect('home/dashboard');
+	});// chuyen huong trang den duong dan 
+	
+	Route::post('/user/profile', function () {
+		// Validate the request...
+
+		return back()->withInput();
+	}); //chuyen huong nguoi dung den vi tri truoc do cua ho 
+
+	use App\Http\Controllers\UserController;
+	return redirect()->action([UserController::class, 'index']); //thuc hien mot hanh dong o controller khac 
+	
+	return redirect()->away('https://www.google.com'); //chuyen huong den mien ben ngoai ung dung 
+	
+	Route::post('/user/profile', function () {
+		// ...
+		return redirect('dashboard')->with('status', 'Profile updated!');
+	});
+	@if (session('status'))
+		<div class="alert alert-success">
+			{{ session('status') }}
+		</div>
+	@endif //them thong bao o man hinh tiep theo 
+	
+	return response()->json([
+		'name' => 'Abigail',
+		'state' => 'CA',
+	]); //chuyen doi mang sang json 
+	
+	return response()
+		->json(['name' => 'Abigail', 'state' => 'CA'])
+		->withCallback($request->input('callback')); //tao mot phan hoi jsonp 
+		
+	return response()->download($pathToFile);
+	return response()->download($pathToFile, $name, $headers); //tao phan hoi nguoi dung tai xuong 
+	
+	return response()->file($pathToFile);
+	return response()->file($pathToFile, $headers); //hien thi file truc tiep trong trinh duyet 
+	
+	
+blade 
+	<script>
+		var app = @json($array);
+
+		var app = @json($array, JSON_PRETTY_PRINT);
+	</script> //chuyen mang ve dang json 
+	
+	Blade::withoutDoubleEncoding(); //tat ma hoa HTML  
+	 
+	@unless (Auth::check())
+		You are not signed in.
+	@endunless //check dang nhap 
+	
+	@isset($records)
+    // $records is defined and is not null...
+	@endisset
+
+	@empty($records)
+		// $records is "empty"...
+	@endempty //true or false 
+	
+	@auth
+    // The user is authenticated...
+	@endauth
+
+	@guest
+		// The user is not authenticated...
+	@endguest //xac thuc nguoi dung or khach 
+	
+	@auth('admin')
+		// The user is authenticated...
+	@endauth //xac thuc nguoi quan ly hay khong 
+	
+	@hasSection('navigation')
+		<div class="pull-right">
+			@yield('navigation')
+		</div>
+
+		<div class="clearfix"></div>
+	@endif //kiem tra phan ke thua mau co noi dung hay khong 
+	
+	@sectionMissing('navigation')
+		<div class="pull-right">
+			@include('default-navigation')
+		</div>
+	@endif //tuong tu hasSection() 
+	
+	$loop->index //chi so lan lap hien tai cua vong lap bat dau tu 0 
+	$loop->iteration //lap lai vong lap bat dau tu 1
+	$loop->remaining //cac lan lap con lai 
+	$loop->count //tong so lan lap cua mang 
+	$loop->first //lan lap dau tien 
+	$loop->last	 //lan lap cuoi cung 
+	$loop->parent //bien cua vong lap ben ngoai 
+	
+	@include('view.name', ['status' => 'complete']) //co the chuyen them mang bo sung vao @include
+	@includeIf('view.name', ['status' => 'complete']) //co the co hoac khong 
+	
+	@each('view.name', $jobs, 'job', 'view.empty') //ket hop view va foreach() 
+	
+	@once
+		@push('scripts')
+			<script>
+				// Your custom JavaScript...
+			</script>
+		@endpush
+	@endonce //day mot lan dau tien 
+	
+	create components (tao thanh phan)
+		php artisan make:component Alert
+		<x-alert/> //khi tao duoc thanh phan thi co the goi duoc no qua the nay <-
+		<x-alert type="error" :message="$message"/>
+		
+	
+	
+	
+	
+				
+validation (thẩm định)
+	store(Request $request):
+		$validated = $request->validation([
+			'title' => 'required|unique:posts|max:255',
+			'name' => 'required',
+		]);
+		
+		hoặc:
+		
+		$message = [
+			'title' => 'Tiêu đề không được quá 50 kí tự',
+			'name' => 'Tên phải có ít nhất 12 kí tự',
+		];
+		
+		$validator = 
+		
+	displaying the validation errors
+		@if ($errors->any())
+			<div class="alert alert-danger">
+				<ul>
+					@foreach ($errors->all() as $error)
+						<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+		@endif
+		
+			hoặc:
+		
+		<input id="title" type="text" class="@error('title') is-invalid @enderror" value="{{ old('name')}}">
+		
+		//value="{{ old('name') }}" tra ve gia tri da nhap khi nhap sai
+
+		@error('title')
+			<div class="alert alert-danger">{{ $message }}</div>
+		@enderror
+
+date: 
+	get date 
+		date('d-m-Y', strtotime($row->created_at))
+
+lưu bài viết có cả hình ảnh 
+
+private function handleUploadImages($message) {
+	libxml_use_internal_errors(true);
+	$dom = new \DOMDocument();
+	$message  = mb_convert_encoding($message , 'HTML-ENTITIES', 'UTF-8');
+	$dom->loadHtml($message, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+	$images = $dom->getElementsByTagName('img');
+
+	foreach($images as $k => $img){
+		$src = $img->getAttribute('src');
+
+		if (preg_match('/data:image/', $src)) { 
+			preg_match('/data:image\/(?<mime>.*?)\;/', $src, $groups);
+			$mimetype = $groups['mime'];
+			$filename = uniqid();
+			$filePath = "/images/$filename.$mimetype";
+			
+			$path = public_path() . $filePath;
+			
+			list($type, $data) = explode(';', $src);
+			list(, $data)      = explode(',', $data);
+
+			$this->base64ToImage($data, $path);
+			
+			$img->removeAttribute('src');
+			$img->setAttribute('src', asset($filePath));
+		}
+	}
+
+	return $dom->saveHTML();
+}
+private function base64ToImage($base64_string, $output_file) {
+	$file = fopen($output_file, "wb");
+	fwrite($file, base64_decode($base64_string));
+	fclose($file);
+
+	return $output_file;
+}
+
+chuyển dạng văn bản dạng thẻ sang không còn dạng thẻ
+lấy một đoạn đầu bài 
+lấy số ký tự được hiển thị ra 
+trip_tags(substr($row->content, 0, 200)) hay hiển thị bài post thu nhỏ nội 
+
+hiển thị nội dung bài viết có cả ảnh 
+{!! $result !!}
+
+database: migrations
+	tạo migration:
+		php artisan make:migration create_name_table
+		
+	tạo thêm một trường của bảng:
+		php artisan make:migration add_img_to_student_table --table=student
+	
+	cập nhật lên:
+		php artisan migrate
+		
+	hủy:
+		php artisan migrate:rollback
+		
+	*** nên tạo cả model và migration luôn:
+		php artisan make:model NameModel -m 
+		
+		
+model
+	protected $hidden = []; (ẩn các trường trong mảng)
+	
+			  $fillable = []; (các trường có thể gán giá trị) vd:update
+				use App\Models\Flight;
+				$flight = Flight::find(1);
+				$flight->name = 'Paris to London';
+				$flight->save();
+			
+			   
+paginate (phân trang)
+	controller:
+		$student = Student::paginate(10)->toArray();
+		return view('student.list', ['students' => $student['data'], 'links' => $student['links']);
+	view:
+		@foreach($students as $student)
+            <tr>
+                <td>{{ $student['full_name'] }}</td>
+                <td><a href="{{ route('student.show', $student['id']) }}">Show</a></td>
+                <td><a href="{{ route('student.edit', $student['id']) }}">Edit</a></td>
+                <td><a href="deleteStudent/{{ $student['id'] }}">Delete</a></td>
+            </tr>
+        @endforeach()
+				
+		@foreach($links as $link)
+            <a href="{{ $link['url'] }}"><label for="">{{ $link['label'] }}</label></a>
+        @endforeach()
+	
+		
+flash-mesagess (thông báo)
+	view/layouts/flash-mesagess.blade.php:
+		@if ($message = Session::get('success'))
+		<div class="alert alert-success alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>{{ $message }}</strong>
+		</div>
+		@endif
+
+		@if ($message = Session::get('error'))
+		<div class="alert alert-danger alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>{{ $message }}</strong>
+		</div>
+		@endif
+
+		@if ($message = Session::get('warning'))
+		<div class="alert alert-warning alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>{{ $message }}</strong>
+		</div>
+		@endif
+
+		@if ($message = Session::get('info'))
+		<div class="alert alert-info alert-block">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			<strong>{{ $message }}</strong>
+		</div>
+		@endif
+
+		@if ($errors->any())
+		<div class="alert alert-danger">
+			<button type="button" class="close" data-dismiss="alert">×</button>
+			Check the following errors :(
+		</div>
+		@endif
+		
+	view/layouts/list.blade.php
+		@include('layouts.flash-message')
+	class::destroy:
+		if (!$student) {
+            return redirect()->route('student.index')->with('error', 'Student cannot found!');
+        }
+        $student->delete();
+        return redirect()->route('student.index')->with('success', 'Student deleted successfully');
+		
+		
+admin lte download 
+
+send mail 
+	php artisan make:mail TestMail   
+	php artisan make:controller MailController    
+
+tinh khoang thoi gian create: 
+	{{ now()->diffForHumans($row->created_at) }}
+			
+tác giả có nhiều bài viết nhất 
+user đăng nhiều bái viết nhất
+	select w.name, w.id, w.title, w.image, count(b.id) no_of_books
+  from users w join posts b on w.id = b.user_id
+  group by w.id
+  order by no_of_books desc
+  limit 1;
+  limit 1;
+  limit 1;
+		
+
+
+		

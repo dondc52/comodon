@@ -14,10 +14,10 @@
                 <div class="about_us_image_box justify-content-center">
 
                     @if ($result->image !== null)
-                        <img width="540px" height="379px" class="img-fluid w-100"
+                        <img width="540px" class="img-fluid w-100"
                             src="{{ asset('images/' . $result->image) }}" alt="">
                     @else
-                        <img width="540px" height="523px" class="img-fluid"
+                        <img width="540px" class="img-fluid"
                             src="{{ asset('images/1618911794-.png') }}" alt="">
                     @endif
                 </div>

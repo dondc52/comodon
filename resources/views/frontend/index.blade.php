@@ -8,9 +8,9 @@
 				<div class="col-lg-6">
 					<div class="home_left_img">
 						@if ($bannerresult->image !== null)
-							<img width="540px" height="523px" class="img-fluid" src="{{ asset('images/'.$bannerresult->image) }}" alt="">
+							<img width="540px" class="img-fluid" src="{{ asset('images/'.$bannerresult->image) }}" alt="">
 						@else 
-							<img width="540px" height="523px" class="img-fluid" src="{{ asset('assets/img/banner/home-left.png') }}" alt="">
+							<img width="540px" class="img-fluid" src="{{ asset('assets/img/banner/home-left.png') }}" alt="">
 						@endif 
 					</div>
 				</div>
@@ -53,3 +53,4 @@
 @include('frontend.layouts.newsletter_area')
 
 @include('frontend.layouts.footer_area')
+
