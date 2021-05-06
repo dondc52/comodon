@@ -1,7 +1,6 @@
 @extends('backend.layouts.admin')
 @section('content')
-    <div class="row">
-        <div class="card mx-auto col-md-6">
+        <div class="card col-md-6">
             <div class="card-header">
                 <h3 class="card-title">
                     Create
@@ -28,7 +27,7 @@
                     @enderror
                     <div class="form-group">
                         <label for="">Image </label>
-                        <input class="w-100" type="file" name="image">
+                        <input class="w-100" type="file" name="image" accept="image/x-png,image/gif,image/jpeg">
                     </div>
                     <div class="form-group">
                         <label for="">Email </label>
@@ -59,5 +58,4 @@
                 </form>
             </div>
         </div>
-    </div>
 @endsection

@@ -1,7 +1,6 @@
 @extends('backend.layouts.admin')
 @section('content')
-    <div class="row">
-        <div class="card mx-auto col-md-8">
+        <div class="card col-md-8">
             <div class="card-header">
                 <h3 class="card-title">
                     Edit
@@ -33,12 +32,11 @@
                                 <img width="80px" src="{{ asset('images/' . $user->image) }}" alt="" />
                             </div>
                         @endif
-                        <input class="w-100" type="file" name="image" value="">
+                        <input class="w-100" type="file" name="image" value="" accept="image/x-png,image/gif,image/jpeg">
                     </div>
                     <button class="btn btn-primary mr-3" type="submit">Submit</button>
                     <a class="btn btn-secondary" href="{{ route('user.index') }}">Quay Lại</a>
                 </form>
             </div>
         </div>
-    </div>
 @endsection

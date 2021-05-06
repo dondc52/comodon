@@ -1,8 +1,7 @@
 @extends('backend.layouts.admin')
 @section('content')
     @include('layouts.flash-message')
-    <div class="row">
-        <div class="card col-md-10 mx-auto">
+        <div class="card col-md-10">
             <div class="card-header">
                 <h2 class="card-title">User</h2>
                 <a class="btn btn-success float-right" href="{{ route('user.create') }}">Create</a>
@@ -55,9 +54,8 @@
                 </table>
             </div>
             <div class="">
-                {{ $users->links() }}
+                @include('backend.layouts.paginate')
             </div>
         </div>
-    </div>
     @include('backend.layouts.modal')
 @endsection

@@ -1,7 +1,6 @@
 @extends('backend.layouts.admin')
 @section('content')
-    <div class="row">
-        <div class="card col-md-5 mx-auto">
+        <div class="card col-md-5">
             <div class="card-header">
                 <h3 class="card-title">
                     Edit
@@ -31,5 +30,4 @@
                 </form>
             </div>
         </div>
-    </div>
 @endsection

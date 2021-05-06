@@ -34,7 +34,7 @@
             </tbody>
         </table>
     </div>
-    <div class="card-footer">
+    <div class="ml-3">
         {{$footer_links->links()}}
     </div>
 </div>

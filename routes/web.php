@@ -161,6 +161,9 @@ Route::post('/admin/post/{id}/update', [PostController::class, 'update'])->name(
 Route::get('/admin/post/{id}/edit', [PostController::class, 'edit'])->name('post.edit');
 Route::get('/post/{id}/show', [ShowSinglesController::class, 'showPost'])->name('post.show');
 
+//search post
+Route::get('/admin/post/search', [PostController::class, 'search'])->name('search');
+
 //form seed mail 
 Route::get('/form', function () {
     return view('form');

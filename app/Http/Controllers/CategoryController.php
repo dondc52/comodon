@@ -12,9 +12,27 @@ class CategoryController extends Controller
         $this->middleware('auth');
     }
     
-    public function index(){
-        $result = Category::paginate(5);
-        return view('backend.category.index', ['result' => $result]);
+    public function index(Request $request){
+        $page = $request->get('page') !== null ? (int) $request->get('page') : 1;
+        $numPerPage = env('NUM_PER_PAGE');
+
+            $result = Category::limit($numPerPage)->offset(($page - 1) * $numPerPage)
+                ->get();
+            $totalItems = Category::count();
+        
+        $totalPages = ceil($totalItems / $numPerPage);
+        if ($page <= 0 || $page > $totalPages) {
+            $page = 1;
+            $result = Category::limit($numPerPage)->offset(($page - 1) * $numPerPage)
+                ->get();
+            
+        }
+        // $result = Post::limit($numPerPage)->offset(($page - 1)*$numPerPage)->get();
+        return view('backend.category.index', [
+            'result' => $result,
+            'totalPages' => $totalPages,
+            'currentPage' => $page,
+        ]);
         // echo count($result->posts);
     }
 

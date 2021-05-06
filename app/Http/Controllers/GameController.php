@@ -14,20 +14,19 @@ class GameController extends Controller
 
     public function index(Request $request)
     {
-        
+
         $page = $request->get('page') !== null ? (int) $request->get('page') : 1;
         $numPerPage = env('NUM_PER_PAGE');
 
-            $result = Game::limit($numPerPage)->offset(($page - 1) * $numPerPage)
-                ->get();
-            $totalItems = Game::count();
-        
+        $result = Game::limit($numPerPage)->offset(($page - 1) * $numPerPage)
+            ->get();
+        $totalItems = Game::count();
+
         $totalPages = ceil($totalItems / $numPerPage);
         if ($page <= 0 || $page > $totalPages) {
             $page = 1;
             $result = Game::limit($numPerPage)->offset(($page - 1) * $numPerPage)
                 ->get();
-            
         }
         // $result = Post::limit($numPerPage)->offset(($page - 1)*$numPerPage)->get();
         return view('backend.game.index', [
@@ -52,7 +51,7 @@ class GameController extends Controller
         $game = new Game;
         $game->name = $request->name;
         $game->description = $request->description;
-        if($request->image !== null){
+        if ($request->image !== null) {
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $newImageName);
             $game->image = $newImageName;
@@ -75,7 +74,7 @@ class GameController extends Controller
         $game = Game::find($id);
         $game->description = $request->description;
         $game->name = $request->name;
-        if($request->image !== null){
+        if ($request->image !== null) {
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $newImageName);
             $game->image = $newImageName;

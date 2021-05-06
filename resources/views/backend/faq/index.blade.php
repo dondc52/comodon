@@ -32,7 +32,7 @@
             </tbody>
         </table>
     </div>
-    <div class="card-footer">
+    <div class="ml-3">
         {{$faqs->links()}}
     </div>
 </div>

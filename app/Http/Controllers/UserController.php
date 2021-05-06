@@ -13,10 +13,29 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         // echo User::first()->id;
-        return view('backend.user.index', ['users' => User::paginate(5)]);
+        $page = $request->get('page') !== null ? (int) $request->get('page') : 1;
+        $numPerPage = env('NUM_PER_PAGE');
+
+            $result = User::limit($numPerPage)->offset(($page - 1) * $numPerPage)
+                ->get();
+            $totalItems = User::count();
+        
+        $totalPages = ceil($totalItems / $numPerPage);
+        if ($page <= 0 || $page > $totalPages) {
+            $page = 1;
+            $result = User::limit($numPerPage)->offset(($page - 1) * $numPerPage)
+                ->get();
+            
+        }
+        // $result = Post::limit($numPerPage)->offset(($page - 1)*$numPerPage)->get();
+        return view('backend.user.index', [
+            'users' => $result,
+            'totalPages' => $totalPages,
+            'currentPage' => $page,
+        ]);
     }
 
     public function create()
