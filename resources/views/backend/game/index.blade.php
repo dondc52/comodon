@@ -1,11 +1,19 @@
 @extends('backend.layouts.admin')
 @section('content')
     <div class="card col-md-10">
+        @include('layouts.flash-message')
         <div class="card-header">
             <h2 class="card-title">Game</h2>
-            <a class="btn btn-success float-right" href="{{ route('game.create')}}">Create</a>
         </div>
         <div class="card-body">
+            <a class="btn btn-success float-left" href="{{ route('game.create') }}">Create</a>
+            <form action="{{ route('game.index') }}" class="row mb-3 pr-2 col-4 float-right" method="get">
+                <div class="input-group">
+                    <input type="search" class="form-control rounded" placeholder="Search..." name="search"
+                        value="{{ $search }}">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
             <table class="table table-bordered">
                 <thead class="">
                     <tr>
@@ -18,29 +26,31 @@
                 </thead>
                 <tbody>
                     @foreach ($games as $game)
-                    <tr>
-                        <td>{{ $game->id }}</td>
-                        <td>{{ $game->name }}</td>
-                        <td>{{ $game->description }}</td>
-                        <td>
-                            @if ($game->image)
-                                <img height="70px" src="{{ asset('images/'.$game->image) }}" alt="">
-                            @endif
-                        </td>
-                        <td>
-                            <a class="btn btn-info" href="{{ route('game.edit', $game->id) }}"><i class="fas fa-edit"></i></a>
-                            <a data-action="{{ route('game.destroy', $game->id ) }}" class="btn btn-danger deleteStudent" data-toggle="modal" data-target="#exampleModal">
-                                <i class="fas fa-trash-alt"></i>
-                            </a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{{ $game->id }}</td>
+                            <td>{{ $game->name }}</td>
+                            <td>{{ $game->description }}</td>
+                            <td>
+                                @if ($game->image)
+                                    <img height="70px" src="{{ asset('images/' . $game->image) }}" alt="">
+                                @endif
+                            </td>
+                            <td>
+                                <a class="btn btn-info" href="{{ route('game.edit', $game->id) }}"><i
+                                        class="fas fa-edit"></i></a>
+                                <a data-action="{{ route('game.destroy', $game->id) }}"
+                                    class="btn btn-danger deleteStudent" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
         <div>
-            @include('backend.layouts.paginate')
+            {{$games->appends(['search' => $search])->links()}}
         </div>
     </div>
-@include('backend.layouts.modal')
+    @include('backend.layouts.modal')
 @endsection

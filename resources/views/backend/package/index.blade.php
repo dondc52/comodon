@@ -1,21 +1,22 @@
 @extends('backend.layouts.admin')
 @section('content')
-@include('layouts.flash-message')
-<div class="card">
+<div class="card col-10">
+    @include('layouts.flash-message')
     <div class="card-header">
         <h3 class="card-title">Frequently Asked Questions</h3>
+        <a class="btn btn-success float-right" href="{{ route('package.create')}}">Create</a>
     </div>
     <div class="card-body">
         <table class="table table-bordered">
             <thead class="">
                 <tr>
-                    <th scope="col">ID: </th>
-                    <th scope="col">Title: </th>
-                    <th scope="col">Description1: </th>
-                    <th scope="col">Description2: </th>
-                    <th scope="col">Description3: </th>
-                    <th scope="col">Price: </th>
-                    <th scope="col">Action: </th>
+                    <th width="5%">ID </th>
+                    <th width="20%">Title </th>
+                    <th width="">Description1 </th>
+                    <th width="">Description2 </th>
+                    <th width="">Description3 </th>
+                    <th width="5%">Price </th>
+                    <th width="10%">Action </th>
                 </tr>
             </thead>
             <tbody>
@@ -41,9 +42,6 @@
     <div class="card-footer">
         {{$packages->links()}}
     </div>
-</div>
-<div class="pb-3">
-    <a class="btn btn-success py-20" href="{{ route('package.create')}}">Create</a>
 </div>
 @include('backend.layouts.modal')
 @endsection

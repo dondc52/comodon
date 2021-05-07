@@ -11,11 +11,11 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ asset('admin/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2"
+                <img src="{{ asset('images/' . Auth::user()->image) }}" class="img-circle elevation-2"
                     alt="User Image">
             </div>
             <div class="info">
-                <a href="{{ route('user.index') }}" class="d-block">{{ Auth::user()->name }}</a>
+                <a href="{{ route('user.show', Auth::user()->id) }}" class="d-block">{{ Auth::user()->name }}</a>
             </div>
         </div>
         <!-- Sidebar Menu -->
@@ -64,7 +64,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('about_us.index') }}" class="nav-link {{request()->is('admin/about_us*') ? 'active' : ''}}">
+                    <a href="{{ route('about_us.index') }}" class="nav-link {{request()->is('admin/about-us*') ? 'active' : ''}}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>About us</p>
                     </a>
@@ -84,7 +84,7 @@
 
                 <li class="nav-item">
                     <a href="{{ route('customer.index') }}" class="nav-link {{request()->is('admin/customer*') ? 'active' : ''}}">
-                        <i class="nav-icon fas fa-wheelchair"></i>
+                        <i class="nav-icon fas fa-portrait"></i>
                         <p>Customer</p>
                     </a>
                 </li>
@@ -97,7 +97,7 @@
                 <li class="nav-item">
                     <a href="{{ route('contact_infor.index') }}" class="nav-link {{request()->is('admin/contact_infor*') ? 'active' : ''}}">
                         <i class="nav-icon fas fa-id-card-alt"></i>
-                        <p>Contact infor</p>
+                        <p>General infor</p>
                     </a>
                 </li>
             </ul>

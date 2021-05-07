@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -19,10 +18,8 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $cate = $request->get('cate') !== null ? (int) $request->get('cate') : 0;
-        $author = $request->get('author') !== null ? (int) $request->get('author') : 0;
+        $auth = $request->get('auth') !== null ? (int) $request->get('auth') : 0;
         $search = $request->get('search');
-        $page = $request->get('page') !== null ||  $request->get('page') < 0 ? (int) $request->get('page') : 1;
-        $numPerPage = env('NUM_PER_PAGE');
 
         $whereClause = [];
 
@@ -30,44 +27,27 @@ class PostController extends Controller
             $whereClause[] = ['posts.cat_id', '=', $cate];
         }
 
-        if ($author) {
-            $whereClause[] = ['posts.user_id', '=', $author];
+        if ($auth) {
+            $whereClause[] = ['posts.user_id', '=', $auth];
         }
 
         if ($search !== null) {
             $whereClause[] = ['posts.title', 'like', "%{$search}%"];
         }
 
-        $query = DB::table('posts')
-                ->join('users', 'posts.user_id', '=', 'users.id')
+        $result = Post::join('users', 'posts.user_id', '=', 'users.id')
                 ->join('categories', 'posts.cat_id', '=', 'categories.id')
-                ->select(['posts.*', 'categories.cat_name', 'users.name']);
+                ->where($whereClause)
+                ->select(['posts.*', 'categories.cat_name', 'users.name'])
+                ->paginate(env('NUM_PER_PAGE'));
 
-        $totalItems = $query->count();
-        
-        if (count($whereClause) > 0) {
-            $query->where($whereClause);
-            $totalItems = $query->count();
-        }
-
-        $totalPages = ceil($totalItems/ $numPerPage);
-
-        if ($page > $totalPages) {
-            $page = $totalPages;
-        }
-
-        $result = $query->paginate($numPerPage);
-
-        $totalPages = ceil($totalItems / $numPerPage);
         
         return view('backend.post.index', [
             'result' => $result,
-            'totalPages' => $totalPages,
-            'currentPage' => $page,
-            'category' => Category::all(),
-            'author' => User::all(),
-            'cate_select' => $cate,
-            'author_select' => $author,
+            'cates' => Category::all(),
+            'auths' => User::all(),
+            'cate' => $cate,
+            'auth' => $auth,
             'search' => $search,
         ]);
     }
@@ -81,13 +61,10 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => ['required', 'max:500'],
-            'description' => ['required', 'max:500'],
+            'title' => ['required'],
+            'description' => ['required'],
             'content' => ['required'],
             'cat_id' => ['numeric', 'not_in:0'],
-            'like_number' => ['numeric'],
-            'comment_number' => ['numeric'],
-            'view_number' => ['numeric'],
         ]);
         $result = new Post;
         $result->title = $request->title;
@@ -165,13 +142,10 @@ class PostController extends Controller
     {
         $target = Post::find($id);
         $request->validate([
-            'title' => ['required', 'max:500'],
-            'description' => ['required', 'max:500'],
+            'title' => ['required'],
+            'description' => ['required'],
             'content' => ['required'],
             'cat_id' => ['numeric', 'not_in:0'],
-            'like_number' => ['numeric'],
-            'comment_number' => ['numeric'],
-            'view_number' => ['numeric'],
         ]);
         $target->title = $request->title;
         $target->description = $request->description;

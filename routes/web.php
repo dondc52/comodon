@@ -61,6 +61,7 @@ Route::post('/admin/user/{id}/update', [UserController::class, 'update'])->name(
 Route::post('/admin/user/{id}/updatepw', [UserController::class, 'updatepw'])->name('user.updatepw');
 Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
 Route::get('/admin/user/{id}/editpw', [UserController::class, 'editpw'])->name('user.editpw');
+Route::get('/admin/user/{id}/show', [UserController::class, 'show'])->name('user.show');
 
 //author
 Route::get('/admin/authors', [AuthorsController::class, 'index'])->name('author.index');

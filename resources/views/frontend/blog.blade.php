@@ -25,13 +25,15 @@
                 <div class="col-lg-4">
                     <div class="categories_post">
                         <img src="{{ asset('images/'.$row->image) }}" alt="post">
+                        <a href="{{route('blog')}}?cate={{$row->id}}">
                         <div class="categories_details">
                             <div class="categories_text">
-                                <a href="{{route('blog')}}?cate={{$row->id}}"><h5>{{ substr($row->cat_name, 0, 30) }}</h5></a>
+                                <h5>{{ substr($row->cat_name, 0, 30) }}</h5>
                                 <div class="border_line"></div>
                                 <p>{{ substr($row->description, 0, 40) }}</p>
                             </div>
                         </div>
+                        </a>
                     </div>
                 </div>
             @endforeach 
@@ -51,13 +53,13 @@
                             <div class="col-md-3">
                                 <div class="blog_info text-right">
                                     <div class="post_tag">
-                                        <a class="active" href="#">{{ $row->cat_name }}</a>
+                                        <a class="active" href="{{route('blog')}}?cate={{$row->cat_id}}">{{ $row->cat_name }}</a>
                                     </div>
                                     <ul class="blog_meta list">
-                                        <li><a href="#">{{ $row->name }}<i class="lnr lnr-user"></i></a></li>
-                                        <li><a href="#">{{ date('d/m/Y', strtotime($row->created_at)) }}<i class="lnr lnr-calendar-full"></i></a></li>
-                                        <li><a href="#">{{ $row->view_number }} Views<i class="lnr lnr-eye"></i></a></li>
-                                        <li><a href="#">{{ $row->comment_number }} Comments<i class="lnr lnr-bubble"></i></a></li>
+                                        <li><a href="">{{ $row->name }}<i class="lnr lnr-user"></i></a></li>
+                                        <li><a href="">{{ date('d/m/Y', strtotime($row->created_at)) }}<i class="lnr lnr-calendar-full"></i></a></li>
+                                        <li><a href="">{{ $row->view_number }} Views<i class="lnr lnr-eye"></i></a></li>
+                                        <li><a href="">{{ $row->comment_number }} Comments<i class="lnr lnr-bubble"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -65,8 +67,6 @@
                                 <div class="blog_post">
                                     @if ($row->image !== null)
                                         <img width="540px" src="{{ asset('images/'.$row->image) }}" alt="" />
-                                    @else
-                                        <img width="540px" src="{{ asset('images/1618897571-abc.png') }}" alt="" />
                                     @endif 
                                     <div class="blog_details">
                                         <a href="{{route('post.show', $row->id)}}"><h2>{{ substr($row->title, 0, 50) }}</h2></a>

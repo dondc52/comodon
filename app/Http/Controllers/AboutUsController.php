@@ -25,8 +25,9 @@ class AboutUsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => ['required', 'max:300'],
+            'title' => ['required'],
             'content' => ['required'],
+            'link' => ['required'],
         ]);
         $about_us = new AboutUs;
         $about_us->title = $request->title;
@@ -89,8 +90,9 @@ class AboutUsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => ['required', 'max:300'],
+            'title' => ['required'],
             'content' => ['required'],
+            'link' => ['required'],
         ]);
         $about_us = AboutUs::find($id);
         $about_us->content = $request->content;

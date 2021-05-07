@@ -15,7 +15,6 @@ class BannerController extends Controller
     public function index(){
         $result = Banner::paginate(5);
         return view('backend.banner.index', ['result' => $result]);
-        // echo count($result->posts);
     }
 
     public function create(){
@@ -24,8 +23,7 @@ class BannerController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'title' => ['required', 'max:50'],
-            'content' => ['required', 'max:1000'],
+            'title' => ['required'],
         ]);
         $result = new Banner;
         $result->title = $request->title;
@@ -47,8 +45,7 @@ class BannerController extends Controller
 
     public function update(Request $request, $id){
         $request->validate([
-            'title' => ['required', 'max:50'],
-            'content' => ['required', 'max:1000'],
+            'title' => ['required'],
         ]);
         $target = Banner::find($id);
         $target->title = $request->title;

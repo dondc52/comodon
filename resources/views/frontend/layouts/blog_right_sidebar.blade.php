@@ -55,7 +55,7 @@
             <ul class="list cat-list">
                 @foreach ($result2 as $row)
                     <li>
-                        <a href="#" class="d-flex justify-content-between">
+                        <a href="{{route('blog')}}?cate={{$row->id}}" class="d-flex justify-content-between">
                             <p>{{ $row->cat_name }}</p>
                             <p>{{ count($row->posts) }}</p>
                         </a>

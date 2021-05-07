@@ -11,7 +11,7 @@
             <form action="{{ route('category.update', $result->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for=""> Name</label>
+                    <label for="">Name *</label>
                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                         placeholder="Name input" value="{{ $result->cat_name }}">
                 </div>
@@ -20,12 +20,8 @@
                 @enderror
                 <div class="form-group">
                     <label for=""> Description</label>
-                    <input type="text" class="form-control @error('description') is-invalid @enderror"
-                        placeholder="Description input" name="description" value="{{ $result->description }}">
+                    <input type="text" class="form-control" name="description" value="{{ $result->description }}">
                 </div>
-                @error('description')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
                 <div class="form-group">
                     <label for="">Image </label>
                     @if ($result->image !== null)

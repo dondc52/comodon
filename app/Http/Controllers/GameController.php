@@ -14,27 +14,14 @@ class GameController extends Controller
 
     public function index(Request $request)
     {
+        $search = $request->get('search');
+        $result = Game::where('name', 'like', "%{$search}%")
+            ->paginate(env('NUM_PER_PAGE'));
 
-        $page = $request->get('page') !== null ? (int) $request->get('page') : 1;
-        $numPerPage = env('NUM_PER_PAGE');
-
-        $result = Game::limit($numPerPage)->offset(($page - 1) * $numPerPage)
-            ->get();
-        $totalItems = Game::count();
-
-        $totalPages = ceil($totalItems / $numPerPage);
-        if ($page <= 0 || $page > $totalPages) {
-            $page = 1;
-            $result = Game::limit($numPerPage)->offset(($page - 1) * $numPerPage)
-                ->get();
-        }
-        // $result = Post::limit($numPerPage)->offset(($page - 1)*$numPerPage)->get();
         return view('backend.game.index', [
             'games' => $result,
-            'totalPages' => $totalPages,
-            'currentPage' => $page,
+            'search' => $search,
         ]);
-        // return view('backend.game.index', ['games' => Game::paginate(5)]);
     }
 
     public function create()
@@ -45,17 +32,18 @@ class GameController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'max:50'],
-            'description' => ['required', 'max:1000'],
+            'name' => ['required'],
+            'image' => ['required'],
         ]);
         $game = new Game;
         $game->name = $request->name;
-        $game->description = $request->description;
-        if ($request->image !== null) {
-            $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $newImageName);
-            $game->image = $newImageName;
+        if ($request->description) {
+            $game->description = $request->description;
         }
+        $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
+        $request->image->move(public_path('images'), $newImageName);
+        $game->image = $newImageName;
+
         $game->save();
         return redirect()->route('game.index')->with('success', 'Game created successfully');
     }
@@ -68,8 +56,7 @@ class GameController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => ['required', 'max:50'],
-            'description' => ['required', 'max:1000'],
+            'name' => ['required'],
         ]);
         $game = Game::find($id);
         $game->description = $request->description;

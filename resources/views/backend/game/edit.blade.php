@@ -1,6 +1,5 @@
 @extends('backend.layouts.admin')
 @section('content')
-    @include('layouts.flash-message')
     <div class="card col-md-6">
         <div class="card-header">
             <h3 class="card-title">
@@ -11,23 +10,21 @@
             <form action="{{ route('game.update', $game->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for="">Name </label>
-                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                        placeholder="Name input" value="{{ $game->name }}">
+                    <label for="">Name *</label>
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ $game->name }}">
                 </div>
                 @error('name')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
                 <div class="form-group">
                     <label for="">Description </label>
-                    <input type="text" class="form-control @error('description') is-invalid @enderror"
-                        placeholder="Description input" name="description" value="{{ $game->description }}">
+                    <input type="text" class="form-control" name="description" value="{{ $game->description }}">
                 </div>
                 @error('description')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
                 <div class="form-group">
-                    <label for="">Image: </label>
+                    <label for="">Image </label>
                     @if ($game->image !== null)
                         <div class="w-100 py-2">
                             <img width="80px" src="{{ asset('images/' . $game->image) }}" alt="" />

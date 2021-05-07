@@ -12,9 +12,11 @@ class FaqsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
-        $result = Faq::paginate(5);
-        return view('backend.faq.index', ['faqs' => $result]);
+    public function index(Request $request){
+        $search = $request->get('search');
+        $result = Faq::where('title', 'like', "%{$search}%")
+            ->paginate(env('NUM_PER_PAGE'));
+        return view('backend.faq.index', ['faqs' => $result, 'search' => $search]);
     }
 
     public function create(){
@@ -29,8 +31,9 @@ class FaqsController extends Controller
         Faq::create([
             'title' => $request->title,
             'content' => $request->content,
+            'status' => $request->status,
         ]);
-        return redirect()->route('faq.index')->with('success', 'Faq created successfully');
+        return redirect()->route('faq.index')->with('success', 'Created successfully');
     }
 
     public function edit($id){
@@ -46,17 +49,18 @@ class FaqsController extends Controller
         $target = Faq::find($id);
         $target->title = $request->title;
         $target->content = $request->content;
+        $target->status = $request->status;
         $target->save();
-        return redirect()->route('faq.index')->with('success', 'Faq updated successfully');
+        return redirect()->route('faq.index')->with('success', 'Updated successfully');
     }
 
     public function destroy($id){
         $target = Faq::find($id);
         if (!$target) {
-            return redirect()->route('faq.index')->with('error', 'Faq cannot found!');
+            return redirect()->route('faq.index')->with('error', 'Cannot found!');
         }
         $target->delete(); 
-        return redirect()->route('faq.index')->with('success', 'Faq delete success!');
+        return redirect()->route('faq.index')->with('success', 'Delete success!');
     }
 
 }

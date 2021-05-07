@@ -1,19 +1,20 @@
 @extends('backend.layouts.admin')
 @section('content')
-@include('layouts.flash-message')
-<div class="card">
+<div class="card col-8">
+    @include('layouts.flash-message')
     <div class="card-header">
         <h3 class="card-title">Footer Link</h3>
+        <a class="btn btn-success float-right" href="{{ route('footer_link.create')}}">Create</a>
     </div>
     <div class="card-body">
         <table class="table table-bordered">
             <thead class="">
                 <tr>
-                    <th scope="col">ID: </th>
-                    <th scope="col">Name: </th>
-                    <th scope="col">Link: </th>
-                    <th scope="col">Parent: </th>
-                    <th scope="col">Action: </th>
+                    <th width="10%">ID </th>
+                    <th width="25%">Title </th>
+                    <th width="35%">Link </th>
+                    <th width="10%">Parent </th>
+                    <th width="20%">Action </th>
                 </tr>
             </thead>
             <tbody>
@@ -37,11 +38,6 @@
     <div class="ml-3">
         {{$footer_links->links()}}
     </div>
-</div>
-
-
-<div class="pb-3">
-    <a class="btn btn-success py-20" href="{{ route('footer_link.create')}}">Create</a>
 </div>
 @include('backend.layouts.modal')
 @endsection

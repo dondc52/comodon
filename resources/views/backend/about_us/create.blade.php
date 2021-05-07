@@ -1,7 +1,6 @@
 @extends('backend.layouts.admin')
 @section('content')
-@include('layouts.flash-message')
-<div class="card card-primary">
+<div class="card col-8">
     <div class="card-header">
         <h3 class="card-title">
             Create
@@ -11,27 +10,30 @@
         <form action="{{ route('about_us.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="">Title: </label>
-                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Title input" value="{{ old('title') }}">
+                <label for="">Title *</label>
+                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}">
             </div>
             @error('title')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <div class="form-group">
-                <label for="">Link: </label>
-                <input type="text" name="link" class="form-control @error('link') is-invalid @enderror" placeholder="Link input" value="{{ old('link') }}">
+                <label for="">Header *</label>
+                <input type="text" name="link" class="form-control @error('link') is-invalid @enderror" value="{{ old('link') }}">
             </div>
             @error('link')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <div class="form-group">
-                <label for="">Content: </label>
+                <label for="">Content *</label>
                 <textarea id="summernote" class="form-control" name="content">
                     Content input...
                 </textarea>
             </div>
+            @error('content')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <div class="form-group">
-                <label for="">Image: </label>
+                <label for="">Image </label>
                 <input class="w-100" type="file" name="image">
             </div>
             <button class="btn btn-primary mr-3" type="submit">Submit</button>

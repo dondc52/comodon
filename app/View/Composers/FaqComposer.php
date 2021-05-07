@@ -10,7 +10,7 @@ class FaqComposer
 {
     public function compose(View $view){
         $view->with([
-            'faqresult' => Faq::take(6)->orderBy('created_at', 'desc')->get(),
+            'faqresult' => Faq::take(6)->where('status', 1)->orderBy('created_at', 'desc')->get(),
         ]);
     }
 }

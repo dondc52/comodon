@@ -1,6 +1,6 @@
 
     
-    <nav aria-label="Page navigation example">
+    <nav class="px-3" aria-label="Page navigation example">
         <ul class="pagination">
             @if($currentPage > 1)
                 <li class="page-item"><a class="page-link" href="?page={{ $currentPage - 1 }}">Prev</a></li>

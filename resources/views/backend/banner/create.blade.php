@@ -1,7 +1,6 @@
 @extends('backend.layouts.admin')
 @section('content')
-@include('layouts.flash-message')
-<div class="card card-primary">
+<div class="card col-md-8">
     <div class="card-header">
         <h3 class="card-title">
             Create
@@ -11,28 +10,22 @@
         <form action="{{ route('banner.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="">Ttile: </label>
-                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" placeholder="Title input" value="{{ old('title') }}">
+                <label for="">Ttile *</label>
+                <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}">
             </div>
             @error('title')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <div class="form-group">
-                <label for="">Content: </label>
-                <input type="text" class="form-control @error('content') is-invalid @enderror" placeholder="Content input" name="content" value="{{ old('content') }}">
+                <label for="">Content </label>
+                <input type="text" class="form-control" name="content" value="{{ old('content') }}">
             </div>
-            @error('content')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
             <div class="form-group">
-                <label for="">Link video: </label>
-                <input type="text" class="form-control @error('video_link') is-invalid @enderror" placeholder="Link video input" name="video_link" value="{{ old('video_link') }}">
+                <label for="">Link video </label>
+                <input type="text" class="form-control" name="video_link" value="{{ old('video_link') }}">
             </div>
-            @error('video_link')
-                <div class="alert alert-danger">{{ $message }}</div>
-            @enderror
             <div class="form-group">
-                <label for="">Image: </label>
+                <label for="">Image </label>
                 <input class="w-100" type="file" name="image">
             </div>
             <button class="btn btn-primary mr-3" type="submit">Submit</button>

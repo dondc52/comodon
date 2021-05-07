@@ -10,7 +10,7 @@
                 <form action="{{ route('user.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="">Name </label>
+                        <label for="">Name * </label>
                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                             value="{{ old('name') }}">
                     </div>
@@ -19,18 +19,15 @@
                     @enderror
                     <div class="form-group">
                         <label for="">Description </label>
-                        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
+                        <input type="text" name="title" class="form-control"
                             value="{{ old('title') }}">
                     </div>
-                    @error('title')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
                     <div class="form-group">
                         <label for="">Image </label>
                         <input class="w-100" type="file" name="image" accept="image/x-png,image/gif,image/jpeg">
                     </div>
                     <div class="form-group">
-                        <label for="">Email </label>
+                        <label for="">Email *</label>
                         <input type="text" class="form-control @error('email') is-invalid @enderror" name="email"
                             value="{{ old('email') }}">
                     </div>
@@ -38,7 +35,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <div class="form-group">
-                        <label for="">Password </label>
+                        <label for="">Password *</label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
                             value="{{ old('password') }}">
                     </div>
@@ -46,7 +43,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <div class="form-group">
-                        <label for="">Confirm Password </label>
+                        <label for="">Confirm Password *</label>
                         <input type="password" class="form-control @error('password_confirm') is-invalid @enderror"
                             name="password_confirm" value="{{ old('password_confirm') }}">
                     </div>

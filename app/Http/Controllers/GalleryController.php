@@ -16,8 +16,6 @@ class GalleryController extends Controller
     public function index(){
         $result = $this->gallery->showAllGallery();
         return view('backend.gallery.index', ['result' => $result]);
-        // $result = Gallery::take(1)->orderBy('created_at', 'desc')->skip(2)->get();
-        // return Gallery::take(2)->orderBy('created_at', 'desc')->get();
     }
     public function store(Request $request){
         $result = new Gallery;

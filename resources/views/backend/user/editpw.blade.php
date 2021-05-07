@@ -10,7 +10,7 @@
                 <form action="{{ route('user.updatepw', $user->id) }}" method="post">
                     @csrf
                     <div class="form-group">
-                        <label for="">New Password</label>
+                        <label for="">New Password *</label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror" name="password"
                             value="">
                     </div>
@@ -18,7 +18,7 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                     @enderror
                     <div class="form-group">
-                        <label for="">New Password Confirm</label>
+                        <label for="">New Password Confirm *</label>
                         <input type="password_confirm" class="form-control @error('password_confirm') is-invalid @enderror"
                             name="password_confirm" value="">
                     </div>

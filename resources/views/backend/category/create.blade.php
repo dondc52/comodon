@@ -1,6 +1,5 @@
 @extends('backend.layouts.admin')
 @section('content')
-    @include('layouts.flash-message')
     <div class="card col-md-6">
         <div class="card-header">
             <h3 class="card-title">
@@ -11,7 +10,7 @@
             <form action="{{ route('category.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
-                    <label for="">Name</label>
+                    <label for="">Name *</label>
                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                        value="{{ old('name') }}">
                 </div>
@@ -20,12 +19,8 @@
                 @enderror
                 <div class="form-group">
                     <label for="">Description</label>
-                    <input type="text" class="form-control @error('description') is-invalid @enderror"
-                         name="description" value="{{ old('description') }}">
+                    <input type="text" class="form-control" name="description" value="{{ old('description') }}">
                 </div>
-                @error('description')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
                 <div class="form-group">
                     <label for="">Image </label>
                     <input class="w-100" type="file" name="image">

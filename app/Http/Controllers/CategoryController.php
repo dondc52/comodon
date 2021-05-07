@@ -13,27 +13,13 @@ class CategoryController extends Controller
     }
     
     public function index(Request $request){
-        $page = $request->get('page') !== null ? (int) $request->get('page') : 1;
-        $numPerPage = env('NUM_PER_PAGE');
-
-            $result = Category::limit($numPerPage)->offset(($page - 1) * $numPerPage)
-                ->get();
-            $totalItems = Category::count();
-        
-        $totalPages = ceil($totalItems / $numPerPage);
-        if ($page <= 0 || $page > $totalPages) {
-            $page = 1;
-            $result = Category::limit($numPerPage)->offset(($page - 1) * $numPerPage)
-                ->get();
-            
-        }
-        // $result = Post::limit($numPerPage)->offset(($page - 1)*$numPerPage)->get();
+        $search = $request->get('search');
+        $result = Category::where('cat_name', 'like', "%{$search}%")
+            ->paginate(env('NUM_PER_PAGE'));
         return view('backend.category.index', [
             'result' => $result,
-            'totalPages' => $totalPages,
-            'currentPage' => $page,
+            'search' => $search,
         ]);
-        // echo count($result->posts);
     }
 
     public function create(){
@@ -42,8 +28,7 @@ class CategoryController extends Controller
 
     public function store(Request $request){
         $request->validate([
-            'name' => ['required', 'max:50'],
-            'description' => ['required', 'max:1000'],
+            'name' => ['required'],
         ]);
         $result = new Category;
         $result->cat_name = $request->name;
@@ -64,8 +49,7 @@ class CategoryController extends Controller
 
     public function update(Request $request, $id){
         $request->validate([
-            'name' => ['required', 'max:50'],
-            'description' => ['required', 'max:1000'],
+            'name' => ['required'],
         ]);
         $target = Category::find($id);
         $target->cat_name = $request->name;

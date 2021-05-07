@@ -1,20 +1,21 @@
 @extends('backend.layouts.admin')
 @section('content')
 @include('layouts.flash-message')
-<div class="card">
+<div class="card col-10">
     <div class="card-header">
         <h3 class="card-title">Ratting</h3>
+        <a class="btn btn-success float-right" href="{{ route('ratting.create')}}">Create</a>
     </div>
     <div class="card-body">
         <table class="table table-bordered">
             <thead class="">
                 <tr>
-                    <th scope="col">ID: </th>
-                    <th scope="col">Name: </th>
-                    <th scope="col">Content: </th>
-                    <th scope="col">Star number: </th>
-                    <th scope="col">Score: </th>
-                    <th scope="col">Action: </th>
+                    <th width="5%">ID </th>
+                    <th width="10%">Name </th>
+                    <th width="">Content </th>
+                    <th width="5%">Star </th>
+                    <th width="5%">Score </th>
+                    <th width="10%">Action </th>
                 </tr>
             </thead>
             <tbody>
@@ -39,9 +40,6 @@
     <div class="card-footer">
         {{$rattings->links()}}
     </div>
-</div>
-<div class="pb-3">
-    <a class="btn btn-success py-20" href="{{ route('ratting.create')}}">Create</a>
 </div>
 @include('backend.layouts.modal')
 @endsection

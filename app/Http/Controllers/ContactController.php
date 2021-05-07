@@ -48,6 +48,7 @@ class ContactController extends Controller
             'phone_des' => 'required',
             'email' => 'required',
             'email_des' => 'required',
+            'footer_infor' => 'required',
         ]);
         $target = ContactInfor::find(1);
         $target->contact_address = $request->address;
@@ -56,6 +57,7 @@ class ContactController extends Controller
         $target->contact_phone_des = $request->phone_des;
         $target->contact_email = $request->email;
         $target->contact_email_des = $request->email_des;
+        $target->footer_infor = $request->footer_infor;
         $target->save();
         return redirect()->route('contact_infor.index')->with('success', 'Category updated successfully');
     }

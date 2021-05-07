@@ -15,27 +15,24 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        // echo User::first()->id;
-        $page = $request->get('page') !== null ? (int) $request->get('page') : 1;
-        $numPerPage = env('NUM_PER_PAGE');
+        $search = $request->get('search');
+        $result = User::where('name', 'like', "%{$search}%")
+            ->paginate(env('NUM_PER_PAGE'));
 
-            $result = User::limit($numPerPage)->offset(($page - 1) * $numPerPage)
-                ->get();
-            $totalItems = User::count();
-        
-        $totalPages = ceil($totalItems / $numPerPage);
-        if ($page <= 0 || $page > $totalPages) {
-            $page = 1;
-            $result = User::limit($numPerPage)->offset(($page - 1) * $numPerPage)
-                ->get();
-            
-        }
-        // $result = Post::limit($numPerPage)->offset(($page - 1)*$numPerPage)->get();
         return view('backend.user.index', [
             'users' => $result,
-            'totalPages' => $totalPages,
-            'currentPage' => $page,
+            'search' => $search,
         ]);
+    }
+
+    public function show($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return view('backend.user.show')->with('error', 'Cannot Found!');
+        } else {
+            return view('backend.user.show', ['user' => $user]);
+        }
     }
 
     public function create()
@@ -46,15 +43,16 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'max:50'],
+            'name' => ['required'],
             'email' => ['email', 'required', 'unique:users'],
-            'title' => 'required',
             'password' => ['required'],
             'password_confirm' => 'required|same:password',
         ]);
         $user = new User;
         $user->name = $request->name;
-        $user->title = $request->title;
+        if($request->title){
+            $user->title = $request->title;
+        }
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         if ($request->image !== null) {
@@ -80,14 +78,13 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name' => ['required', 'max:50'],
-            'title' => 'required',
-            'password' => ['required'],
+            'name' => ['required'],
         ]);
         $user = User::find($id);
         $user->name = $request->name;
-        $user->title = $request->title;
-        $user->password = Hash::make($request->password);
+        if($request->title){
+            $user->title = $request->title;
+        }
         if ($request->image !== null) {
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $newImageName);

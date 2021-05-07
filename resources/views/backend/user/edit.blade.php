@@ -10,7 +10,7 @@
                 <form action="{{ route('user.update', $user->id) }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="">Name </label>
+                        <label for="">Name *</label>
                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                             value="{{ $user->name }}">
                     </div>
@@ -19,12 +19,9 @@
                     @enderror
                     <div class="form-group">
                         <label for="">Description </label>
-                        <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
+                        <input type="text" name="title" class="form-control"
                             value="{{ $user->title }}">
                     </div>
-                    @error('title')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
                     <div class="form-group">
                         <label for="">Image </label>
                         @if ($user->image !== null)
