@@ -11,54 +11,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="pricing_item">
-                    <h3 class="p_title">{{substr($pkresult[0]->title, 0, 30)}}</h3>
-                    <h1 class="p_price">${{$pkresult[0]->price}}</h1>
-                    <div class="p_list">
-                        <ul>
-                            <li>{{substr($pkresult[0]->description1, 0, 30)}}</li>
-                            <li>{{substr($pkresult[0]->description2, 0, 30)}}</li>
-                            <li>{{substr($pkresult[0]->description3, 0, 30)}}</li>
-                        </ul>
-                    </div>
-                    <div class="p_btn">
-                        <a class="gradient_btn" href="{{route('price')}}"><span>Order Now</span></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="pricing_item">
-                    <h3 class="p_title">{{substr($pkresult[1]->title, 0, 30)}}</h3>
-                    <h1 class="p_price">${{$pkresult[1]->price}}</h1>
-                    <div class="p_list">
-                        <ul>
-                            <li>{{substr($pkresult[1]->description1, 0, 30)}}</li>
-                            <li>{{substr($pkresult[1]->description2, 0, 30)}}</li>
-                            <li>{{substr($pkresult[1]->description3, 0, 30)}}</li>
-                        </ul>
-                    </div>
-                    <div class="p_btn">
-                        <a class="gradient_btn" href="{{route('price')}}"><span>Order Now</span></a>
+            @foreach ($pkresult as $row)
+                <div class="col-lg-4 col-md-6">
+                    <div class="pricing_item">
+                        <h3 class="p_title">{{substr($row->title, 0, 30)}}</h3>
+                        <h1 class="p_price">${{$row->price}}</h1>
+                        <div class="p_list">
+                            <ul>
+                                <li>{{substr($row->description1, 0, 30)}}</li>
+                                <li>{{substr($row->description2, 0, 30)}}</li>
+                                <li>{{substr($row->description3, 0, 30)}}</li>
+                            </ul>
+                        </div>
+                        <div class="p_btn">
+                            <a class="gradient_btn" href="{{route('price')}}"><span>Order Now</span></a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="pricing_item">
-                    <h3 class="p_title">{{substr($pkresult[2]->title, 0, 30)}}</h3>
-                    <h1 class="p_price">${{$pkresult[2]->price}}</h1>
-                    <div class="p_list">
-                        <ul>
-                            <li>{{substr($pkresult[2]->description1, 0, 30)}}</li>
-                            <li>{{substr($pkresult[2]->description2, 0, 30)}}</li>
-                            <li>{{substr($pkresult[2]->description3, 0, 30)}}</li>
-                        </ul>
-                    </div>
-                    <div class="p_btn">
-                        <a class="gradient_btn" href="{{route('price')}}"><span>Order Now</span></a>
-                    </div>
-                </div>
-            </div>
+            @endforeach 
+            
         </div>
     </div>
 </section>

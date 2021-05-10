@@ -5,7 +5,7 @@
             <ul class="nav nav-tabs recent-tab-list" id="myTab" role="tablist">
                 @foreach ($result1 as $row)
                     <li class="nav-item">
-                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#{{ $row->link }}" role="tab"
+                        <a class="nav-link" id="home-tab" data-toggle="tab" href="#header{{ $row->id }}" role="tab"
                             aria-controls="{{ $row->link }}" aria-selected="true">
                             {{ $row->link }}
                         </a>
@@ -14,7 +14,7 @@
             </ul>
             <div class="tab-content recent-content-list" id="myTabContent">
                 @foreach ($result1 as $row)
-                    <div class="tab-pane fade show" id="{{ $row->link }}" role="tabpanel"
+                    <div class="tab-pane fade show" id="header{{ $row->id }}" role="tabpanel"
                         aria-labelledby="contact-tab">
                         <div class="row recent_update_text">
                             <div class="col-lg-6">

@@ -12,9 +12,15 @@ class AboutUsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('backend.about_us.index', ['about_us' => AboutUs::paginate(5)]);
+        $search = $request->get('search');
+        $result = AboutUs::where('title', 'like', "%{$search}%")
+            ->paginate(env('NUM_PER_PAGE'));
+        return view('backend.about_us.index', [
+            'about_us' => $result,
+            'search' => $search,
+        ]);
     }
 
     public function create()
@@ -24,10 +30,10 @@ class AboutUsController extends Controller
 
     public function store(Request $request)
     {
+        $status = $request->status !== null ? 1 : 0;
         $request->validate([
             'title' => ['required'],
             'content' => ['required'],
-            'link' => ['required'],
         ]);
         $about_us = new AboutUs;
         $about_us->title = $request->title;
@@ -38,6 +44,7 @@ class AboutUsController extends Controller
             $request->image->move(public_path('images'), $newImageName);
             $about_us->image = $newImageName;
         }
+        $about_us->status = $status;
         $about_us->save();
         return redirect()->route('about_us.index')->with('success', 'Info created successfully');
     }
@@ -89,15 +96,16 @@ class AboutUsController extends Controller
 
     public function update(Request $request, $id)
     {
+        $status = $request->status !== null ? 1 : 0;
         $request->validate([
             'title' => ['required'],
             'content' => ['required'],
-            'link' => ['required'],
         ]);
         $about_us = AboutUs::find($id);
-        $about_us->content = $request->content;
+        $about_us->content = $this->handleUploadImages($request->content);
         $about_us->title = $request->title;
         $about_us->link = $request->link;
+        $about_us->status = $status;
         if($request->image !== null){
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $newImageName);

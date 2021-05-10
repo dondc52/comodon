@@ -12,9 +12,14 @@ class RattingsController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
-        $result = Ratting::paginate(5);
-        return view('backend.ratting.index', ['rattings' => $result]);
+    public function index(Request $request){
+        $search = $request->get('search');
+        $result = Ratting::where('user_name', 'like', "%$search%")
+                    ->paginate(env('NUM_PER_PAGE'));
+        return view('backend.ratting.index', [
+            'rattings' => $result,
+            'search' => $search,
+            ]);
     }
 
     public function create(){

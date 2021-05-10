@@ -7,13 +7,20 @@ use Illuminate\Http\Request;
 
 class CustomersController extends Controller
 {
-    public function index(){
+    public function index(Request $request)
+    {
         $this->middleware('auth');
-        $result = Customer::paginate(5);
-        return view('backend.customer.index', ['customers' => $result]);
+        $search = $request->get('search');
+        $result = Customer::where('email', 'like', "%$search%")->paginate(env('NUM_PER_PAGE'));
+        return view('backend.customer.index', ['customers' => $result, 'search' => $search]);
     }
 
-    public function store(Request $request){
+    public function create(){
+        return view('backend.customer.create');
+    }
+
+    public function store(Request $request)
+    {
         $this->middleware('auth');
         $request->validate([
             'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:customers'],
@@ -24,7 +31,8 @@ class CustomersController extends Controller
         return redirect()->route('customer.index')->with('success', 'Customer created successfully');
     }
 
-    public function storeCustomer(Request $request){
+    public function storeCustomer(Request $request)
+    {
         $request->validate([
             'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:customers'],
         ]);
@@ -34,13 +42,14 @@ class CustomersController extends Controller
         return redirect()->back()->with('success', 'Customer created successfully');
     }
 
-    public function destroy($id){
+    public function destroy($id)
+    {
         $this->middleware('auth');
         $target = Customer::find($id);
         if (!$target) {
             return redirect()->route('customer.index')->with('error', 'Customer cannot found!');
         }
-        $target->delete(); 
+        $target->delete();
         return redirect()->route('customer.index')->with('success', 'Customer delete success!');
     }
 }

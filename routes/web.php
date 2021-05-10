@@ -126,8 +126,6 @@ Route::get('/admin/customers', [CustomersController::class, 'index'])->name('cus
 Route::get('/admin/customer/create', [CustomersController::class, 'create'])->name('customer.create');
 Route::post('/admin/fcustomerstore', [CustomersController::class, 'store'])->name('customer.store');
 Route::post('/admin/customer/{id}/destroy', [CustomersController::class, 'destroy'])->name('customer.destroy');
-Route::post('/admin/customer/{id}/update', [CustomersController::class, 'update'])->name('customer.update');
-Route::get('/admin/customer/{id}/edit', [CustomersController::class, 'edit'])->name('customer.edit');
 
 //ratting
 Route::get('/admin/rattings', [RattingsController::class, 'index'])->name('ratting.index');
@@ -147,9 +145,6 @@ Route::get('/admin/package/{id}/edit', [PackagesController::class, 'edit'])->nam
 
 //banner
 Route::get('/admin/banners', [BannerController::class, 'index'])->name('banner.index');
-Route::get('/admin/banner/create', [BannerController::class, 'create'])->name('banner.create');
-Route::post('/admin/banner/store', [BannerController::class, 'store'])->name('banner.store');
-Route::post('/admin/banner/{id}/destroy', [BannerController::class, 'destroy'])->name('banner.destroy');
 Route::post('/admin/banner/{id}/update', [BannerController::class, 'update'])->name('banner.update');
 Route::get('/admin/banner/{id}/edit', [BannerController::class, 'edit'])->name('banner.edit');
 

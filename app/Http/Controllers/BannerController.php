@@ -13,39 +13,16 @@ class BannerController extends Controller
     }
     
     public function index(){
-        $result = Banner::paginate(5);
-        return view('backend.banner.index', ['result' => $result]);
-    }
-
-    public function create(){
-        return view('backend.banner.create');
-    }
-
-    public function store(Request $request){
-        $request->validate([
-            'title' => ['required'],
+        $result = Banner::find(7);
+        return view('backend.banner.index', [
+            'result' => $result,
         ]);
-        $result = new Banner;
-        $result->title = $request->title;
-        $result->content = $request->content;
-        $result->video_link = $request->video_link;
-        if($request->image !== null){
-            $newImageName = time() . '-' . $request->title . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $newImageName);
-            $result->image = $newImageName;
-        }
-        $result->save();
-        return redirect()->route('banner.index')->with('success', 'Banner created successfully');
-    }
-
-    public function edit($id){
-        $result = Banner::find($id);
-        return view('backend.banner.edit', ['result' => $result]);
     }
 
     public function update(Request $request, $id){
         $request->validate([
             'title' => ['required'],
+            'content' => ['required'],
         ]);
         $target = Banner::find($id);
         $target->title = $request->title;
@@ -57,15 +34,6 @@ class BannerController extends Controller
             $target->image = $newImageName;
         }
         $target->save();
-        return redirect()->route('banner.index')->with('success', 'Banner updated successfully');
-    }
-
-    public function destroy($id){
-        $target = Banner::find($id);
-        if (!$target) {
-            return redirect()->route('banner.index')->with('error', 'Banner cannot found!');
-        }
-        $target->delete(); 
-        return redirect()->route('banner.index')->with('success', 'Banner delete success!');
+        return redirect()->back()->with('success', 'Banner updated successfully');
     }
 }

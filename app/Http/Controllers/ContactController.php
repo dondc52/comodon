@@ -44,9 +44,9 @@ class ContactController extends Controller
         $request->validate([
             'address' => 'required',
             'address_des' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:9',
             'phone_des' => 'required',
-            'email' => 'required',
+            'email' => 'email:rfc,dns',
             'email_des' => 'required',
             'footer_infor' => 'required',
         ]);

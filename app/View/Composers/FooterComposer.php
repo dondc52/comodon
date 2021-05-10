@@ -10,7 +10,7 @@ class FooterComposer
 {
     public function compose(View $view){
         $view->with([
-            'footer_links' => Footer_link::whereNull('parent_id')->take(4)->with('children')->get(),
+            'footer_links' => Footer_link::whereNull('parent_id')->with('children')->get(),
             'footer_infor' => ContactInfor::find(1)->value('footer_infor'),
         ]);
     }

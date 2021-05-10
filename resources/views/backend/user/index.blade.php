@@ -4,11 +4,11 @@
         @include('layouts.flash-message')
         <div class="card-header">
             <h2 class="card-title">User</h2>
-            
+            <a class="btn btn-success float-right" href="{{ route('user.create') }}">Create</a>
         </div>
         <div class="card-body">
-            <a class="btn btn-success float-left" href="{{ route('user.create') }}">Create</a>
-            <form action="{{ route('user.index') }}" class="row mb-3 pr-2 col-4 float-right" method="get">
+            
+            <form action="{{ route('user.index') }}" class="row mb-3 pr-2 col-4 " method="get">
                 <div class="input-group">
                     <input type="search" class="form-control rounded" placeholder="Search..." name="search"
                         value="{{ $search }}">
@@ -41,9 +41,9 @@
                             <td>
                                 <a class="btn btn-info" href="{{ route('user.show', $user->id) }}"><i
                                         class="fas fa-info-circle"></i></a>
-                                <a class="btn btn-info" href="{{ route('user.edit', $user->id) }}"><i
+                                <a class="btn btn-warning text-white" href="{{ route('user.edit', $user->id) }}"><i
                                         class="fas fa-edit"></i></a>
-                                <a class="btn btn-info" href="{{ route('user.editpw', $user->id) }}"><i
+                                <a class="btn btn-warning text-white" href="{{ route('user.editpw', $user->id) }}"><i
                                         class="fas fa-key"></i></a>
                                 <a data-action="{{ route('user.destroy', $user->id) }}"
                                     class="btn btn-danger deleteStudent" data-toggle="modal" data-target="#exampleModal">

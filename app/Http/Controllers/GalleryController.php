@@ -18,6 +18,9 @@ class GalleryController extends Controller
         return view('backend.gallery.index', ['result' => $result]);
     }
     public function store(Request $request){
+        $request->validate([
+            'image' => 'required',
+        ]);
         $result = new Gallery;
         if($request->image !== null){
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();

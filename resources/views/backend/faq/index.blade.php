@@ -4,10 +4,10 @@
         @include('layouts.flash-message')
         <div class="card-header">
             <h3 class="card-title">Frequently Asked Questions</h3>
+            <a class="btn btn-success float-right" href="{{ route('faq.create') }}">Create</a>
         </div>
         <div class="card-body">
-            <a class="btn btn-success float-left" href="{{ route('faq.create') }}">Create</a>
-            <form action="{{ route('faq.index') }}" class="row mb-3 pr-2 col-4 float-right" method="get">
+            <form action="{{ route('faq.index') }}" class="row mb-3 pr-2 col-4" method="get">
                 <div class="input-group">
                     <input type="search" class="form-control rounded" placeholder="Search..." name="search" value="{{ $search }}">
                     <button type="submit" class="btn btn-primary">Search</button>
@@ -32,12 +32,10 @@
                             <td>
                                 @if ($row->status == 1)
                                     Show
-                                @else
-                                    Hidden
                                 @endif
                             </td>
                             <td width="10%">
-                                <a class="btn btn-info" href="{{ route('faq.edit', $row->id) }}"><i
+                                <a class="btn btn-warning text-white" href="{{ route('faq.edit', $row->id) }}"><i
                                         class="fas fa-edit"></i></a>
                                 <a data-action="{{ route('faq.destroy', $row->id) }}" class="btn btn-danger deleteStudent"
                                     data-toggle="modal" data-target="#exampleModal">

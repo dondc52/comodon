@@ -25,6 +25,10 @@
                     <label for="">Image </label>
                     <input class="w-100" type="file" name="image">
                 </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" name="status" value="1">
+                    <label class="form-check-label" for="exampleRadios1">Show</label>
+                </div>
                 <button class="btn btn-primary mr-3" type="submit">Submit</button>
                 <a class="btn btn-secondary" href="{{ route('category.index') }}">Quay Lại</a>
             </form>

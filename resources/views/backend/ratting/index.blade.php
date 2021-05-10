@@ -1,12 +1,19 @@
 @extends('backend.layouts.admin')
 @section('content')
-@include('layouts.flash-message')
 <div class="card col-10">
+    @include('layouts.flash-message')
     <div class="card-header">
         <h3 class="card-title">Ratting</h3>
         <a class="btn btn-success float-right" href="{{ route('ratting.create')}}">Create</a>
     </div>
     <div class="card-body">
+        <form action="{{ route('ratting.index') }}" class="row mb-3 pr-2 col-4" method="get">
+            <div class="input-group">
+                <input type="search" class="form-control rounded" placeholder="Search..." name="search"
+                    value="{{ $search }}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
         <table class="table table-bordered">
             <thead class="">
                 <tr>
@@ -27,7 +34,7 @@
                     <td>{{ $row->star_number }}</td>
                     <td>{{ $row->score }}</td>
                     <td width="10%">
-                        <a class="btn btn-info" href="{{ route('ratting.edit', $row->id) }}"><i class="fas fa-edit"></i></a>
+                        <a class="btn btn-warning text-white" href="{{ route('ratting.edit', $row->id) }}"><i class="fas fa-edit"></i></a>
                         <a data-action="{{ route('ratting.destroy', $row->id ) }}" class="btn btn-danger deleteStudent" data-toggle="modal" data-target="#exampleModal">
                             <i class="fas fa-trash-alt"></i>
                         </a>
@@ -38,7 +45,7 @@
         </table>
     </div>
     <div class="card-footer">
-        {{$rattings->links()}}
+        {{$rattings->appends(['search'=>$search])->links()}}
     </div>
 </div>
 @include('backend.layouts.modal')

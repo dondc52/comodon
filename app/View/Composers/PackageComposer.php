@@ -9,7 +9,7 @@ class PackageComposer
 {
     public function compose(View $view){
         $view->with([
-            'pkresult' => Package::take(3)->orderBy('created_at', 'desc')->get(),
+            'pkresult' => Package::where('status', 1)->orderBy('created_at', 'desc')->get(),
         ]);
     }
 }

@@ -4,10 +4,10 @@
         @include('layouts.flash-message')
         <div class="card-header">
             <h2 class="card-title">Game</h2>
+            <a class="btn btn-success float-right" href="{{ route('game.create') }}">Create</a>
         </div>
         <div class="card-body">
-            <a class="btn btn-success float-left" href="{{ route('game.create') }}">Create</a>
-            <form action="{{ route('game.index') }}" class="row mb-3 pr-2 col-4 float-right" method="get">
+            <form action="{{ route('game.index') }}" class="row mb-3 pr-2 col-4" method="get">
                 <div class="input-group">
                     <input type="search" class="form-control rounded" placeholder="Search..." name="search"
                         value="{{ $search }}">
@@ -36,7 +36,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a class="btn btn-info" href="{{ route('game.edit', $game->id) }}"><i
+                                <a class="btn btn-warning text-white" href="{{ route('game.edit', $game->id) }}"><i
                                         class="fas fa-edit"></i></a>
                                 <a data-action="{{ route('game.destroy', $game->id) }}"
                                     class="btn btn-danger deleteStudent" data-toggle="modal" data-target="#exampleModal">

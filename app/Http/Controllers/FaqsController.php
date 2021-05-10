@@ -24,14 +24,16 @@ class FaqsController extends Controller
     }
 
     public function store(Request $request){
+        $status = $request->status !== null ? 1 : 0;
         $request->validate([
             'title' => 'required',
             'content' => 'required',
         ]);
+        // return $status;
         Faq::create([
             'title' => $request->title,
             'content' => $request->content,
-            'status' => $request->status,
+            'status' => $status,
         ]);
         return redirect()->route('faq.index')->with('success', 'Created successfully');
     }
@@ -42,6 +44,7 @@ class FaqsController extends Controller
     }
 
     public function update(Request $request, $id){
+        $status = $request->status !== null ? 1 : 0;
         $request->validate([
             'title' => 'required',
             'content' => 'required',
@@ -49,7 +52,7 @@ class FaqsController extends Controller
         $target = Faq::find($id);
         $target->title = $request->title;
         $target->content = $request->content;
-        $target->status = $request->status;
+        $target->status = $status;
         $target->save();
         return redirect()->route('faq.index')->with('success', 'Updated successfully');
     }

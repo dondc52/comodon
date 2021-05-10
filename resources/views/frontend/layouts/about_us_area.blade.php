@@ -16,9 +16,6 @@
                     @if ($result->image !== null)
                         <img width="540px" class="img-fluid w-100"
                             src="{{ asset('images/' . $result->image) }}" alt="">
-                    @else
-                        <img width="540px" class="img-fluid"
-                            src="{{ asset('images/1618911794-.png') }}" alt="">
                     @endif
                 </div>
             </div>

@@ -7,15 +7,23 @@
         <a class="btn btn-success float-right" href="{{ route('package.create')}}">Create</a>
     </div>
     <div class="card-body">
+        <form action="{{ route('package.index') }}" class="row mb-3 pr-2 col-4" method="get">
+            <div class="input-group">
+                <input type="search" class="form-control rounded" placeholder="Search..." name="search"
+                    value="{{ $search }}">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
         <table class="table table-bordered">
             <thead class="">
                 <tr>
                     <th width="5%">ID </th>
                     <th width="20%">Title </th>
-                    <th width="">Description1 </th>
-                    <th width="">Description2 </th>
-                    <th width="">Description3 </th>
-                    <th width="5%">Price </th>
+                    <th width="15%">Description 1 </th>
+                    <th width="15%">Description 2 </th>
+                    <th width="15%">Description 3 </th>
+                    <th width="10%">Price </th>
+                    <th width="10%">Status </th>
                     <th width="10%">Action </th>
                 </tr>
             </thead>
@@ -28,8 +36,13 @@
                     <td>{{ $row->description2 }}</td>
                     <td>{{ $row->description3 }}</td>
                     <td>{{ $row->price }}</td>
-                    <td width="10%">
-                        <a class="btn btn-info" href="{{ route('package.edit', $row->id) }}"><i class="fas fa-edit"></i></a>
+                    <td>
+                        @if($row->status == 1)
+                            Show
+                        @endif
+                    </td>
+                    <td>
+                        <a class="btn btn-warning text-white" href="{{ route('package.edit', $row->id) }}"><i class="fas fa-edit"></i></a>
                         <a data-action="{{ route('package.destroy', $row->id ) }}" class="btn btn-danger deleteStudent" data-toggle="modal" data-target="#exampleModal">
                             <i class="fas fa-trash-alt"></i>
                         </a>
@@ -40,7 +53,7 @@
         </table>
     </div>
     <div class="card-footer">
-        {{$packages->links()}}
+        {{ $packages->appends(['search' => $search])->links() }}
     </div>
 </div>
 @include('backend.layouts.modal')

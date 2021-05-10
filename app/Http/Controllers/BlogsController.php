@@ -10,54 +10,35 @@ class BlogsController extends Controller
 {
     public function listpost(Request $request)
     {
-        $page = $request->get('page') !== null ? (int) $request->get('page') : 1;
         $cate = $request->get('cate');
-        $numPerPage = env('NUM_PER_PAGE');
+        $auth = $request->get('auth');
+        $search = $request->get('search');
 
-        if ($cate == null) {
-            $result = Post::join('users', 'posts.user_id', '=', 'users.id')
-                ->join('categories', 'posts.cat_id', '=', 'categories.id')
-                ->limit($numPerPage)->offset(($page - 1) * $numPerPage)
-                ->get(['posts.*', 'categories.cat_name', 'users.name']);
-            $totalItems = Post::count();
-        } else {
-            if (!Category::find($cate)) {
-                $cate = Category::first()->id;
-            }
-            $result = Post::join('users', 'posts.user_id', '=', 'users.id')
-                ->join('categories', 'posts.cat_id', '=', 'categories.id')
-                ->where('categories.id', '=', $cate)
-                ->limit($numPerPage)->offset(($page - 1) * $numPerPage)
-                ->get(['posts.*', 'categories.cat_name', 'users.name']);
-            $totalItems = Post::join('categories', 'posts.cat_id', '=', 'categories.id')
-                ->where('categories.id', '=', $cate)
-                ->count();
+        $whereClause = [];
+
+        if($cate){
+            $whereClause[] = ['categories.id', '=', $cate];
         }
-        $totalPages = ceil($totalItems / $numPerPage);
-        if ($page <= 0 || $page > $totalPages) {
-            $page = 1;
-            if ($cate == null) {
-                $result = Post::join('users', 'posts.user_id', '=', 'users.id')
-                    ->join('categories', 'posts.cat_id', '=', 'categories.id')
-                    ->limit($numPerPage)->offset(($page - 1) * $numPerPage)
-                    ->get(['posts.*', 'categories.cat_name', 'users.name']);
-            } else {
-                if (!Category::find($cate)) {
-                    $cate = Category::first()->id;
-                }
-                $result = Post::join('users', 'posts.user_id', '=', 'users.id')
-                    ->join('categories', 'posts.cat_id', '=', 'categories.id')
-                    ->where('categories.id', '=', $cate)
-                    ->limit($numPerPage)->offset(($page - 1) * $numPerPage)
-                    ->get(['posts.*', 'categories.cat_name', 'users.name']);
-            }
+
+        if($auth){
+            $whereClause[] = ['users.id', '=', $auth];
         }
-        // $result = Post::limit($numPerPage)->offset(($page - 1)*$numPerPage)->get();
+
+        if($search){
+            $whereClause[] = ['posts.title', 'like', "%$search%"];
+        }
+
+        $result = Post::join('users', 'posts.user_id', '=', 'users.id')
+                ->join('categories', 'posts.cat_id', '=', 'categories.id')
+                ->where($whereClause)
+                ->select(['posts.*', 'categories.cat_name', 'users.name'])
+                ->paginate(env('NUM_PER_PAGE'));
+
         return view('frontend.blog', [
             'result1' => $result,
-            'totalPages' => $totalPages,
-            'currentPage' => $page,
-            'cateNumber' => $cate,
+            'auth' => $auth,
+            'search' => $search,
+            'cate' => $cate,
         ]);
     }
 }

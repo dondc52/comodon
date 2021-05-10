@@ -17,8 +17,8 @@ class PostController extends Controller
 
     public function index(Request $request)
     {
-        $cate = $request->get('cate') !== null ? (int) $request->get('cate') : 0;
-        $auth = $request->get('auth') !== null ? (int) $request->get('auth') : 0;
+        $cate = $request->get('cate');
+        $auth = $request->get('auth');
         $search = $request->get('search');
 
         $whereClause = [];

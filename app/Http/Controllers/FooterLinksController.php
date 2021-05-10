@@ -12,13 +12,15 @@ class FooterLinksController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
-        $result = Footer_link::paginate(5);
-        return view('backend.footer_link.index', ['footer_links' => $result]);
+    public function index(Request $request){
+        $search = $request->get('search');
+        $result = Footer_link::where('link_name', 'like', "%$search%")->paginate(env('NUM_PER_PAGE'));
+        return view('backend.footer_link.index', ['footer_links' => $result, 'search' => $search]);
     }
 
     public function create(){
-        return view('backend.footer_link.create');
+        $result = Footer_link::where('parent_id', null)->get();
+        return view('backend.footer_link.create', ['parent' => $result]);
     }
 
     public function store(Request $request){
@@ -28,14 +30,15 @@ class FooterLinksController extends Controller
         Footer_link::create([
             'link_name' => $request->link_name,
             'link_content' => $request->link_content,
-            'parent_id' => $request->parent_id,
+            'parent_id' => $request->parent_id != 0 ? $request->parent_id : null,
         ]);
         return redirect()->route('footer_link.index')->with('success', 'Footer_link created successfully');
     }
 
     public function edit($id){
         $result = Footer_link::find($id);
-        return view('backend.footer_link.edit', ['result' => $result]);
+        $parent = Footer_link::where('parent_id', null)->get();
+        return view('backend.footer_link.edit', ['result' => $result, 'parent' => $parent]);
     }
 
     public function update(Request $request, $id){

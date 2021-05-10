@@ -10,7 +10,7 @@ class CategoryComposer
 {
     public function compose(View $view){
         $view->with([
-            'result' => Category::take(3)->orderBy('created_at', 'desc')->get(),
+            'result' => Category::where('status', 1)->orderBy('created_at', 'desc')->get(),
         ]);
     }
 }

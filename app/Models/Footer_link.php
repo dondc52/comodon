@@ -16,4 +16,7 @@ class Footer_link extends Model
     {
         return $this->hasMany($this, 'parent_id', 'id');
     }
+    public function parent(){
+        return $this->hasOne($this, 'id', 'parent_id')->value('link_name');
+    }
 }

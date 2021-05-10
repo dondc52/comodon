@@ -1,6 +1,6 @@
 @extends('backend.layouts.admin')
 @section('content')
-    
+
     <div class="row">
         <div class="card col-9">
             @include('layouts.flash-message')
@@ -34,6 +34,9 @@
                             <label for="">Image </label>
                             <input class="w-100" type="file" name="image" accept="image/x-png,image/gif,image/jpeg">
                         </div>
+                        @error('image')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                         <button class="btn btn-primary mr-3" type="submit">Submit</button>
                     </form>
                 </div>

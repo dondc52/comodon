@@ -12,9 +12,14 @@ class PackagesController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
-        $result = Package::paginate(5);
-        return view('backend.package.index', ['packages' => $result]);
+    public function index(Request $request){
+        $search = $request->get('search');
+        $result = Package::where('title', 'like', "%{$search}%")
+            ->paginate(env('NUM_PER_PAGE'));
+        return view('backend.package.index', [
+            'packages' => $result,
+            'search' => $search,
+        ]);
     }
 
     public function create(){
@@ -25,9 +30,7 @@ class PackagesController extends Controller
         $request->validate([
             'title' => 'required',
             'description1' => 'required',
-            'description2' => 'required',
-            'description3' => 'required',
-            'price' => 'numeric',
+            'price' => 'required|numeric',
         ]);
         Package::create([
             'title' => $request->title,
@@ -35,6 +38,7 @@ class PackagesController extends Controller
             'description2' => $request->description2,
             'description3' => $request->description3,
             'price' => $request->price,
+            'status' => $request->status,
         ]);
         return redirect()->route('package.index')->with('success', 'package created successfully');
     }
@@ -48,9 +52,7 @@ class PackagesController extends Controller
         $request->validate([
             'title' => 'required',
             'description1' => 'required',
-            'description2' => 'required',
-            'description3' => 'required',
-            'price' => 'numeric',
+            'price' => 'numeric|required',
         ]);
         $target = Package::find($id);
         $target->title = $request->title;
@@ -58,6 +60,7 @@ class PackagesController extends Controller
         $target->description2 = $request->description2;
         $target->description3 = $request->description3;
         $target->price = $request->price;
+        $target->status = $request->status;
         $target->save();
         return redirect()->route('package.index')->with('success', 'package updated successfully');
     }

@@ -1,6 +1,5 @@
 @extends('backend.layouts.admin')
 @section('content')
-    @include('layouts.flash-message')
     <div class="card col-md-10">
         <div class="card-header">
             <h3 class="card-title">

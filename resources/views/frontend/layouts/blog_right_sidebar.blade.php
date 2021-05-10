@@ -1,27 +1,27 @@
 <div class="col-lg-4">
     <div class="blog_right_sidebar">
         <aside class="single_sidebar_widget search_widget">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search Posts">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button"><i class="lnr lnr-magnifier"></i></button>
-                </span>
-            </div><!-- /input-group -->
+            <form action="{{route('blog')}}" method="get">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Search Posts">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit"><i class="lnr lnr-magnifier"></i></button>
+                    </span>
+                </div>
+            </form>
             <div class="br"></div>
         </aside>
         <aside class="single_sidebar_widget author_widget">
             @if ($result[0]->image !== null)
-                <img width="200px" height="200px" class="author_img rounded-circle" src="{{ asset('images/' . $result[0]->image) }}" alt="" />
-            @else
-                <img class="author_img rounded-circle" src="{{ asset('images/avatar.jpg') }}" alt="" />
+                <a href="{{route('blog')}}?auth={{$result[0]->id}}"><img width="200px" height="200px" class="author_img rounded-circle" src="{{ asset('images/' . $result[0]->image) }}" alt="" /></a>
             @endif
-            <h4>{{ substr($result[0]->name, 0, 20) }}</h4>
+            <a href="{{route('blog')}}?auth={{$result[0]->id}}"><h4>{{ substr($result[0]->name, 0, 20) }}</h4></a>
             <p>{{ substr($result[0]->title, 0, 30) }}</p>
             <div class="social_icon">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-github"></i></a>
-                <a href="#"><i class="fa fa-behance"></i></a>
+                <a href=""><i class="fa fa-facebook"></i></a>
+                <a href=""><i class="fa fa-twitter"></i></a>
+                <a href=""><i class="fa fa-github"></i></a>
+                <a href=""><i class="fa fa-behance"></i></a>
             </div>
             <p>{{ substr($result[0]->title, 0, 200) }}</p>
             <div class="br"></div>
@@ -36,7 +36,7 @@
                         <img width="100" height="60px" src="{{ asset('images/1618897571-abc.png') }}" alt="post" />
                     @endif
                     <div class="media-body">
-                        <a href="blog-details.html">
+                        <a href="{{route('post.show', $row->id)}}">
                             <h3>{{ substr($row->title, 0, 25) }}</h3>
                         </a>
                         <p>02 Hours ago</p>
@@ -47,7 +47,7 @@
             <div class="br"></div>
         </aside>
         <aside class="single_sidebar_widget ads_widget">
-            <a href="#"><img class="img-fluid" src="{{ asset('assets/img/blog/add.jpg') }}" alt=""></a>
+            <a href=""><img class="img-fluid" src="{{ asset('assets/img/blog/add.jpg') }}" alt=""></a>
             <div class="br"></div>
         </aside>
         <aside class="single_sidebar_widget post_category_widget">
@@ -89,18 +89,18 @@
         <aside class="single-sidebar-widget tag_cloud_widget">
             <h4 class="widget_title">Tag Clouds</h4>
             <ul class="list">
-                <li><a href="#">Technology</a></li>
-                <li><a href="#">Fashion</a></li>
-                <li><a href="#">Architecture</a></li>
-                <li><a href="#">Fashion</a></li>
-                <li><a href="#">Food</a></li>
-                <li><a href="#">Technology</a></li>
-                <li><a href="#">Lifestyle</a></li>
-                <li><a href="#">Art</a></li>
-                <li><a href="#">Adventure</a></li>
-                <li><a href="#">Food</a></li>
-                <li><a href="#">Lifestyle</a></li>
-                <li><a href="#">Adventure</a></li>
+                <li><a href="">Technology</a></li>
+                <li><a href="">Fashion</a></li>
+                <li><a href="">Architecture</a></li>
+                <li><a href="">Fashion</a></li>
+                <li><a href="">Food</a></li>
+                <li><a href="">Technology</a></li>
+                <li><a href="">Lifestyle</a></li>
+                <li><a href="">Art</a></li>
+                <li><a href="">Adventure</a></li>
+                <li><a href="">Food</a></li>
+                <li><a href="">Lifestyle</a></li>
+                <li><a href="">Adventure</a></li>
             </ul>
         </aside>
     </div>

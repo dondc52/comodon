@@ -30,9 +30,11 @@ class CategoryController extends Controller
         $request->validate([
             'name' => ['required'],
         ]);
+        $status = $request->status !== null ? 1 : 0;
         $result = new Category;
         $result->cat_name = $request->name;
         $result->description = $request->description;
+        $result->status = $status;
         if($request->image !== null){
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $newImageName);
@@ -51,9 +53,11 @@ class CategoryController extends Controller
         $request->validate([
             'name' => ['required'],
         ]);
+        $status = $request->get('status') !== null ? 1 : 0;
         $target = Category::find($id);
         $target->cat_name = $request->name;
         $target->description = $request->description;
+        $target->status = $status;
         if($request->image !== null){
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $newImageName);

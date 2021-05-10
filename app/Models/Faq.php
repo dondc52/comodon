@@ -12,6 +12,6 @@ class Faq extends Model
     protected $table = 'faq';
 
     protected $fillable = [
-        'title', 'content',
+        'title', 'content', 'status',
     ];
 }

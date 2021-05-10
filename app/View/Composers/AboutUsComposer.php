@@ -9,8 +9,8 @@ class AboutUsComposer
 {
     public function compose(View $view){
         $view->with([
-            'result' => AboutUs::first(),
-            'result1' => AboutUs::take(3)->orderBy('created_at', 'desc')->get(),
+            'result' => AboutUs::where('status', 1)->orderByDesc('created_at')->first(),
+            'result1' => AboutUs::orderBy('created_at', 'desc')->get(),
         ]);
     }
 }

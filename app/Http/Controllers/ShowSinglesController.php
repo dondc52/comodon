@@ -13,10 +13,14 @@ class ShowSinglesController extends Controller
         $result3 = Post::find($id);
         $result4 = Post::find($id)->user;
         $result5 = Post::find($id)->cat;
+        $next = Post::where('id', '>', $id)->where('cat_id', '=', $result3->cat_id)->orderBy('id')->first();
+        $prev = Post::where('id', '<', $id)->where('cat_id', '=', $result3->cat_id)->orderByDesc('id')->first();
         return view('frontend.single_blog', [
             'result3' => $result3,
             'result4' => $result4,
             'result5' => $result5,
+            'next' => $next,
+            'prev' => $prev,
         ]);
     }
 

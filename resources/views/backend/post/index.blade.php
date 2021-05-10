@@ -7,8 +7,8 @@
             <a class="btn btn-success float-right" href="{{ route('post.create') }}">Create</a>
         </div>
         <div class="card-body">
-            <div class="row mb-3">
-                <form action="{{ route('post.index') }}" class="row col-md-9" method="get">
+            <div class="mb-3 col-9 p-0">
+                <form action="{{ route('post.index') }}" class="row" method="get">
                     <div class="col-md-3">
                         <select class="form-control" name="cate">
                             <option value="" >Select category</option>
@@ -62,7 +62,7 @@
                                 @endif
                             </td>
                             <td>
-                                <a class="btn btn-info" href="{{ route('post.edit', $row->id) }}"><i
+                                <a class="btn btn-warning text-white" href="{{ route('post.edit', $row->id) }}"><i
                                         class="fas fa-edit"></i></a>
                                 <a data-action="{{ route('post.destroy', $row->id) }}"
                                     class="btn btn-danger deleteStudent" data-toggle="modal" data-target="#exampleModal">

@@ -11,6 +11,6 @@ class Package extends Model
 
     protected $table = 'packages';
     protected $fillable = [
-        'title', 'description1', 'description2', 'description3', 'price',
+        'title', 'description1', 'description2', 'description3', 'price', 'status',
     ];
 }
