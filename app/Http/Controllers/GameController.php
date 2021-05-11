@@ -33,13 +33,12 @@ class GameController extends Controller
     {
         $request->validate([
             'name' => ['required'],
+            'description' => ['required'],
             'image' => ['required'],
         ]);
         $game = new Game;
         $game->name = $request->name;
-        if ($request->description) {
-            $game->description = $request->description;
-        }
+        $game->description = $request->description;
         $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
         $request->image->move(public_path('images'), $newImageName);
         $game->image = $newImageName;
@@ -57,15 +56,16 @@ class GameController extends Controller
     {
         $request->validate([
             'name' => ['required'],
+            'description' => ['required'],
+            'image' => ['required'],
         ]);
         $game = Game::find($id);
         $game->description = $request->description;
         $game->name = $request->name;
-        if ($request->image !== null) {
-            $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $newImageName);
-            $game->image = $newImageName;
-        }
+        $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
+        $request->image->move(public_path('images'), $newImageName);
+        $game->image = $newImageName;
+        
         $game->save();
         return redirect()->route('game.index')->with('success', 'Game updated success!');
     }

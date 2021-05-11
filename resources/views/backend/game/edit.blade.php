@@ -17,14 +17,14 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
                 <div class="form-group">
-                    <label for="">Description </label>
+                    <label for="">Description *</label>
                     <input type="text" class="form-control" name="description" value="{{ $game->description }}">
                 </div>
                 @error('description')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
                 <div class="form-group">
-                    <label for="">Image </label>
+                    <label for="">Image *</label>
                     @if ($game->image !== null)
                         <div class="w-100 py-2">
                             <img width="80px" src="{{ asset('images/' . $game->image) }}" alt="" />
@@ -32,6 +32,9 @@
                     @endif
                     <input class="w-100" type="file" name="image" value="" accept="image/x-png,image/gif,image/jpeg">
                 </div>
+                @error('image')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
                 <button class="btn btn-primary mr-3" type="submit">Submit</button>
                 <a class="btn btn-secondary" href="{{ route('game.index') }}">Quay Lại</a>
             </form>

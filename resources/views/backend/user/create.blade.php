@@ -10,7 +10,7 @@
                 <form action="{{ route('user.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
-                        <label for="">Name * </label>
+                        <label for="">Name *</label>
                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                             value="{{ old('name') }}">
                     </div>
