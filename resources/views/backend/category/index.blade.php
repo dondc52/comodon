@@ -21,7 +21,7 @@
                         <th width="15%">Name </th>
                         <th width="">Description </th>
                         <th width="10%">Image </th>
-                        <th width="10%">Status </th>
+                        <th width="10%">Display </th>
                         <th width="10%">Action </th>
                     </tr>
                 </thead>
@@ -38,7 +38,7 @@
                             </td>
                             <td>
                                 @if ($row->status == 1)
-                                    Show
+                                    On
                                 @endif
                             </td>
                             <td>

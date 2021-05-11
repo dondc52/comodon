@@ -23,7 +23,7 @@
                     <th width="15%">Description 2 </th>
                     <th width="15%">Description 3 </th>
                     <th width="10%">Price </th>
-                    <th width="10%">Status </th>
+                    <th width="10%">Display </th>
                     <th width="10%">Action </th>
                 </tr>
             </thead>
@@ -38,7 +38,7 @@
                     <td>{{ $row->price }}</td>
                     <td>
                         @if($row->status == 1)
-                            Show
+                            On
                         @endif
                     </td>
                     <td>

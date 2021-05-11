@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\SendMailToCustomer;
 use App\Models\Category;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
 
 class PostController extends Controller
 {
@@ -71,6 +75,7 @@ class PostController extends Controller
         $result->description = $request->description;
         $result->content = $this->handleUploadImages($request->content);
         $result->cat_id = $request->cat_id;
+        $result->status = 0;
         $result->user_id = Auth::user()->id;
         if ($request->image !== null) {
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
@@ -81,6 +86,7 @@ class PostController extends Controller
         $result->comment_number = $request->comment_number !== null ? $request->comment_number : 0;
         $result->view_number = $request->view_number !== null ? $request->view_number : 0;
         $result->save();
+
         return redirect()->route('post.index')->with('success', 'Post created success');
     }
     public function destroy($id)

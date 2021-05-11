@@ -22,26 +22,28 @@
 <section class="blog_categorie_area">
     <div class="container">
         <div class="row">
-            @foreach ($result as $row)
-                <div class="col-lg-4">
-                    <div class="categories_post">
-                        @if($row->image)
-                        <img src="{{ asset('images/' . $row->image) }}" alt="post">
-                        @else 
-                        <img src="{{ asset('images/1619582490-FOOD.jpg') }}" alt="post"> 
-                        @endif
-                        <a href="{{ route('blog') }}?cate={{ $row->id }}">
-                            <div class="categories_details">
-                                <div class="categories_text">
-                                    <h5>{{ substr($row->cat_name, 0, 30) }}</h5>
-                                    <div class="border_line"></div>
-                                    <p>{{ substr($row->description, 0, 40) }}</p>
+            @if ($result)
+                @foreach ($result as $row)
+                    <div class="col-lg-4">
+                        <div class="categories_post">
+                            @if($row->image)
+                            <img src="{{ asset('images/' . $row->image) }}" alt="post">
+                            @else 
+                            <img src="{{ asset('images/1619582490-FOOD.jpg') }}" alt="post"> 
+                            @endif
+                            <a href="{{ route('blog') }}?cate={{ $row->id }}">
+                                <div class="categories_details">
+                                    <div class="categories_text">
+                                        <h5>{{ substr($row->cat_name, 0, 30) }}</h5>
+                                        <div class="border_line"></div>
+                                        <p>{{ substr($row->description, 0, 40) }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            @endif 
         </div>
     </div>
 </section>

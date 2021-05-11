@@ -37,9 +37,9 @@
                     @endif
                     <input class="w-100" type="file" name="image" value="">
                 </div>
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" name="status" value="1" {{$about_us->status == 1 ? 'checked' : ''}}>
-                    <label class="form-check-label">Show</label>
+                <div class="custom-control col-6 custom-switch form-check mb-3">
+                    <input type="checkbox" class="custom-control-input" id="switch1" name="status" value="1" {{$about_us->status == 1 ? 'checked' : ''}}>
+                    <label class="custom-control-label" for="switch1">Display</label>
                 </div>
                 <button class="btn btn-primary mr-3" type="submit">Submit</button>
                 <a class="btn btn-secondary" href="{{ route('about_us.index') }}">Quay Lại</a>

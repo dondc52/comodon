@@ -19,9 +19,12 @@
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
                 <div class="form-group">
-                    <label for=""> Description</label>
-                    <input type="text" class="form-control" name="description" value="{{ $result->description }}">
+                    <label for=""> Description *</label>
+                    <input type="text" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ $result->description }}">
                 </div>
+                @error('description')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
                 <div class="form-group">
                     <label for="">Image </label>
                     @if ($result->image !== null)
@@ -31,9 +34,9 @@
                     @endif
                     <input class="w-100" type="file" name="image" value="">
                 </div>
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" name="status" value="1" {{$result->status == 1 ? 'checked' : ''}}>
-                    <label class="form-check-label" for="exampleRadios1">Show</label>
+                <div class="custom-control col-6 custom-switch form-check mb-3">
+                    <input type="checkbox" class="custom-control-input" id="switch1" name="status" value="1" {{$result->status == 1 ? 'checked' : ''}}>
+                    <label class="custom-control-label" for="switch1">Display</label>
                 </div>
                 <button class="btn btn-primary mr-3" type="submit">Submit</button>
                 <a class="btn btn-secondary" href="{{ route('category.index') }}">Quay Lại</a>

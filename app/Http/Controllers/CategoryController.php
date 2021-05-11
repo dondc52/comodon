@@ -29,6 +29,7 @@ class CategoryController extends Controller
     public function store(Request $request){
         $request->validate([
             'name' => ['required'],
+            'description' => ['required'],
         ]);
         $status = $request->status !== null ? 1 : 0;
         $result = new Category;
@@ -52,6 +53,7 @@ class CategoryController extends Controller
     public function update(Request $request, $id){
         $request->validate([
             'name' => ['required'],
+            'description' => ['required'],
         ]);
         $status = $request->get('status') !== null ? 1 : 0;
         $target = Category::find($id);

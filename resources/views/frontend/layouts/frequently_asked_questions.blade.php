@@ -11,14 +11,16 @@
             </div>
         </div>
         <div class="row frequent_inner">
-            @foreach ($faqresult as $row)
-                <div class="col-lg-6 col-md-6">
-                    <div class="frequent_item">
-                        <h3> {{substr($row->title, 0, 50)}} </h3>
-                        <p>{{substr($row->content, 0, 200)}}</p>
+            @if ($faqresult)
+                @foreach ($faqresult as $row)
+                    <div class="col-lg-6 col-md-6">
+                        <div class="frequent_item">
+                            <h3> {{substr($row->title, 0, 50)}} </h3>
+                            <p>{{substr($row->content, 0, 200)}}</p>
+                        </div>
                     </div>
-                </div>
-            @endforeach 
+                @endforeach 
+            @endif 
         </div>
     </div>
 </section>

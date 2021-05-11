@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactMail;
+use App\Mail\SendMailToCustomer;
 use App\Models\ContactInfor;
+use App\Models\Customer;
 
 class ContactController extends Controller
 {
@@ -26,7 +28,7 @@ class ContactController extends Controller
         Mail::to(env('MAIL_FROM_ADDRESS'))->send(new ContactMail($details));
         return redirect()->route('contact')->with('success', 'Your message has been sent successfully!');
     }
-
+    
     public function index(){
         $contactInfor = ContactInfor::find(1);
         return view('backend.contact_infor', [
@@ -34,13 +36,6 @@ class ContactController extends Controller
         ]);
     }
     public function update(Request $request){
-        // echo $request->phone;
-        // echo $request->phone_des;
-        // echo $request->address;
-        // echo $request->address_des;
-        // echo $request->email;
-        // echo $request->email_des;
-
         $request->validate([
             'address' => 'required',
             'address_des' => 'required',

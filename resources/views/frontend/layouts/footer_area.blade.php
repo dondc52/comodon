@@ -2,27 +2,31 @@
 <footer class="footer_area section_gap_top">
     <div class="container">
         <div class="row footer_inner">
-            @foreach ($footer_links as $linkItem)
-                <div class="col-lg-3 col-sm-6">
-                    <aside class="f_widget ab_widget">
-                        <div class="f_title">
-                            <h4>{{ $linkItem->link_name }}</h4>
-                        </div>
-                        <ul>
-                            @foreach ($linkItem->children as $children)
-                                <li><a href="{{ $children->link_content }}"></a>{{ $children->link_name }}</a></li>
-                            @endforeach
-                        </ul>
+            @if ($footer_links)
+                @foreach ($footer_links as $linkItem)
+                    <div class="col-lg-3 col-sm-6">
+                        <aside class="f_widget ab_widget">
+                            <div class="f_title">
+                                <h4>{{ $linkItem->link_name }}</h4>
+                            </div>
+                            <ul>
+                                @foreach ($linkItem->children as $children)
+                                    <li><a href="{{ $children->link_content }}"></a>{{ $children->link_name }}</a></li>
+                                @endforeach
+                            </ul>
 
-                    </aside>
-                </div>
-            @endforeach
+                        </aside>
+                    </div>
+                @endforeach
+            @endif 
         </div>
         <div class="row single-footer-widget">
             <div class="col-lg-6 col-md-6 col-sm-12">
-                <div class="copy_right_text">
-                    <p>{{$footer_infor}}</p>
-                </div>
+                @if ($footer_infor)
+                    <div class="copy_right_text">
+                        <p>{{$footer_infor}}</p>
+                    </div>
+                @endif 
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="social_widget">

@@ -1,7 +1,7 @@
 <div class="col-lg-4">
     <div class="blog_right_sidebar">
         <aside class="single_sidebar_widget search_widget">
-            <form action="{{route('blog')}}" method="get">
+            <form action="{{ route('blog') }}" method="get">
                 <div class="input-group">
                     <input type="text" name="search" class="form-control" placeholder="Search Posts">
                     <span class="input-group-btn">
@@ -13,9 +13,13 @@
         </aside>
         <aside class="single_sidebar_widget author_widget">
             @if ($result[0]->image !== null)
-                <a href="{{route('blog')}}?auth={{$result[0]->id}}"><img width="200px" height="200px" class="author_img rounded-circle" src="{{ asset('images/' . $result[0]->image) }}" alt="" /></a>
+                <a href="{{ route('blog') }}?auth={{ $result[0]->id }}"><img width="200px" height="200px"
+                        class="author_img rounded-circle" src="{{ asset('images/' . $result[0]->image) }}"
+                        alt="" /></a>
             @endif
-            <a href="{{route('blog')}}?auth={{$result[0]->id}}"><h4>{{ substr($result[0]->name, 0, 20) }}</h4></a>
+            <a href="{{ route('blog') }}?auth={{ $result[0]->id }}">
+                <h4>{{ substr($result[0]->name, 0, 20) }}</h4>
+            </a>
             <p>{{ substr($result[0]->title, 0, 30) }}</p>
             <div class="social_icon">
                 <a href=""><i class="fa fa-facebook"></i></a>
@@ -36,7 +40,7 @@
                         <img width="100" height="60px" src="{{ asset('images/1618897571-abc.png') }}" alt="post" />
                     @endif
                     <div class="media-body">
-                        <a href="{{route('post.show', $row->id)}}">
+                        <a href="{{ route('post.show', $row->id) }}">
                             <h3>{{ substr($row->title, 0, 25) }}</h3>
                         </a>
                         <p>02 Hours ago</p>
@@ -55,7 +59,8 @@
             <ul class="list cat-list">
                 @foreach ($result2 as $row)
                     <li>
-                        <a href="{{route('blog')}}?cate={{$row->id}}" class="d-flex justify-content-between">
+                        <a href="{{ route('blog') }}?cate={{ $row->id }}"
+                            class="d-flex justify-content-between">
                             <p>{{ $row->cat_name }}</p>
                             <p>{{ count($row->posts) }}</p>
                         </a>

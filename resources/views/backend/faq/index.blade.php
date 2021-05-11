@@ -19,7 +19,7 @@
                         <th width="5%">ID </th>
                         <th width="20%">Title </th>
                         <th width="">Content </th>
-                        <th width="7%">Status </th>
+                        <th width="7%">Display </th>
                         <th width="10%">Action </th>
                     </tr>
                 </thead>
@@ -31,7 +31,7 @@
                             <td>{{ $row->content }}</td>
                             <td>
                                 @if ($row->status == 1)
-                                    Show
+                                    On
                                 @endif
                             </td>
                             <td width="10%">

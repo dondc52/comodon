@@ -11,25 +11,26 @@
             </div>
         </div>
         <div class="row">
-            @foreach ($pkresult as $row)
-                <div class="col-lg-4 col-md-6">
-                    <div class="pricing_item">
-                        <h3 class="p_title">{{substr($row->title, 0, 30)}}</h3>
-                        <h1 class="p_price">${{$row->price}}</h1>
-                        <div class="p_list">
-                            <ul>
-                                <li>{{substr($row->description1, 0, 30)}}</li>
-                                <li>{{substr($row->description2, 0, 30)}}</li>
-                                <li>{{substr($row->description3, 0, 30)}}</li>
-                            </ul>
-                        </div>
-                        <div class="p_btn">
-                            <a class="gradient_btn" href="{{route('price')}}"><span>Order Now</span></a>
+            @if ($pkresult)
+                @foreach ($pkresult as $row)
+                    <div class="col-lg-4 col-md-6">
+                        <div class="pricing_item">
+                            <h3 class="p_title">{{substr($row->title, 0, 30)}}</h3>
+                            <h1 class="p_price">${{$row->price}}</h1>
+                            <div class="p_list">
+                                <ul>
+                                    <li>{{substr($row->description1, 0, 30)}}</li>
+                                    <li>{{substr($row->description2, 0, 30)}}</li>
+                                    <li>{{substr($row->description3, 0, 30)}}</li>
+                                </ul>
+                            </div>
+                            <div class="p_btn">
+                                <a class="gradient_btn" href="{{route('price')}}"><span>Order Now</span></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            @endforeach 
-            
+                @endforeach 
+            @endif 
         </div>
     </div>
 </section>

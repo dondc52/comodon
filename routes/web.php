@@ -21,6 +21,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\FooterLinksController;
+use App\Http\Controllers\SendMailCustomerController;
 use App\Http\Controllers\ShowSinglesController;
 
 /*
@@ -169,6 +170,8 @@ Route::post('/form/send', [FrontController::class, 'addFeedback'])->name('seendm
 Route::get('formemail', [EmailController::class, 'sendEmail']);
 
 Route::get('/send-email', [MailController::class, 'sendEmail']);
+
+Route::get('/send-mail-to-customer', [SendMailCustomerController::class, 'sendEmailToCustom']);
 
 Route::post('/sendmessage', [ContactController::class, 'sendEmailContact'])->name('contact.send');
 

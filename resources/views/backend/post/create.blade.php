@@ -9,6 +9,18 @@
     <div class="card-body">
         <form action="{{ route('post.store') }}" method="post" enctype="multipart/form-data">
             @csrf
+            <div class="form-group col-4 pl-0">
+                <label for="">Category *</label>
+                <select class="form-control" name="cat_id" id="cat_id">
+                    <option value="0">Select category</option>
+                    @foreach ($result as $row)
+                        <option value="{{$row->id}}">{{$row->cat_name}}</option>
+                    @endforeach
+                </select>
+                @error('cat_id')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
             <div class="form-group">
                 <label for="">Title * </label>
                 <input type="text" name="title" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}">
@@ -32,18 +44,6 @@
             @error('content')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
-            <div class="form-group col-4 pl-0">
-                <label for="">Category *</label>
-                <select class="form-control" name="cat_id" id="cat_id">
-                    <option value="0">Select category</option>
-                    @foreach ($result as $row)
-                        <option value="{{$row->id}}">{{$row->cat_name}}</option>
-                    @endforeach
-                </select>
-                @error('cat_id')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-            </div>
             <div class="form-group col-3 pl-0">
                 <label for="">Image </label>
                 <input class="w-100" type="file" name="image" accept="image/x-png,image/gif,image/jpeg">

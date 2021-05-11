@@ -9,29 +9,8 @@
         <div class="card-body">
             <form action="{{ route('post.update', $result->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
-                <div class="form-group">
-                    <label for="">Title </label>
-                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
-                        value="{{ $result->title }}">
-                </div>
-                @error('title')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-                <div class="form-group">
-                    <label for="">Description </label>
-                    <input type="text" name="description" class="form-control @error('description') is-invalid @enderror"
-                        value="{{ $result->description }}">
-                </div>
-                @error('description')
-                    <div class="alert alert-danger">{{ $message }}</div>
-                @enderror
-                <div class="form-group">
-                    <label for="">Content </label>
-                    <textarea id="summernote" class="form-control" name="content">
-                        {{ $result->content }}
-                    </textarea>
-                </div>
-                <select class="form-control" name="cat_id" id="cat_id">
+                <select class="form-control col-4 pl-0" name="cat_id" id="cat_id">
+                    <label for="">Category *</label>
                     <option value="0">Select category</option>
                     @foreach ($result1 as $row)
                         <option value="{{ $row->id }}" {{ $row->id == $result2->id ? 'selected' : '' }}>
@@ -41,6 +20,28 @@
                 @error('cat_id')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
+                <div class="form-group">
+                    <label for="">Title *</label>
+                    <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
+                        value="{{ $result->title }}">
+                </div>
+                @error('title')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                <div class="form-group">
+                    <label for="">Description *</label>
+                    <input type="text" name="description" class="form-control @error('description') is-invalid @enderror"
+                        value="{{ $result->description }}">
+                </div>
+                @error('description')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+                <div class="form-group">
+                    <label for="">Content *</label>
+                    <textarea id="summernote" class="form-control" name="content">
+                        {{ $result->content }}
+                    </textarea>
+                </div>
                 <div class="form-group col-3">
                     <label for="">Image </label>
                     @if ($result->image !== null)

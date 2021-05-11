@@ -7,7 +7,7 @@
 			<div class="row">
 				<div class="col-lg-6">
 					<div class="home_left_img">
-						@if ($bannerresult->image !== null)
+						@if ($bannerresult->image)
 							<img width="540px" class="img-fluid" src="{{ asset('images/'.$bannerresult->image) }}" alt="">
 						@else 
 							<img width="540px" class="img-fluid" src="{{ asset('assets/img/banner/home-left.png') }}" alt="">
@@ -16,16 +16,18 @@
 				</div>
 				<div class="col-lg-6">
 					<div class="banner_content">
-						<h2>{{substr($bannerresult->title, 0, 35)}}</h2>
-						<p>{{substr($bannerresult->content, 0, 150)}}</p>
-						<div class="d-flex align-items-center">
-							@if($bannerresult->video_link)
-								<a id="play-home-video" class="video-play-button" href="{{$bannerresult->video_link}}"><span></span></a>
-								<div class="watch_video text-uppercase">
-									watch the video
-								</div>
-							@endif
-						</div>
+						@if ($bannerresult)
+							<h2>{{substr($bannerresult->title, 0, 35)}}</h2>
+							<p>{{substr($bannerresult->content, 0, 150)}}</p>
+							<div class="d-flex align-items-center">
+								@if($bannerresult->video_link)
+									<a id="play-home-video" class="video-play-button" href="{{$bannerresult->video_link}}"><span></span></a>
+									<div class="watch_video text-uppercase">
+										watch the video
+									</div>
+								@endif
+							</div>
+						@endif 
 					</div>
 				</div>
 			</div>
