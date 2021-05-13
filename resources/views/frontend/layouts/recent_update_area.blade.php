@@ -2,9 +2,9 @@
 <section class="recent_update_area section_gap">
     <div class="container">
         <div class="recent_update_inner">
-            @if ($result1)
+            @if ($recent_about_us)
                 <ul class="nav nav-tabs recent-tab-list" id="myTab" role="tablist">
-                    @foreach ($result1 as $row)
+                    @foreach ($recent_about_us as $row)
                         <li class="nav-item">
                             <a class="nav-link" id="home-tab" data-toggle="tab" href="#header{{ $row->id }}" role="tab"
                                 aria-controls="{{ $row->link }}" aria-selected="true">
@@ -14,7 +14,7 @@
                     @endforeach
                 </ul>
                 <div class="tab-content recent-content-list" id="myTabContent">
-                    @foreach ($result1 as $row)
+                    @foreach ($recent_about_us as $row)
                         <div class="tab-pane fade show" id="header{{ $row->id }}" role="tabpanel"
                             aria-labelledby="contact-tab">
                             <div class="row recent_update_text">

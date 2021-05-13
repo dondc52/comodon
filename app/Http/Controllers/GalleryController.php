@@ -11,7 +11,6 @@ class GalleryController extends Controller
     public function __construct(Gallery $gallery)
     {
         $this->gallery = $gallery;
-        $this->middleware('auth');
     }
     public function index(){
         $result = $this->gallery->showAllGallery();

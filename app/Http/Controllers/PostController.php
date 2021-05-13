@@ -14,11 +14,6 @@ use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index(Request $request)
     {
         $cate = $request->get('cate');
@@ -47,7 +42,7 @@ class PostController extends Controller
 
         
         return view('backend.post.index', [
-            'result' => $result,
+            'posts' => $result,
             'cates' => Category::all(),
             'auths' => User::all(),
             'cate' => $cate,
@@ -70,22 +65,22 @@ class PostController extends Controller
             'content' => ['required'],
             'cat_id' => ['numeric', 'not_in:0'],
         ]);
-        $result = new Post;
-        $result->title = $request->title;
-        $result->description = $request->description;
-        $result->content = $this->handleUploadImages($request->content);
-        $result->cat_id = $request->cat_id;
-        $result->status = 0;
-        $result->user_id = Auth::user()->id;
+        $target = new Post;
+        $target->title = $request->title;
+        $target->description = $request->description;
+        $target->content = $this->handleUploadImages($request->content);
+        $target->cat_id = $request->cat_id;
+        $target->status = 0;
+        $target->user_id = Auth::user()->id;
         if ($request->image !== null) {
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $newImageName);
-            $request->image = $newImageName;
+            $target->image = $newImageName;
         }
-        $result->like_number = $request->like_number !== null ? $request->like_number : 0;
-        $result->comment_number = $request->comment_number !== null ? $request->comment_number : 0;
-        $result->view_number = $request->view_number !== null ? $request->view_number : 0;
-        $result->save();
+        $target->like_number = $request->like_number !== null ? $request->like_number : 0;
+        $target->comment_number = $request->comment_number !== null ? $request->comment_number : 0;
+        $target->view_number = $request->view_number !== null ? $request->view_number : 0;
+        $target->save();
 
         return redirect()->route('post.index')->with('success', 'Post created success');
     }
@@ -141,8 +136,7 @@ class PostController extends Controller
     {
         $result = Post::find($id);
         $result1 = Category::all();
-        $result2 = Category::find($result->cat_id);
-        return view('backend.post.edit', ['result' => $result, 'result1' => $result1, 'result2' => $result2]);
+        return view('backend.post.edit', ['post' => $result, 'categories' => $result1]);
     }
     public function update(Request $request, $id)
     {

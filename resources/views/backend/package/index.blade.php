@@ -43,7 +43,7 @@
                     </td>
                     <td>
                         <a class="btn btn-warning text-white" href="{{ route('package.edit', $row->id) }}"><i class="fas fa-edit"></i></a>
-                        <a data-action="{{ route('package.destroy', $row->id ) }}" class="btn btn-danger deleteStudent" data-toggle="modal" data-target="#exampleModal">
+                        <a data-action="{{ route('package.destroy', $row->id ) }}" class="btn btn-danger delete" data-toggle="modal" data-target="#exampleModal">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>

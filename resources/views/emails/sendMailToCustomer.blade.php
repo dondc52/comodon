@@ -7,10 +7,8 @@
     <title>Contact Form</title>
 </head>
 <body>
-    <h1>{{$details['subject']}}</h1>
-    <h2>Title: {{$details['title']}}</h2>
-    <p>Description: {{$details['description']}}</p>
+    <h4>{{$details['description']}}</h4>
     {!! $details['content'] !!}
-    <a href="{{$details['link']}}">link post</a>
+    <a href="{{$details['link']}}">Link post</a>
 </body>
 </html>

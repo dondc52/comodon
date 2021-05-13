@@ -7,10 +7,6 @@ use App\Models\Game;
 
 class GameController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function index(Request $request)
     {
@@ -72,11 +68,11 @@ class GameController extends Controller
 
     public function destroy($id)
     {
-        $game = Game::find($id);
-        if (!$game) {
+        $result = Game::find($id);
+        if (!$result) {
             return redirect()->route('game.index')->with('error', 'Game cannot found!');
         }
-        $game->delete();
+        $result->delete();
         return redirect()->route('game.index')->with('success', 'Game delete success!');
     }
 }

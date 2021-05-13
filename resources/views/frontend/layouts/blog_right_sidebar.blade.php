@@ -12,42 +12,46 @@
             <div class="br"></div>
         </aside>
         <aside class="single_sidebar_widget author_widget">
-            @if ($result[0]->image !== null)
-                <a href="{{ route('blog') }}?auth={{ $result[0]->id }}"><img width="200px" height="200px"
-                        class="author_img rounded-circle" src="{{ asset('images/' . $result[0]->image) }}"
-                        alt="" /></a>
+            @if($user > 0)
+                @if ($user[0]->image !== null)
+                    <a href="{{ route('blog') }}?auth={{ $user[0]->id }}"><img width="200px" height="200px"
+                            class="author_img rounded-circle" src="{{ asset('images/' . $user[0]->image) }}"
+                            alt="" /></a>
+                @endif
+                <a href="{{ route('blog') }}?auth={{ $user[0]->id }}">
+                    <h4>{{ substr($user[0]->name, 0, 20) }}</h4>
+                </a>
+                <p>{{ substr($user[0]->title, 0, 30) }}</p>
+                <div class="social_icon">
+                    <a href=""><i class="fa fa-facebook"></i></a>
+                    <a href=""><i class="fa fa-twitter"></i></a>
+                    <a href=""><i class="fa fa-github"></i></a>
+                    <a href=""><i class="fa fa-behance"></i></a>
+                </div>
+                <p>{{ substr($user[0]->title, 0, 200) }}</p>
+                <div class="br"></div>
             @endif
-            <a href="{{ route('blog') }}?auth={{ $result[0]->id }}">
-                <h4>{{ substr($result[0]->name, 0, 20) }}</h4>
-            </a>
-            <p>{{ substr($result[0]->title, 0, 30) }}</p>
-            <div class="social_icon">
-                <a href=""><i class="fa fa-facebook"></i></a>
-                <a href=""><i class="fa fa-twitter"></i></a>
-                <a href=""><i class="fa fa-github"></i></a>
-                <a href=""><i class="fa fa-behance"></i></a>
-            </div>
-            <p>{{ substr($result[0]->title, 0, 200) }}</p>
-            <div class="br"></div>
         </aside>
         <aside class="single_sidebar_widget popular_post_widget">
             <h3 class="widget_title">Popular Posts</h3>
-            @foreach ($result1 as $row)
-                <div class="media post_item">
-                    @if ($row->image !== null)
-                        <img width="100" height="60px" src="{{ asset('images/' . $row->image) }}" alt="post" />
-                    @else
-                        <img width="100" height="60px" src="{{ asset('images/1618897571-abc.png') }}" alt="post" />
-                    @endif
-                    <div class="media-body">
-                        <a href="{{ route('post.show', $row->id) }}">
-                            <h3>{{ substr($row->title, 0, 25) }}</h3>
-                        </a>
-                        <p>02 Hours ago</p>
-                        <p>{{ now()->diffForHumans($row->created_at) }}</p>
+            @if ($posts->count() > 0)
+                @foreach ($posts as $row)
+                    <div class="media post_item">
+                        @if ($row->image !== null)
+                            <img width="100" height="60px" src="{{ asset('images/' . $row->image) }}" alt="post" />
+                        @else
+                            <img width="100" height="60px" src="{{ asset('images/1618897571-abc.png') }}" alt="post" />
+                        @endif
+                        <div class="media-body">
+                            <a href="{{ route('post.show', $row->id) }}">
+                                <h3>{{ substr($row->title, 0, 25) }}</h3>
+                            </a>
+                            <p>02 Hours ago</p>
+                            <p>{{ now()->diffForHumans($row->created_at) }}</p>
+                        </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            @endif
             <div class="br"></div>
         </aside>
         <aside class="single_sidebar_widget ads_widget">
@@ -57,15 +61,17 @@
         <aside class="single_sidebar_widget post_category_widget">
             <h4 class="widget_title">Post Catgories</h4>
             <ul class="list cat-list">
-                @foreach ($result2 as $row)
-                    <li>
-                        <a href="{{ route('blog') }}?cate={{ $row->id }}"
-                            class="d-flex justify-content-between">
-                            <p>{{ $row->cat_name }}</p>
-                            <p>{{ count($row->posts) }}</p>
-                        </a>
-                    </li>
-                @endforeach
+                @if ($categories->count() > 0)
+                    @foreach ($categories as $row)
+                        <li>
+                            <a href="{{ route('blog') }}?cate={{ $row->id }}"
+                                class="d-flex justify-content-between">
+                                <p>{{ $row->cat_name }}</p>
+                                <p>{{ count($row->posts) }}</p>
+                            </a>
+                        </li>
+                    @endforeach
+                @endif
             </ul>
             <div class="br"></div>
         </aside>

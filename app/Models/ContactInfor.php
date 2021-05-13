@@ -11,6 +11,6 @@ class ContactInfor extends Model
     protected $table = 'contact_infors';
     protected $fillable = [
         'contact_address', 'contact_address_des', 'contact_phone', 'contact_phone_des',
-        'contact_email', 'contact_email_des',
+        'contact_email', 'contact_email_des', 'map',
     ];
 }

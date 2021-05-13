@@ -9,7 +9,7 @@ class BannerComposer
 {
     public function compose(View $view){
         $view->with([
-            'bannerresult' => Banner::first(),
+            'banner' => Banner::first(),
         ]);
     }
 }

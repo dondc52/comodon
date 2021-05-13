@@ -35,7 +35,7 @@ class BlogsController extends Controller
                 ->paginate(env('NUM_PER_PAGE'));
 
         return view('frontend.blog', [
-            'result1' => $result,
+            'posts' => $result,
             'auth' => $auth,
             'search' => $search,
             'cate' => $cate,

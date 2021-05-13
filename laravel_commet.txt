@@ -743,5 +743,5 @@ user đăng nhiều bái viết nhất
   limit 1;
 		
 
-
+xac thuc email https://viblo.asia/p/tim-hieu-email-verification-trong-laravel-GrLZDX6wZk0
 		

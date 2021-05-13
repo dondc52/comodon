@@ -9,7 +9,7 @@ class RattingComposer
 {
     public function compose(View $view){
         $view->with([
-            'rattingresult' => Ratting::all(),
+            'ratings' => Ratting::all(),
         ]);
     }
 }

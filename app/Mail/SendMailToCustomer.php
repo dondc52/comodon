@@ -29,6 +29,6 @@ class SendMailToCustomer extends Mailable
      */
     public function build()
     {
-        return $this->subject('Contact Message')->view('emails.sendMailToCustomer');
+        return $this->subject($this->details['title'])->view('emails.sendMailToCustomer');
     }
 }

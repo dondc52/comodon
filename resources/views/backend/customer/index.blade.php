@@ -29,7 +29,7 @@
                             <td>{{ $row->email }}</td>
                             <td width="10%">
                                 <a data-action="{{ route('customer.destroy', $row->id) }}"
-                                    class="btn btn-danger deleteStudent" data-toggle="modal" data-target="#exampleModal">
+                                    class="btn btn-danger delete" data-toggle="modal" data-target="#exampleModal">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>

@@ -1,4 +1,4 @@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,9 +12,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <form id="deleteFormStudent" class="delete" method="post">
+                <form id="deleteForm" method="post">
                     @csrf
-                    <button type="button" id="myModalBtn" class="btn btn-primary">Delete</button>
+                    <button type="button" id="deleteBtn" class="btn btn-primary">Delete</button>
                 </form>
             </div>
         </div>

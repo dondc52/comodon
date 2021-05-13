@@ -37,7 +37,7 @@
                             <td width="10%">
                                 <a class="btn btn-warning text-white" href="{{ route('faq.edit', $row->id) }}"><i
                                         class="fas fa-edit"></i></a>
-                                <a data-action="{{ route('faq.destroy', $row->id) }}" class="btn btn-danger deleteStudent"
+                                <a data-action="{{ route('faq.destroy', $row->id) }}" class="btn btn-danger delete"
                                     data-toggle="modal" data-target="#exampleModal">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>

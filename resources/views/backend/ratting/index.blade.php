@@ -35,7 +35,7 @@
                     <td>{{ $row->score }}</td>
                     <td width="10%">
                         <a class="btn btn-warning text-white" href="{{ route('ratting.edit', $row->id) }}"><i class="fas fa-edit"></i></a>
-                        <a data-action="{{ route('ratting.destroy', $row->id ) }}" class="btn btn-danger deleteStudent" data-toggle="modal" data-target="#exampleModal">
+                        <a data-action="{{ route('ratting.destroy', $row->id ) }}" class="btn btn-danger delete" data-toggle="modal" data-target="#exampleModal">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     </td>

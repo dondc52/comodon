@@ -25,21 +25,21 @@
                 <div class="single-post row">
                     <div class="col-lg-12">
                         <div class="feature-img">
-                            @if ($result3->image)
-                                <img class="img-fluid" src="{{ asset('images/'.$result3->image) }}" alt="" />
+                            @if ($post->image)
+                                <img class="img-fluid" src="{{ asset('images/'.$post->image) }}" alt="" />
                             @endif 
                         </div>									
                     </div>
                     <div class="col-lg-3  col-md-3">
                         <div class="blog_info text-right">
                             <div class="post_tag">
-                                <a href="{{route('blog')}}?cate={{$result3->cat_id}}">{{$result5->cat_name}}</a>
+                                <a href="{{route('blog')}}?cate={{$post->cat_id}}">{{$category->cat_name}}</a>
                             </div>
                             <ul class="blog_meta list">
-                                <li><a href="{{route('blog')}}?auth={{$result3->user_id}}">{{$result4->name}}<i class="lnr lnr-user"></i></a></li>
-                                <li><a href="">{{date('d-m-Y', strtotime($result3->created_at))}}<i class="lnr lnr-calendar-full"></i></a></li>
-                                <li><a href="">{{$result3->view_number}} Views<i class="lnr lnr-eye"></i></a></li>
-                                <li><a href="">{{$result3->comment_number}} Comments<i class="lnr lnr-bubble"></i></a></li>
+                                <li><a href="{{route('blog')}}?auth={{$post->user_id}}">{{$user->name}}<i class="lnr lnr-user"></i></a></li>
+                                <li><a href="">{{date('d-m-Y', strtotime($post->created_at))}}<i class="lnr lnr-calendar-full"></i></a></li>
+                                <li><a href="">{{$post->view_number}} Views<i class="lnr lnr-eye"></i></a></li>
+                                <li><a href="">{{$post->comment_number}} Comments<i class="lnr lnr-bubble"></i></a></li>
                             </ul>
                             <ul class="social-links">
                                 <li><a href=""><i class="fa fa-facebook"></i></a></li>
@@ -50,12 +50,12 @@
                         </div>
                     </div>
                     <div class="col-lg-9 col-md-9 blog_details">
-                        <h2> {{$result3->title}} </h2>
-                        <p class="excert"> {{$result3->description}} </p>
+                        <h2> {{$post->title}} </h2>
+                        <p class="excert"> {{$post->description}} </p>
                     </div>
                     <div class="col-lg-12">
                         <div class="">
-                            {!! $result3->content !!}
+                            {!! $post->content !!}
                         </div>
                     </div>
                 </div>

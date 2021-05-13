@@ -7,11 +7,6 @@ use Illuminate\Http\Request;
 
 class FooterLinksController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index(Request $request){
         $search = $request->get('search');
         $result = Footer_link::where('link_name', 'like', "%$search%")->paginate(env('NUM_PER_PAGE'));

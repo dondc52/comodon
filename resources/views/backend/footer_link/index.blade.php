@@ -35,7 +35,7 @@
                                 <a class="btn btn-warning text-white" href="{{ route('footer_link.edit', $row->id) }}"><i
                                         class="fas fa-edit"></i></a>
                                 <a data-action="{{ route('footer_link.destroy', $row->id) }}"
-                                    class="btn btn-danger deleteStudent" data-toggle="modal" data-target="#exampleModal">
+                                    class="btn btn-danger delete" data-toggle="modal" data-target="#exampleModal">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>

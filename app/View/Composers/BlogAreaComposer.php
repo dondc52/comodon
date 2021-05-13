@@ -9,7 +9,7 @@ class BlogAreaComposer
 {
     public function compose(View $view){
         $view->with([
-            'result' => Post::take(3)->orderByDesc('created_at')->get(),
+            'posts' => Post::take(3)->orderByDesc('created_at')->get(),
         ]);
     }
 }

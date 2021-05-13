@@ -22,8 +22,8 @@
 <section class="blog_categorie_area">
     <div class="container">
         <div class="row">
-            @if ($result)
-                @foreach ($result as $row)
+            @if ($categories)
+                @foreach ($categories as $row)
                     <div class="col-lg-4">
                         <div class="categories_post">
                             @if($row->image)
@@ -55,7 +55,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="blog_left_sidebar">
-                    @foreach ($result1 as $row)
+                    @foreach ($posts as $row)
                         <article class="row blog_item">
                             <div class="col-md-3">
                                 <div class="blog_info text-right">
@@ -94,7 +94,7 @@
                         <div class="col-md-3"></div>
                         <div class="col-md-9 right">
                             <div>
-                                {{$result1->appends(['auth'=>$auth, 'cate' => $cate, 'search' => $search])->links()}}
+                                {{$posts->appends(['auth'=>$auth, 'cate' => $cate, 'search' => $search])->links()}}
                             </div>
                         </div>
                     </div>

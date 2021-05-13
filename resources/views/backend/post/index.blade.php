@@ -49,7 +49,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($result as $row)
+                    @foreach ($posts as $row)
                         <tr>
                             <td>{{ $row->id }}</td>
                             <td>{{ $row->title }}</td>
@@ -65,7 +65,7 @@
                                 <a class="btn btn-warning text-white" href="{{ route('post.edit', $row->id) }}"><i
                                         class="fas fa-edit"></i></a>
                                 <a data-action="{{ route('post.destroy', $row->id) }}"
-                                    class="btn btn-danger deleteStudent" data-toggle="modal" data-target="#exampleModal">
+                                    class="btn btn-danger delete" data-toggle="modal" data-target="#exampleModal">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
@@ -75,7 +75,7 @@
             </table>
         </div>
         <div class="ml-3">
-            {{ $result->appends(['search'=> $search , 'cate' => $cate, 'auth' => $auth ])->links() }}
+            {{ $posts->appends(['search'=> $search , 'cate' => $cate, 'auth' => $auth ])->links() }}
         </div>
     </div>
     </div>

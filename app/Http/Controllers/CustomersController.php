@@ -9,7 +9,6 @@ class CustomersController extends Controller
 {
     public function index(Request $request)
     {
-        $this->middleware('auth');
         $search = $request->get('search');
         $result = Customer::where('email', 'like', "%$search%")->paginate(env('NUM_PER_PAGE'));
         return view('backend.customer.index', ['customers' => $result, 'search' => $search]);
@@ -21,7 +20,6 @@ class CustomersController extends Controller
 
     public function store(Request $request)
     {
-        $this->middleware('auth');
         $request->validate([
             'email' => ['required', 'string', 'email:rfc,dns', 'max:255', 'unique:customers'],
         ]);
@@ -44,7 +42,6 @@ class CustomersController extends Controller
 
     public function destroy($id)
     {
-        $this->middleware('auth');
         $target = Customer::find($id);
         if (!$target) {
             return redirect()->route('customer.index')->with('error', 'Customer cannot found!');

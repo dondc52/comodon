@@ -74,6 +74,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('order.index') }}"
+                        class="nav-link {{ request()->is('admin/order*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-file-invoice"></i>
+                        <p>Order</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('about_us.index') }}"
                         class="nav-link {{ request()->is('admin/about-us*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>

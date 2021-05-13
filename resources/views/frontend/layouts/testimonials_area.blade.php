@@ -1,10 +1,9 @@
-
 <!--========== Start Testimonials Area ==================-->
 <section class="testimonials_area section_gap">
 	<div class="container">
 		<div class="testi_slider owl-carousel">
-			@if ($rattingresult)
-				@foreach ($rattingresult as $row)
+			@if ($ratings)
+				@foreach ($ratings as $row)
 					<div class="testi_item">
 						<h1 style="font-size:50px; color:white;">{{$row->score}}</h1>
 						<h4>{{substr($row->user_name, 0, 20)}}</h4>

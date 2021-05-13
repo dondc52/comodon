@@ -12,7 +12,7 @@
                     <div class="pr-3 pb-3 position-relative">
                         <img width="180px" height="180px" src="{{ asset('images/' . $row->image) }}" alt="">
                         <a style="top:2px; right:18px" data-action="{{ route('gallery.destroy', $row->id) }}"
-                            class="btn btn-sm btn-danger position-absolute deleteStudent" data-toggle="modal"
+                            class="btn btn-sm btn-danger position-absolute delete" data-toggle="modal"
                             data-target="#exampleModal">
                             <i class="fas fa-trash-alt"></i>
                         </a>

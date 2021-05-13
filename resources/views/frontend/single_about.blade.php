@@ -24,19 +24,19 @@
             <div class="single-post row">
                 <div class="col-lg-12">
                     <div class="feature-img">
-                        @if ($result3->image !== null)
-                            <img class="img-fluid" src="{{ asset('images/'.$result3->image) }}" alt="" />
+                        @if ($about->image !== null)
+                            <img class="img-fluid" src="{{ asset('images/'.$about->image) }}" alt="" />
                         @else
                             <img class="img-fluid" src="{{ asset('images/1618897571-abc.png') }}" alt="" />
                         @endif 
                     </div>									
                 </div>
                 <div class="col-lg-12 col-md-12 blog_details">
-                    <h2> {{$result3->title}} </h2>
+                    <h2> {{$about->title}} </h2>
                 </div>
                 <div class="col-lg-12">
                     <div class="">
-                        {!! $result3->content !!}
+                        {!! $about->content !!}
                     </div>
                 </div>
             </div>

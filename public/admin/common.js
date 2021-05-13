@@ -1,15 +1,23 @@
-$(document).ready(function() {
-    $('.deleteStudent').click(function() {
-        $('#deleteFormStudent').attr('action' , $(this).attr('data-action'));
+$(document).ready(function () {
+  $('.delete').click(function () {
+    $('#deleteForm').attr('action', $(this).attr('data-action'));
+  });
+  $('#deleteBtn').click(function () {
+    $('#deleteForm').submit();
+  });
+
+  $('.update').click(function () {
+    $('#updateForm').attr('action', $(this).attr('data-action'));
+  });
+  $('#updateBtn').click(function () {
+    $('#updateForm').submit();
+  });
+
+  $(function () {
+    $('#summernote').summernote()
+    CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+      mode: "htmlmixed",
+      theme: "monokai"
     });
-    $('#myModalBtn').click(function() {
-        $('#deleteFormStudent').submit();
-    });
-    $(function () {
-        $('#summernote').summernote()
-        CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
-          mode: "htmlmixed",
-          theme: "monokai"
-        });
-      });
+  });
 });

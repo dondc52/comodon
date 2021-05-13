@@ -11,45 +11,21 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-8">
-                <div class="row">
-                    @foreach ($result as $row)
-                        <div class="col-lg-6 col-md-6">
-                            <div class="single-gallery">
-                                <div class="overlay"></div>
-                                <img class="img-fluid w-100" src="{{ asset('images/'.$row->image) }}" alt="">
-                                <div class="content">
-                                    <a class="pop-up-image" href="{{ asset('images/'.$row->image) }}">
-                                        <i class="lnr lnr-eye"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach 
-                    <div class="col-lg-12">
+            @if ($galleries)
+                @foreach ($galleries as $row)
+                    <div class="col-lg-4 hidden-md">
                         <div class="single-gallery">
                             <div class="overlay"></div>
-                            <img class="img-fluid w-100" src="{{ asset('images/'.$result1[0]->image) }}" alt="">
+                            <img class="w-100" height="300px" src="{{ asset('images/'.$row->image) }}" alt="">
                             <div class="content">
-                                <a class="pop-up-image" href="{{ asset('images/'.$result1[0]->image) }}">
+                                <a class="pop-up-image" href="{{ asset('images/'.$row->image) }}">
                                     <i class="lnr lnr-eye"></i>
                                 </a>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-4 hidden-md">
-                <div class="single-gallery">
-                    <div class="overlay"></div>
-                    <img class="img-fluid w-100" src="{{ asset('images/'.$result2[0]->image) }}" alt="">
-                    <div class="content">
-                        <a class="pop-up-image" href="{{ asset('images/'.$result2[0]->image) }}">
-                            <i class="lnr lnr-eye"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
+                @endforeach
+            @endif
         </div>
     </div>
 </section>

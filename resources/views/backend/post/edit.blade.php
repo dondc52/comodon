@@ -7,13 +7,13 @@
             </h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('post.update', $result->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('post.update', $post->id) }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <select class="form-control col-4 pl-0" name="cat_id" id="cat_id">
                     <label for="">Category *</label>
                     <option value="0">Select category</option>
-                    @foreach ($result1 as $row)
-                        <option value="{{ $row->id }}" {{ $row->id == $result2->id ? 'selected' : '' }}>
+                    @foreach ($categories as $row)
+                        <option value="{{ $row->id }}" {{ $row->id == $post->cat_id ? 'selected' : '' }}>
                             {{ $row->cat_name }}</option>
                     @endforeach
                 </select>
@@ -23,7 +23,7 @@
                 <div class="form-group">
                     <label for="">Title *</label>
                     <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
-                        value="{{ $result->title }}">
+                        value="{{ $post->title }}">
                 </div>
                 @error('title')
                     <div class="alert alert-danger">{{ $message }}</div>
@@ -31,7 +31,7 @@
                 <div class="form-group">
                     <label for="">Description *</label>
                     <input type="text" name="description" class="form-control @error('description') is-invalid @enderror"
-                        value="{{ $result->description }}">
+                        value="{{ $post->description }}">
                 </div>
                 @error('description')
                     <div class="alert alert-danger">{{ $message }}</div>
@@ -39,14 +39,14 @@
                 <div class="form-group">
                     <label for="">Content *</label>
                     <textarea id="summernote" class="form-control" name="content">
-                        {{ $result->content }}
+                        {{ $post->content }}
                     </textarea>
                 </div>
                 <div class="form-group col-3">
                     <label for="">Image </label>
-                    @if ($result->image !== null)
+                    @if ($post->image !== null)
                         <div class="w-100 py-2">
-                            <img width="80px" src="{{ asset('images/' . $result->image) }}" alt="" />
+                            <img width="80px" src="{{ asset('images/' . $post->image) }}" alt="" />
                         </div>
                     @endif
                     <input class="w-100" type="file" name="image" accept="image/x-png,image/gif,image/jpeg">
@@ -55,15 +55,15 @@
                     <div class="form-group col-2">
                         <label for="">Comment number </label>
                         <input type="number" name="comment_number" class="form-control"
-                            value="{{ $result->comment_number }}">
+                            value="{{ $post->comment_number }}">
                     </div>
                     <div class="form-group col-2">
                         <label for="">View number </label>
-                        <input type="number" name="view_number" class="form-control" value="{{ $result->view_number }}">
+                        <input type="number" name="view_number" class="form-control" value="{{ $post->view_number }}">
                     </div>
                     <div class="form-group col-2">
                         <label for="">Like number </label>
-                        <input type="number" name="like_number" class="form-control" value="{{ $result->like_number }}">
+                        <input type="number" name="like_number" class="form-control" value="{{ $post->like_number }}">
                     </div>
                 </div>
                 <button class="btn btn-primary mr-3" type="submit">Submit</button>

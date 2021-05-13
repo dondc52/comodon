@@ -5,14 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index(Request $request)
     {
         $search = $request->get('search');
@@ -50,9 +46,8 @@ class UserController extends Controller
         ]);
         $user = new User;
         $user->name = $request->name;
-        if($request->title){
-            $user->title = $request->title;
-        }
+        $user->title = $request->title;
+        // $user->email_verified_at = time();
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         if ($request->image !== null) {
@@ -82,9 +77,7 @@ class UserController extends Controller
         ]);
         $user = User::find($id);
         $user->name = $request->name;
-        if($request->title){
-            $user->title = $request->title;
-        }
+        $user->title = $request->title;
         if ($request->image !== null) {
             $newImageName = time() . '-' . $request->name . '.' . $request->image->extension();
             $request->image->move(public_path('images'), $newImageName);
@@ -108,6 +101,9 @@ class UserController extends Controller
 
     public function destroy($id)
     {
+        if(Auth::user()->id == $id){
+            return redirect()->route('user.index')->with('error', 'The logged in user cannot be deleted!');
+        }
         $user = User::find($id);
         if (!$user) {
             return redirect()->route('user.index')->with('error', 'Cannot Found!');

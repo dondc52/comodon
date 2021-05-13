@@ -43,22 +43,16 @@ class SendMailCustomer extends Command
     {
         $email_customer = Customer::pluck('email');
 
-        $details = [
-            'subject' => 'New post',
-            'title' => 'Updating...',
-            'description' => 'Updating...',
-            'content' => 'Updating...',
-            'link' => '',
-        ];
+        $details = [];
         
         $results = Post::where('status', 0)->get();
 
         if ($results->count() > 0) {
             foreach ($results as $row) {
-                $details['title'] = $row->title;
+                $details['title'] = '[Comodo Game] New Post: ' . $row->title;
                 $details['description'] = $row->description;
                 $details['content'] = $row->content;
-                $details['link'] = 'http://localhost:8000/post/'.$row->id.'/show';
+                $details['link'] = env('APP_URL').'post/'.$row->id.'/show';
 
                 Mail::to($email_customer)->send(new SendMailToCustomer($details));
 

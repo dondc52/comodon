@@ -6,17 +6,8 @@ $(document).ready(function () {
         window.location.href = '#linkflashsendmail';
     }
 
-    // if ($('#success_home').length) {
-    //     window.location.href = '#newsletter';
-    //     $('#mailPopupSuccess').modal('show')
-    // }
-    // else {
-    //     $('#mailPopupSuccess').modal('hide')
-    // }
-    // if ($('#error_home').length) {
-    //     $('#mailPopupError').modal('show')
-    // }
-    // else {
-    //     $('#mailPopupError').modal('hide')
-    // }
+    if($(".alertorder").length){
+        window.location.href = '#linkflashorder';
+    }
+
 });

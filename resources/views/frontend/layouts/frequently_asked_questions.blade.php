@@ -11,8 +11,8 @@
             </div>
         </div>
         <div class="row frequent_inner">
-            @if ($faqresult)
-                @foreach ($faqresult as $row)
+            @if ($faqs->count() > 0)
+                @foreach ($faqs as $row)
                     <div class="col-lg-6 col-md-6">
                         <div class="frequent_item">
                             <h3> {{substr($row->title, 0, 50)}} </h3>

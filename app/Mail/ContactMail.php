@@ -28,6 +28,6 @@ class ContactMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Contact Message')->view('emails.contactmail');
+        return $this->subject('[Comodo Game] Contact Message From Customer')->view('emails.contactmail');
     }
 }

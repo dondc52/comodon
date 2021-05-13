@@ -3,13 +3,11 @@
 use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\AuthorsController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CustomersController;
@@ -21,6 +19,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\FooterLinksController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SendMailCustomerController;
 use App\Http\Controllers\ShowSinglesController;
 
@@ -35,136 +34,184 @@ use App\Http\Controllers\ShowSinglesController;
 |
 */
 
-Route::get('/', function () {return view('welcome');});
-// Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 //fontend
-Route::get('/', function () {return view('frontend.index');});
-Route::get('/home', function () {return view('frontend.index');})->name('home');
-Route::get('/about', function () {return view('frontend.about');})->name('about');
-Route::get('/gallery', function () {return view('frontend.gallery');})->name('gallery');
-Route::get('/contact', function () {return view('frontend.contact');})->name('contact');
+Route::view('/', 'frontend.index');
+Route::view('/home', 'frontend.index')->name('home');
+Route::view('/about', 'frontend.about')->name('about');
+Route::view('/gallery', 'frontend.gallery')->name('gallery');
+Route::view('/contact', 'frontend.contact')->name('contact');
+Route::view('/games', 'frontend.games')->name('games');
+Route::view('/price', 'frontend.pricing')->name('price');
+Route::view('/elements', 'frontend.elements')->name('elements');
 Route::get('/blog', [BlogsController::class, 'listpost'])->name('blog');
-Route::get('/games', function () {return view('frontend.games');})->name('games');
-Route::get('/price', function () {return view('frontend.pricing');})->name('price');
-Route::get('/elements', function () {return view('frontend.elements');})->name('elements');
-
-// Route::get('/home#');
-
-//user
-Route::get('/admin/users', [UserController::class, 'index'])->name('user.index');
-Route::get('/admin/user/create', [UserController::class, 'create'])->name('user.create');
-Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.store');
-Route::post('/admin/user/{id}/destroy', [UserController::class, 'destroy'])->name('user.destroy');
-Route::post('/admin/user/{id}/update', [UserController::class, 'update'])->name('user.update');
-Route::post('/admin/user/{id}/updatepw', [UserController::class, 'updatepw'])->name('user.updatepw');
-Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
-Route::get('/admin/user/{id}/editpw', [UserController::class, 'editpw'])->name('user.editpw');
-Route::get('/admin/user/{id}/show', [UserController::class, 'show'])->name('user.show');
-
-//author
-Route::get('/admin/authors', [AuthorsController::class, 'index'])->name('author.index');
-Route::get('/admin/author/create', [AuthorsController::class, 'create'])->name('author.create');
-Route::post('/admin/author/store', [AuthorsController::class, 'store'])->name('author.store');
-Route::post('/admin/author/{id}/destroy', [AuthorsController::class, 'destroy'])->name('author.destroy');
-Route::post('/admin/author/{id}/update', [AuthorsController::class, 'update'])->name('author.update');
-Route::get('/admin/author/{id}/edit', [AuthorsController::class, 'edit'])->name('author.edit');
-
-//game
-Route::get('/admin/games', [GameController::class, 'index'])->name('game.index');
-Route::get('/admin/game/create', [GameController::class, 'create'])->name('game.create');
-Route::post('/admin/game/store', [GameController::class, 'store'])->name('game.store');
-Route::post('/admin/game/{id}/destroy', [GameController::class, 'destroy'])->name('game.destroy');
-Route::post('/admin/game/{id}/update', [GameController::class, 'update'])->name('game.update');
-Route::get('/admin/game/{id}/edit', [GameController::class, 'edit'])->name('game.edit');
-
-//about_us
-Route::get('/admin/about-us', [AboutUsController::class, 'index'])->name('about_us.index');
-Route::get('/admin/about-us/create', [AboutUsController::class, 'create'])->name('about_us.create');
-Route::post('/admin/about-us/store', [AboutUsController::class, 'store'])->name('about_us.store');
-Route::post('/admin/about-us/{id}/destroy', [AboutUsController::class, 'destroy'])->name('about_us.destroy');
-Route::post('/admin/about-us/{id}/update', [AboutUsController::class, 'update'])->name('about_us.update');
-Route::get('/admin/about-us/{id}/edit', [AboutUsController::class, 'edit'])->name('about_us.edit');
 Route::get('/about/{id}/show', [ShowSinglesController::class, 'showAbout'])->name('about.show');
-
-//gallery
-Route::get('/admin/galleries', [GalleryController::class, 'index'])->name('gallery.index');
-Route::post('/admin/gallery/store', [GalleryController::class, 'store'])->name('gallery.store');
-Route::post('/admin/gallery/{id}/destroy', [GalleryController::class, 'destroy'])->name('gallery.destroy');
-
-//category
-Route::get('/admin/categories', [CategoryController::class, 'index'])->name('category.index');
-Route::get('/admin/category/create', [CategoryController::class, 'create'])->name('category.create');
-Route::post('/admin/category/store', [CategoryController::class, 'store'])->name('category.store');
-Route::post('/admin/category/{id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
-Route::post('/admin/category/{id}/update', [CategoryController::class, 'update'])->name('category.update');
-Route::get('/admin/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
-
-//contact infor
-Route::get('/admin/contact_infor', [ContactController::class, 'index'])->name('contact_infor.index');
-Route::post('/admin/contact_infor/update', [ContactController::class, 'update'])->name('contact_infor.update');
-
-//faq
-Route::get('/admin/faqs', [FaqsController::class, 'index'])->name('faq.index');
-Route::get('/admin/faq/create', [FaqsController::class, 'create'])->name('faq.create');
-Route::post('/admin/faq/store', [FaqsController::class, 'store'])->name('faq.store');
-Route::post('/admin/faq/{id}/destroy', [FaqsController::class, 'destroy'])->name('faq.destroy');
-Route::post('/admin/faq/{id}/update', [FaqsController::class, 'update'])->name('faq.update');
-Route::get('/admin/faq/{id}/edit', [FaqsController::class, 'edit'])->name('faq.edit');
-
-//footer_link
-Route::get('/admin/footer_links', [FooterLinksController::class, 'index'])->name('footer_link.index');
-Route::get('/admin/footer_link/create', [FooterLinksController::class, 'create'])->name('footer_link.create');
-Route::post('/admin/footer_link/store', [FooterLinksController::class, 'store'])->name('footer_link.store');
-Route::post('/admin/footer_link/{id}/destroy', [FooterLinksController::class, 'destroy'])->name('footer_link.destroy');
-Route::post('/admin/footer_link/{id}/update', [FooterLinksController::class, 'update'])->name('footer_link.update');
-Route::get('/admin/footer_link/{id}/edit', [FooterLinksController::class, 'edit'])->name('footer_link.edit');
-
-//customer
-Route::get('/admin/customers', [CustomersController::class, 'index'])->name('customer.index');
-Route::get('/admin/customer/create', [CustomersController::class, 'create'])->name('customer.create');
-Route::post('/admin/fcustomerstore', [CustomersController::class, 'store'])->name('customer.store');
-Route::post('/admin/customer/{id}/destroy', [CustomersController::class, 'destroy'])->name('customer.destroy');
-
-//ratting
-Route::get('/admin/rattings', [RattingsController::class, 'index'])->name('ratting.index');
-Route::get('/admin/ratting/create', [RattingsController::class, 'create'])->name('ratting.create');
-Route::post('/admin/ratting/store', [RattingsController::class, 'store'])->name('ratting.store');
-Route::post('/admin/ratting/{id}/destroy', [RattingsController::class, 'destroy'])->name('ratting.destroy');
-Route::post('/admin/ratting/{id}/update', [RattingsController::class, 'update'])->name('ratting.update');
-Route::get('/admin/ratting/{id}/edit', [RattingsController::class, 'edit'])->name('ratting.edit');
-
-//package
-Route::get('/admin/packages', [PackagesController::class, 'index'])->name('package.index');
-Route::get('/admin/package/create', [PackagesController::class, 'create'])->name('package.create');
-Route::post('/admin/package/store', [PackagesController::class, 'store'])->name('package.store');
-Route::post('/admin/package/{id}/destroy', [PackagesController::class, 'destroy'])->name('package.destroy');
-Route::post('/admin/package/{id}/update', [PackagesController::class, 'update'])->name('package.update');
-Route::get('/admin/package/{id}/edit', [PackagesController::class, 'edit'])->name('package.edit');
-
-//banner
-Route::get('/admin/banners', [BannerController::class, 'index'])->name('banner.index');
-Route::post('/admin/banner/{id}/update', [BannerController::class, 'update'])->name('banner.update');
-Route::get('/admin/banner/{id}/edit', [BannerController::class, 'edit'])->name('banner.edit');
-
-//post
-Route::get('/admin/posts', [PostController::class, 'index'])->name('post.index');
-Route::get('/admin/post/create', [PostController::class, 'create'])->name('post.create');
-Route::post('/admin/post/store', [PostController::class, 'store'])->name('post.store');
-Route::post('/admin/post/{id}/destroy', [PostController::class, 'destroy'])->name('post.destroy');
-Route::post('/admin/post/{id}/update', [PostController::class, 'update'])->name('post.update');
-Route::get('/admin/post/{id}/edit', [PostController::class, 'edit'])->name('post.edit');
 Route::get('/post/{id}/show', [ShowSinglesController::class, 'showPost'])->name('post.show');
 
-//search post
-Route::get('/admin/post/search', [PostController::class, 'search'])->name('search');
+//admin 
+Route::middleware('auth')->prefix('/admin')->group(function(){
+    //user
+    Route::name('user.')->group(function(){
+        Route::get('/users', [UserController::class, 'index'])->name('index');
+        Route::prefix('/user')->group(function(){
+            Route::get('/create', [UserController::class, 'create'])->name('create');
+            Route::post('/store', [UserController::class, 'store'])->name('store');
+            Route::post('/{id}/destroy', [UserController::class, 'destroy'])->name('destroy');
+            Route::post('/{id}/update', [UserController::class, 'update'])->name('update');
+            Route::post('/{id}/updatepw', [UserController::class, 'updatepw'])->name('updatepw');
+            Route::get('/{id}/edit', [UserController::class, 'edit'])->name('edit');
+            Route::get('/{id}/editpw', [UserController::class, 'editpw'])->name('editpw');
+            Route::get('/{id}/show', [UserController::class, 'show'])->name('show');
+        });
+    });
+
+    //game
+    Route::name('game.')->group(function(){
+        Route::get('/games', [GameController::class, 'index'])->name('index');
+        Route::prefix('/game')->group(function(){
+            Route::get('/create', [GameController::class, 'create'])->name('create');
+            Route::post('/store', [GameController::class, 'store'])->name('store');
+            Route::post('/{id}/destroy', [GameController::class, 'destroy'])->name('destroy');
+            Route::post('/{id}/update', [GameController::class, 'update'])->name('update');
+            Route::get('/{id}/edit', [GameController::class, 'edit'])->name('edit');
+        });
+    });
+
+    //order
+    Route::name('order.')->group(function(){
+        Route::get('/orders', [OrderController::class, 'index'])->name('index');
+        Route::prefix('/order')->group(function(){
+            Route::post('/store', [OrderController::class, 'store'])->name('store');
+            Route::post('/{id}/destroy', [OrderController::class, 'destroy'])->name('destroy');
+            Route::post('/{id}/update', [OrderController::class, 'update'])->name('update');
+        });
+    });
+
+    //about_us
+    Route::name('about_us.')->group(function(){
+        Route::get('/about-us', [AboutUsController::class, 'index'])->name('index');
+        Route::prefix('/about-us')->group(function(){
+            Route::get('/create', [AboutUsController::class, 'create'])->name('create');
+            Route::post('/store', [AboutUsController::class, 'store'])->name('store');
+            Route::post('/{id}/destroy', [AboutUsController::class, 'destroy'])->name('destroy');
+            Route::post('/{id}/update', [AboutUsController::class, 'update'])->name('update');
+            Route::get('/{id}/edit', [AboutUsController::class, 'edit'])->name('edit');
+        });
+    });
+    
+    //gallery
+    Route::name('gallery.')->group(function(){
+        Route::get('/galleries', [GalleryController::class, 'index'])->name('index');
+        Route::prefix('/gallery')->group(function(){
+            Route::post('/store', [GalleryController::class, 'store'])->name('store');
+            Route::post('/{id}/destroy', [GalleryController::class, 'destroy'])->name('destroy');
+        });
+    });
+    
+    //category
+    Route::name('category.')->group(function(){
+        Route::get('/categories', [CategoryController::class, 'index'])->name('index');
+        Route::prefix('/category')->group(function(){
+            Route::get('/create', [CategoryController::class, 'create'])->name('create');
+            Route::post('/store', [CategoryController::class, 'store'])->name('store');
+            Route::post('/{id}/destroy', [CategoryController::class, 'destroy'])->name('destroy');
+            Route::post('/{id}/update', [CategoryController::class, 'update'])->name('update');
+            Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('edit');
+        });
+    });
+
+    //contact infor
+    Route::name('contact_infor.')->group(function(){
+        Route::get('/contact_infor', [ContactController::class, 'index'])->name('index');
+        Route::post('/contact_infor/update', [ContactController::class, 'update'])->name('update');
+    });
+
+    //faq
+    Route::name('faq.')->group(function(){
+        Route::get('faqs', [FaqsController::class, 'index'])->name('index');
+        Route::prefix('/faq')->group(function(){
+            Route::get('create', [FaqsController::class, 'create'])->name('create');
+            Route::post('store', [FaqsController::class, 'store'])->name('store');
+            Route::post('{id}/destroy', [FaqsController::class, 'destroy'])->name('destroy');
+            Route::post('{id}/update', [FaqsController::class, 'update'])->name('update');
+            Route::get('{id}/edit', [FaqsController::class, 'edit'])->name('edit');
+        });
+    });
+
+    //footer_link
+    Route::name('footer_link.')->group(function(){
+        Route::get('/footer_links', [FooterLinksController::class, 'index'])->name('index');
+        Route::prefix('footer_link')->group(function(){
+            Route::get('/create', [FooterLinksController::class, 'create'])->name('create');
+            Route::post('/store', [FooterLinksController::class, 'store'])->name('store');
+            Route::post('/{id}/destroy', [FooterLinksController::class, 'destroy'])->name('destroy');
+            Route::post('/{id}/update', [FooterLinksController::class, 'update'])->name('update');
+            Route::get('/{id}/edit', [FooterLinksController::class, 'edit'])->name('edit');
+        });
+    });
+
+    //customer
+    Route::name('customer.')->group(function(){
+        Route::get('/customers', [CustomersController::class, 'index'])->name('index');
+        Route::prefix('/customer')->group(function(){
+            Route::get('/create', [CustomersController::class, 'create'])->name('create');
+            Route::post('/store', [CustomersController::class, 'store'])->name('store');
+            Route::post('/{id}/destroy', [CustomersController::class, 'destroy'])->name('destroy');
+        });
+        
+    });
+
+    //ratting
+    Route::name('ratting.')->group(function(){
+        Route::get('/admin/rattings', [RattingsController::class, 'index'])->name('index');
+        Route::prefix('/ratting')->group(function(){
+            Route::get('/create', [RattingsController::class, 'create'])->name('create');
+            Route::post('/store', [RattingsController::class, 'store'])->name('store');
+            Route::post('/{id}/destroy', [RattingsController::class, 'destroy'])->name('destroy');
+            Route::post('/{id}/update', [RattingsController::class, 'update'])->name('update');
+            Route::get('/{id}/edit', [RattingsController::class, 'edit'])->name('edit');
+        });
+    });
+
+    //package
+    Route::name('package.')->group(function(){
+        Route::get('/admin/packages', [PackagesController::class, 'index'])->name('index');
+        Route::prefix('/package')->group(function(){
+            Route::get('/create', [PackagesController::class, 'create'])->name('create');
+            Route::post('/store', [PackagesController::class, 'store'])->name('store');
+            Route::post('/{id}/destroy', [PackagesController::class, 'destroy'])->name('destroy');
+            Route::post('/{id}/update', [PackagesController::class, 'update'])->name('update');
+            Route::get('/{id}/edit', [PackagesController::class, 'edit'])->name('edit');
+        });
+    });
+
+    //banner
+    Route::name('banner.')->group(function(){
+        Route::get('/banners', [BannerController::class, 'index'])->name('index');
+        Route::post('/banner/{id}/update', [BannerController::class, 'update'])->name('update');
+        Route::get('/banner/{id}/edit', [BannerController::class, 'edit'])->name('edit');
+
+    });
+
+    //post
+    Route::name('post.')->group(function(){
+        Route::get('/admin/posts', [PostController::class, 'index'])->name('index');
+        Route::prefix('/post')->group(function(){
+            Route::get('/create', [PostController::class, 'create'])->name('create');
+            Route::post('/store', [PostController::class, 'store'])->name('store');
+            Route::post('/{id}/destroy', [PostController::class, 'destroy'])->name('destroy');
+            Route::post('/{id}/update', [PostController::class, 'update'])->name('update');
+            Route::get('/{id}/edit', [PostController::class, 'edit'])->name('edit');
+        });
+    });
+});
 
 //form seed mail 
 Route::get('/form', function () {
     return view('form');
 });
+
 Route::post('/form/send', [FrontController::class, 'addFeedback'])->name('seendmail');
 
 Route::get('formemail', [EmailController::class, 'sendEmail']);

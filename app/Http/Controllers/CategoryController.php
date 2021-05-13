@@ -7,17 +7,12 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     public function index(Request $request){
         $search = $request->get('search');
         $result = Category::where('cat_name', 'like', "%{$search}%")
             ->paginate(env('NUM_PER_PAGE'));
         return view('backend.category.index', [
-            'result' => $result,
+            'categories' => $result,
             'search' => $search,
         ]);
     }
@@ -47,7 +42,7 @@ class CategoryController extends Controller
 
     public function edit($id){
         $result = Category::find($id);
-        return view('backend.category.edit', ['result' => $result]);
+        return view('backend.category.edit', ['category' => $result]);
     }
 
     public function update(Request $request, $id){

@@ -11,8 +11,8 @@
             </div>
         </div>
         <div class="row">
-            @if ($result)
-                @foreach ($result as $row)
+            @if ($posts)
+                @foreach ($posts as $row)
                     <div class="col-lg-4 col-md-6">
                         <div class="blog_items">
                             <div class="blog_img_box">

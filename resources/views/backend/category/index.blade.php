@@ -26,36 +26,38 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($result as $row)
-                        <tr>
-                            <td>{{ $row->id }}</td>
-                            <td>{{ $row->cat_name }}</td>
-                            <td>{{ $row->description }}</td>
-                            <td>
-                                @if ($row->image)
-                                    <img height="70px" src="{{ asset('images/' . $row->image) }}" alt="">
-                                @endif
-                            </td>
-                            <td>
-                                @if ($row->status == 1)
-                                    On
-                                @endif
-                            </td>
-                            <td>
-                                <a class="btn btn-warning text-white" href="{{ route('category.edit', $row->id) }}"><i
-                                        class="fas fa-edit"></i></a>
-                                <a data-action="{{ route('category.destroy', $row->id) }}"
-                                    class="btn btn-danger deleteStudent" data-toggle="modal" data-target="#exampleModal">
-                                    <i class="fas fa-trash-alt"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    @endforeach
+                    @if ($categories)
+                        @foreach ($categories as $row)
+                            <tr>
+                                <td>{{ $row->id }}</td>
+                                <td>{{ $row->cat_name }}</td>
+                                <td>{{ $row->description }}</td>
+                                <td>
+                                    @if ($row->image)
+                                        <img height="70px" src="{{ asset('images/' . $row->image) }}" alt="">
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($row->status == 1)
+                                        On
+                                    @endif
+                                </td>
+                                <td>
+                                    <a class="btn btn-warning text-white" href="{{ route('category.edit', $row->id) }}"><i
+                                            class="fas fa-edit"></i></a>
+                                    <a data-action="{{ route('category.destroy', $row->id) }}"
+                                        class="btn btn-danger delete" data-toggle="modal" data-target="#exampleModal">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif 
                 </tbody>
             </table>
         </div>
         <div>
-            {{ $result->appends(['search' => $search])->links() }}
+            {{ $categories->appends(['search' => $search])->links() }}
         </div>
     </div>
     @include('backend.layouts.modal')

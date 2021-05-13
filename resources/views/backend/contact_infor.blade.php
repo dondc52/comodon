@@ -58,6 +58,14 @@
             @enderror
 
             <div class="form-group">
+                <label for="">Map *</label>
+                <input type="text" name="map" class="form-control @error('map') is-invalid @enderror" value="{{ $contactInfor->map }}">
+            </div>
+            @error('map')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
+
+            <div class="form-group">
                 <label for="">Footer infor *</label>
                 <input type="text" name="footer_infor" class="form-control @error('footer_infor') is-invalid @enderror" value="{{ $contactInfor->footer_infor }}">
             </div>
