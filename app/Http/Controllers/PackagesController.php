@@ -9,11 +9,13 @@ class PackagesController extends Controller
 {
     public function index(Request $request){
         $search = $request->get('search');
+        $numPerPage = $request->get('numPerPage') !== null ? $request->get('numPerPage') : env('NUM_PER_PAGE') ;
         $result = Package::where('title', 'like', "%{$search}%")
-            ->paginate(env('NUM_PER_PAGE'));
+            ->paginate($numPerPage);
         return view('backend.package.index', [
             'packages' => $result,
             'search' => $search,
+            'numPerPage' => $numPerPage,
         ]);
     }
 

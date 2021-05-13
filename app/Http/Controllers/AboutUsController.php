@@ -10,11 +10,13 @@ class AboutUsController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('search');
+        $numPerPage = $request->get('numPerPage') !== null ? $request->get('numPerPage') : env('NUM_PER_PAGE') ;
         $result = AboutUs::where('title', 'like', "%{$search}%")
-            ->paginate(env('NUM_PER_PAGE'));
+            ->paginate($numPerPage);
         return view('backend.about_us.index', [
             'about_us' => $result,
             'search' => $search,
+            'numPerPage' => $numPerPage,
         ]);
     }
 

@@ -19,6 +19,7 @@ class PostController extends Controller
         $cate = $request->get('cate');
         $auth = $request->get('auth');
         $search = $request->get('search');
+        $numPerPage = $request->get('numPerPage') !== null ? $request->get('numPerPage') : env('NUM_PER_PAGE') ;
 
         $whereClause = [];
 
@@ -38,7 +39,7 @@ class PostController extends Controller
                 ->join('categories', 'posts.cat_id', '=', 'categories.id')
                 ->where($whereClause)
                 ->select(['posts.*', 'categories.cat_name', 'users.name'])
-                ->paginate(env('NUM_PER_PAGE'));
+                ->paginate($numPerPage);
 
         
         return view('backend.post.index', [
@@ -48,6 +49,7 @@ class PostController extends Controller
             'cate' => $cate,
             'auth' => $auth,
             'search' => $search,
+            'numPerPage' => $numPerPage,
         ]);
     }
 

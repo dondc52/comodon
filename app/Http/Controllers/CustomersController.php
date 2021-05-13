@@ -10,8 +10,9 @@ class CustomersController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('search');
-        $result = Customer::where('email', 'like', "%$search%")->paginate(env('NUM_PER_PAGE'));
-        return view('backend.customer.index', ['customers' => $result, 'search' => $search]);
+        $numPerPage = $request->get('numPerPage') !== null ? $request->get('numPerPage') : env('NUM_PER_PAGE') ;
+        $result = Customer::where('email', 'like', "%$search%")->paginate($numPerPage);
+        return view('backend.customer.index', ['customers' => $result, 'search' => $search, 'numPerPage' => $numPerPage,]);
     }
 
     public function create(){

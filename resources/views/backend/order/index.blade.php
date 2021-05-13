@@ -6,8 +6,16 @@
             <h2 class="card-title">order</h2>
         </div>
         <div class="card-body">
-            <form action="{{ route('order.index') }}" class="row mb-3 pr-2 col-4" method="get">
-                <div class="input-group">
+            <form id="submitDon" action="{{ route('order.index') }}" class="row mb-3 pr-2 col-10" method="get">
+                <div class="col-1 pl-0">
+                    <select class="form-control selectDon" name="numPerPage">
+                        <option value="5" {{$numPerPage == 5 ? 'selected' : ''}}>5</option>
+                        <option value="10" {{$numPerPage == 10 ? 'selected' : ''}}>10</option>
+                        <option value="15" {{$numPerPage == 15 ? 'selected' : ''}}>15</option>
+                        <option value="20" {{$numPerPage == 20 ? 'selected' : ''}}>20</option>
+                    </select>
+                </div>
+                <div class="input-group col-6">
                     <input type="search" class="form-control rounded" placeholder="Search..." name="search"
                         value="{{ $search }}">
                     <button type="submit" class="btn btn-primary">Search</button>
@@ -50,7 +58,7 @@
             </table>
         </div>
         <div>
-            {{$orders->appends(['search' => $search])->links()}}
+            {{$orders->appends(['search' => $search, 'numPerPage' => $numPerPage])->links()}}
         </div>
     </div>
     @include('backend.layouts.modal')

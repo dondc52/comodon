@@ -6,12 +6,20 @@
             <h3 class="card-title">Post</h3>
             <a class="btn btn-success float-right" href="{{ route('post.create') }}">Create</a>
         </div>
-        <div class="card-body">
+        <div class="card-body row">
             <div class="mb-3 col-9 p-0">
-                <form action="{{ route('post.index') }}" class="row" method="get">
+                <form id="submitDon" action="{{ route('post.index') }}" class="row" method="get">
+                    <div class="col-1">
+                        <select class="form-control selectDon" name="numPerPage">
+                            <option value="5" {{$numPerPage == 5 ? 'selected' : ''}}>5</option>
+                            <option value="10" {{$numPerPage == 10 ? 'selected' : ''}}>10</option>
+                            <option value="15" {{$numPerPage == 15 ? 'selected' : ''}}>15</option>
+                            <option value="20" {{$numPerPage == 20 ? 'selected' : ''}}>20</option>
+                        </select>
+                    </div>
                     <div class="col-md-3">
-                        <select class="form-control" name="cate">
-                            <option value="" >Select category</option>
+                        <select class="form-control selectDon" name="cate">
+                            <option value="">Select category</option>
                             @foreach ($cates as $row)
                                 <option value="{{ $row->id }}" {{ $row->id == $cate ? 'selected' : '' }}>
                                     {{ $row->cat_name }}</option>
@@ -19,7 +27,7 @@
                         </select>
                     </div>
                     <div class="col-md-3">
-                        <select class="form-control" name="auth">
+                        <select class="form-control selectDon" name="auth">
                             <option value="">Select author</option>
                             @foreach ($auths as $row)
                                 <option value="{{ $row->id }}" {{ $row->id == $auth ? 'selected' : '' }}>
@@ -30,7 +38,8 @@
                     </div>
                     <div class="col-md-3">
                         <div class="input-group">
-                            <input type="search" class="form-control rounded" placeholder="Search..." name="search" value="{{$search}}" >
+                            <input type="search" class="form-control rounded" placeholder="Search..." name="search"
+                                value="{{ $search }}">
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary ml-2">Load</button>
@@ -64,8 +73,8 @@
                             <td>
                                 <a class="btn btn-warning text-white" href="{{ route('post.edit', $row->id) }}"><i
                                         class="fas fa-edit"></i></a>
-                                <a data-action="{{ route('post.destroy', $row->id) }}"
-                                    class="btn btn-danger delete" data-toggle="modal" data-target="#exampleModal">
+                                <a data-action="{{ route('post.destroy', $row->id) }}" class="btn btn-danger delete"
+                                    data-toggle="modal" data-target="#exampleModal">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>
                             </td>
@@ -75,7 +84,7 @@
             </table>
         </div>
         <div class="ml-3">
-            {{ $posts->appends(['search'=> $search , 'cate' => $cate, 'auth' => $auth ])->links() }}
+            {{ $posts->appends(['search' => $search, 'cate' => $cate, 'auth' => $auth, 'numPerPage' => $numPerPage])->links() }}
         </div>
     </div>
     </div>

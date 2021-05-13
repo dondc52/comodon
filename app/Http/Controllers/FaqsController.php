@@ -9,9 +9,10 @@ class FaqsController extends Controller
 {
     public function index(Request $request){
         $search = $request->get('search');
+        $numPerPage = $request->get('numPerPage') !== null ? $request->get('numPerPage') : env('NUM_PER_PAGE') ;
         $result = Faq::where('title', 'like', "%{$search}%")
-            ->paginate(env('NUM_PER_PAGE'));
-        return view('backend.faq.index', ['faqs' => $result, 'search' => $search]);
+            ->paginate($numPerPage);
+        return view('backend.faq.index', ['faqs' => $result, 'search' => $search, 'numPerPage' => $numPerPage,]);
     }
 
     public function create(){

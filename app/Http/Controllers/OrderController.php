@@ -9,15 +9,17 @@ class OrderController extends Controller
 {
     public function index(Request $request){
         $search = $request->get('search');
+        $numPerPage = $request->get('numPerPage') !== null ? $request->get('numPerPage') : env('NUM_PER_PAGE') ;
         $result = Order::join('users', 'order.user_id', '=', 'users.id')
             ->join('packages', 'order.package_id', '=', 'packages.id')
             ->where('users.name', 'like', "%{$search}%")
             ->select(['order.id', 'order.status', 'users.name', 'packages.title'])
-            ->paginate(env('NUM_PER_PAGE'));
+            ->paginate($numPerPage);
 
         return view('backend.order.index', [
             'orders' => $result,
             'search' => $search,
+            'numPerPage' => $numPerPage,
         ]);
     }
 

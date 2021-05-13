@@ -9,5 +9,5 @@ $(document).ready(function () {
     if($(".alertorder").length){
         window.location.href = '#linkflashorder';
     }
-
+    
 });

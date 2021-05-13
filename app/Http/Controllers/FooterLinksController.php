@@ -9,8 +9,9 @@ class FooterLinksController extends Controller
 {
     public function index(Request $request){
         $search = $request->get('search');
-        $result = Footer_link::where('link_name', 'like', "%$search%")->paginate(env('NUM_PER_PAGE'));
-        return view('backend.footer_link.index', ['footer_links' => $result, 'search' => $search]);
+        $numPerPage = $request->get('numPerPage') !== null ? $request->get('numPerPage') : env('NUM_PER_PAGE') ;
+        $result = Footer_link::where('link_name', 'like', "%$search%")->paginate($numPerPage);
+        return view('backend.footer_link.index', ['footer_links' => $result, 'search' => $search, 'numPerPage' => $numPerPage,]);
     }
 
     public function create(){

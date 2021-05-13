@@ -20,4 +20,9 @@ $(document).ready(function () {
       theme: "monokai"
     });
   });
+
+  $('.selectDon').on('change', function() {
+    $("#submitDon" ).submit();
+  });
+
 });

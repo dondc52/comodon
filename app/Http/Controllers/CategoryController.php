@@ -9,11 +9,13 @@ class CategoryController extends Controller
 {
     public function index(Request $request){
         $search = $request->get('search');
+        $numPerPage = $request->get('numPerPage') !== null ? $request->get('numPerPage') : env('NUM_PER_PAGE') ;
         $result = Category::where('cat_name', 'like', "%{$search}%")
-            ->paginate(env('NUM_PER_PAGE'));
+            ->paginate($numPerPage);
         return view('backend.category.index', [
             'categories' => $result,
             'search' => $search,
+            'numPerPage' => $numPerPage,
         ]);
     }
 

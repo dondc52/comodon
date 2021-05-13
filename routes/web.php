@@ -14,13 +14,9 @@ use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\RattingsController;
-use App\Http\Controllers\FrontController;
-use App\Http\Controllers\EmailController;
-use App\Http\Controllers\MailController;
 use App\Http\Controllers\BlogsController;
 use App\Http\Controllers\FooterLinksController;
 use App\Http\Controllers\OrderController;
-use App\Http\Controllers\SendMailCustomerController;
 use App\Http\Controllers\ShowSinglesController;
 
 /*
@@ -48,6 +44,10 @@ Route::view('/elements', 'frontend.elements')->name('elements');
 Route::get('/blog', [BlogsController::class, 'listpost'])->name('blog');
 Route::get('/about/{id}/show', [ShowSinglesController::class, 'showAbout'])->name('about.show');
 Route::get('/post/{id}/show', [ShowSinglesController::class, 'showPost'])->name('post.show');
+
+//form seed mail 
+Route::post('/sendmessage', [ContactController::class, 'sendEmailContact'])->name('contact.send');
+Route::post('/sendemail', [CustomersController::class, 'storeCustomer'])->name('sendemail');
 
 //admin 
 Route::middleware('auth')->prefix('/admin')->group(function(){
@@ -176,7 +176,7 @@ Route::middleware('auth')->prefix('/admin')->group(function(){
 
     //package
     Route::name('package.')->group(function(){
-        Route::get('/admin/packages', [PackagesController::class, 'index'])->name('index');
+        Route::get('/packages', [PackagesController::class, 'index'])->name('index');
         Route::prefix('/package')->group(function(){
             Route::get('/create', [PackagesController::class, 'create'])->name('create');
             Route::post('/store', [PackagesController::class, 'store'])->name('store');
@@ -196,7 +196,7 @@ Route::middleware('auth')->prefix('/admin')->group(function(){
 
     //post
     Route::name('post.')->group(function(){
-        Route::get('/admin/posts', [PostController::class, 'index'])->name('index');
+        Route::get('/posts', [PostController::class, 'index'])->name('index');
         Route::prefix('/post')->group(function(){
             Route::get('/create', [PostController::class, 'create'])->name('create');
             Route::post('/store', [PostController::class, 'store'])->name('store');
@@ -206,22 +206,3 @@ Route::middleware('auth')->prefix('/admin')->group(function(){
         });
     });
 });
-
-//form seed mail 
-Route::get('/form', function () {
-    return view('form');
-});
-
-Route::post('/form/send', [FrontController::class, 'addFeedback'])->name('seendmail');
-
-Route::get('formemail', [EmailController::class, 'sendEmail']);
-
-Route::get('/send-email', [MailController::class, 'sendEmail']);
-
-Route::get('/send-mail-to-customer', [SendMailCustomerController::class, 'sendEmailToCustom']);
-
-Route::post('/sendmessage', [ContactController::class, 'sendEmailContact'])->name('contact.send');
-
-Route::post('/sendemail', [CustomersController::class, 'storeCustomer'])->name('sendemail');
-
-

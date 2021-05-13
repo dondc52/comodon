@@ -12,12 +12,14 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('search');
+        $numPerPage = $request->get('numPerPage') !== null ? $request->get('numPerPage') : env('NUM_PER_PAGE') ;
         $result = User::where('name', 'like', "%{$search}%")
-            ->paginate(env('NUM_PER_PAGE'));
+            ->paginate($numPerPage);
 
         return view('backend.user.index', [
             'users' => $result,
             'search' => $search,
+            'numPerPage' => $numPerPage,
         ]);
     }
 
