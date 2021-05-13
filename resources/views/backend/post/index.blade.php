@@ -83,8 +83,20 @@
                 </tbody>
             </table>
         </div>
-        <div class="ml-3">
-            {{ $posts->appends(['search' => $search, 'cate' => $cate, 'auth' => $auth, 'numPerPage' => $numPerPage])->links() }}
+        <div class="ml-3 row">
+            <div class="col-1 pl-0">
+                <form id="submitDonBt" action="{{ route('post.index') }}" method="get">
+                    <select class="form-control selectDon" name="numPerPage">
+                        <option value="5" {{$numPerPage == 5 ? 'selected' : ''}}>5</option>
+                        <option value="10" {{$numPerPage == 10 ? 'selected' : ''}}>10</option>
+                        <option value="15" {{$numPerPage == 15 ? 'selected' : ''}}>15</option>
+                        <option value="20" {{$numPerPage == 20 ? 'selected' : ''}}>20</option>
+                    </select>
+                </form>
+            </div>
+            <div class="col-11">
+                {{ $posts->appends(['search' => $search, 'cate' => $cate, 'auth' => $auth, 'numPerPage' => $numPerPage])->links() }}
+            </div>
         </div>
     </div>
     </div>
