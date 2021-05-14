@@ -9,14 +9,6 @@
         <div class="card-body row">
             <div class="mb-3 col-9 p-0">
                 <form id="submitDon" action="{{ route('post.index') }}" class="row" method="get">
-                    <div class="col-1">
-                        <select class="form-control selectDon" name="numPerPage">
-                            <option value="5" {{$numPerPage == 5 ? 'selected' : ''}}>5</option>
-                            <option value="10" {{$numPerPage == 10 ? 'selected' : ''}}>10</option>
-                            <option value="15" {{$numPerPage == 15 ? 'selected' : ''}}>15</option>
-                            <option value="20" {{$numPerPage == 20 ? 'selected' : ''}}>20</option>
-                        </select>
-                    </div>
                     <div class="col-md-3">
                         <select class="form-control selectDon" name="cate">
                             <option value="">Select category</option>
@@ -42,6 +34,7 @@
                                 value="{{ $search }}">
                         </div>
                     </div>
+                    <input type="hidden" name="perPage" value="{{$perPage}}">
                     <button type="submit" class="btn btn-primary ml-2">Load</button>
                 </form>
             </div>
@@ -86,16 +79,19 @@
         <div class="ml-3 row">
             <div class="col-1 pl-0">
                 <form id="submitDonBt" action="{{ route('post.index') }}" method="get">
-                    <select class="form-control selectDon" name="numPerPage">
-                        <option value="5" {{$numPerPage == 5 ? 'selected' : ''}}>5</option>
-                        <option value="10" {{$numPerPage == 10 ? 'selected' : ''}}>10</option>
-                        <option value="15" {{$numPerPage == 15 ? 'selected' : ''}}>15</option>
-                        <option value="20" {{$numPerPage == 20 ? 'selected' : ''}}>20</option>
+                    <select class="form-control selectDonBt" name="perPage">
+                        <option value="5" {{$perPage == 5 ? 'selected' : ''}}>5</option>
+                        <option value="10" {{$perPage == 10 ? 'selected' : ''}}>10</option>
+                        <option value="15" {{$perPage == 15 ? 'selected' : ''}}>15</option>
+                        <option value="20" {{$perPage == 20 ? 'selected' : ''}}>20</option>
                     </select>
+                    <input type="hidden" name="cate" value="{{$cate}}">
+                    <input type="hidden" name="auth" value="{{$auth}}">
+                    <input type="hidden" name="search" value="{{$search}}">
                 </form>
             </div>
             <div class="col-11">
-                {{ $posts->appends(['search' => $search, 'cate' => $cate, 'auth' => $auth, 'numPerPage' => $numPerPage])->links() }}
+                {{ $posts->appends(['search' => $search, 'cate' => $cate, 'auth' => $auth, 'perPage' => $perPage])->links() }}
             </div>
         </div>
     </div>

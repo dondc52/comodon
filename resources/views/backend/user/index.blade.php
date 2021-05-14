@@ -34,25 +34,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
+                    @foreach ($users as $row)
                         <tr>
-                            <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->title }}</td>
+                            <td>{{ $row->id }}</td>
+                            <td>{{ $row->name }}</td>
+                            <td>{{ $row->title }}</td>
                             <td>
-                                @if ($user->image)
-                                    <img height="70px" src="{{ asset('images/' . $user->image) }}" alt="">
+                                @if ($row->image)
+                                    <img height="70px" src="{{ asset('images/' . $row->image) }}" alt="">
                                 @endif
                             </td>
-                            <td>{{ $user->email }}</td>
+                            <td>{{ $row->email }}</td>
                             <td>
-                                <a class="btn btn-info" href="{{ route('user.show', $user->id) }}"><i
+                                <a class="btn btn-info" href="{{ route('user.show', $row->id) }}"><i
                                         class="fas fa-info-circle"></i></a>
-                                <a class="btn btn-warning text-white" href="{{ route('user.edit', $user->id) }}"><i
+                                <a class="btn btn-warning text-white" href="{{ route('user.edit', $row->id) }}"><i
                                         class="fas fa-edit"></i></a>
-                                <a class="btn btn-warning text-white" href="{{ route('user.editpw', $user->id) }}"><i
+                                <a class="btn btn-warning text-white" href="{{ route('user.editpw', $row->id) }}"><i
                                         class="fas fa-key"></i></a>
-                                <a data-action="{{ route('user.destroy', $user->id) }}"
+                                <a data-action="{{ route('user.destroy', $row->id) }}"
                                     class="btn btn-danger delete" data-toggle="modal" data-target="#exampleModal">
                                     <i class="fas fa-trash-alt"></i>
                                 </a>

@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\SendMailToCustomer;
 use App\Models\Category;
-use App\Models\Customer;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 
 
 class PostController extends Controller
@@ -19,7 +16,7 @@ class PostController extends Controller
         $cate = $request->get('cate');
         $auth = $request->get('auth');
         $search = $request->get('search');
-        $numPerPage = $request->get('numPerPage') !== null ? $request->get('numPerPage') : env('NUM_PER_PAGE') ;
+        $perPage = $request->get('perPage') !== null ? $request->get('perPage') : env('NUM_PER_PAGE') ;
 
         $whereClause = [];
 
@@ -39,7 +36,7 @@ class PostController extends Controller
                 ->join('categories', 'posts.cat_id', '=', 'categories.id')
                 ->where($whereClause)
                 ->select(['posts.*', 'categories.cat_name', 'users.name'])
-                ->paginate($numPerPage);
+                ->paginate($perPage);
 
         
         return view('backend.post.index', [
@@ -49,15 +46,14 @@ class PostController extends Controller
             'cate' => $cate,
             'auth' => $auth,
             'search' => $search,
-            'numPerPage' => $numPerPage,
+            'perPage' => $perPage,
         ]);
     }
 
     
     public function create()
     {
-        $result = Category::all();
-        return view('backend.post.create', ['result' => $result]);
+        return view('backend.post.create', ['cates' => Category::all()]);
     }
     public function store(Request $request)
     {

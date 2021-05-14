@@ -12,23 +12,23 @@
             <div class="br"></div>
         </aside>
         <aside class="single_sidebar_widget author_widget">
-            @if($user > 0)
-                @if ($user[0]->image !== null)
-                    <a href="{{ route('blog') }}?auth={{ $user[0]->id }}"><img width="200px" height="200px"
-                            class="author_img rounded-circle" src="{{ asset('images/' . $user[0]->image) }}"
+            @if($user)
+                @if ($user->image !== null)
+                    <a href="{{ route('blog') }}?auth={{ $user->id }}"><img width="200px" height="200px"
+                            class="author_img rounded-circle" src="{{ asset('images/' . $user->image) }}"
                             alt="" /></a>
                 @endif
-                <a href="{{ route('blog') }}?auth={{ $user[0]->id }}">
-                    <h4>{{ substr($user[0]->name, 0, 20) }}</h4>
+                <a href="{{ route('blog') }}?auth={{ $user->id }}">
+                    <h4>{{ substr($user->name, 0, 20) }}</h4>
                 </a>
-                <p>{{ substr($user[0]->title, 0, 30) }}</p>
+                <p>{{ substr($user->title, 0, 30) }}</p>
                 <div class="social_icon">
                     <a href=""><i class="fa fa-facebook"></i></a>
                     <a href=""><i class="fa fa-twitter"></i></a>
                     <a href=""><i class="fa fa-github"></i></a>
                     <a href=""><i class="fa fa-behance"></i></a>
                 </div>
-                <p>{{ substr($user[0]->title, 0, 200) }}</p>
+                <p>{{ substr($user->title, 0, 200) }}</p>
                 <div class="br"></div>
             @endif
         </aside>

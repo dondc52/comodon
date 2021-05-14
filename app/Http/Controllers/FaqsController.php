@@ -53,6 +53,14 @@ class FaqsController extends Controller
         return redirect()->route('faq.index')->with('success', 'Updated successfully');
     }
 
+    public function updateStatus(Request $request, $id){
+        $target = Faq::find($id);
+        $status = $request->status == 0 ? 0 : 1;
+        $target->status = $status;
+        $target->save();
+        return redirect()->back()->with('success', 'Update successfully!');
+    }
+
     public function destroy($id){
         $target = Faq::find($id);
         if (!$target) {

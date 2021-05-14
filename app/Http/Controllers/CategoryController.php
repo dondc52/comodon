@@ -66,6 +66,14 @@ class CategoryController extends Controller
         return redirect()->route('category.index')->with('success', 'Category updated successfully');
     }
 
+    public function updateStatus(Request $request, $id){
+        $target = Category::find($id);
+        $status = $request->status == 0 ? 0 : 1;
+        $target->status = $status;
+        $target->save();
+        return redirect()->back()->with('success', 'Update successfully!');
+    }
+
     public function destroy($id){
         $target = Category::find($id);
         if (!$target) {

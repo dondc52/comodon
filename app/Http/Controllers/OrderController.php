@@ -33,12 +33,24 @@ class OrderController extends Controller
         return redirect()->back()->with('successOrder', 'Order successfully!');
     }
 
-    public function update($id){
+    public function update(Request $request, $id){
         $target = Order::find($id);
-        $target->status = 1;
+        $status = $request->status == 0 ? 0 : 1;
+        $target->status = $status;
         $target->save();
-        
         return redirect()->back()->with('success', 'Update order successfully!');
+    }
+
+    public function show($id){
+        $result = Order::join('users', 'order.user_id', '=', 'users.id')
+        ->join('packages', 'order.package_id', '=', 'packages.id')
+        ->where('order.id', '=', $id)
+        ->select(['order.id', 'users.name', 'users.email', 'packages.title', 
+        'packages.description1', 'packages.description2', 'packages.description3', 'packages.price'])->get();
+
+        return view('backend.order.show', [
+            'order' => $result[0],
+        ]);
     }
 
     public function destroy($id){

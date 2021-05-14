@@ -25,4 +25,12 @@ $(document).ready(function () {
     $("#submitDon" ).submit();
   });
 
+  $('.selectDonBt').on('change', function() {
+    $("#submitDonBt" ).submit();
+  });
+
+  $('.status').on('change', function(){
+    $(this).parent().parent().submit();
+  });
+
 });

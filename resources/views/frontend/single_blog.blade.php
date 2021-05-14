@@ -39,7 +39,7 @@
                                 <li><a href="{{route('blog')}}?auth={{$post->user_id}}">{{$user->name}}<i class="lnr lnr-user"></i></a></li>
                                 <li><a href="">{{date('d-m-Y', strtotime($post->created_at))}}<i class="lnr lnr-calendar-full"></i></a></li>
                                 <li><a href="">{{$post->view_number}} Views<i class="lnr lnr-eye"></i></a></li>
-                                <li><a href="">{{$post->comment_number}} Comments<i class="lnr lnr-bubble"></i></a></li>
+                                <li><a href="">@if($comments) {{$comments->count()}} @endif Comments<i class="lnr lnr-bubble"></i></a></li>
                             </ul>
                             <ul class="social-links">
                                 <li><a href=""><i class="fa fa-facebook"></i></a></li>
@@ -95,126 +95,50 @@
                             </div>
                     </div>
                 </div>
-                <div class="comments-area">
-                    <h4>05 Comments</h4>
-                    <div class="comment-list">
-                        <div class="single-comment justify-content-between d-flex">
-                            <div class="user justify-content-between d-flex">
-                                <div class="thumb">
-                                    <img src="{{ asset('assets/img/blog/c1.jpg') }}" alt="">
+                @if ($comments)
+                    <div class="comments-area">
+                        <h4>{{$comments->count()}} Comments</h4>
+                        @foreach ($comments as $row)
+                            <div class="comment-list">
+                                <div class="single-comment justify-content-between d-flex">
+                                    <div class="user justify-content-between d-flex">
+                                        <div class="thumb">
+                                            @if ($row->image)
+                                                <img src="{{ asset('images/'. $row->image) }}" alt="">
+                                            @else 
+                                                <img src="{{ asset('assets/img/blog/c1.jpg') }}" alt="">
+                                            @endif 
+                                        </div>
+                                        <div class="desc">
+                                            <h5><a href="{{route('blog')}}?auth={{$post->user_id}}">{{$row->name}}</a></h5>
+                                            <p class="date">{{$row->updated_at}}</p>
+                                            <p class="comment">{{$row->content}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="reply-btn">
+                                            <a href="" class="btn-reply text-uppercase">reply</a> 
+                                    </div>
                                 </div>
-                                <div class="desc">
-                                    <h5><a href="">Emilly Blunt</a></h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                    <p class="comment">
-                                        Never say goodbye till the end comes!
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="reply-btn">
-                                    <a href="" class="btn-reply text-uppercase">reply</a> 
-                            </div>
-                        </div>
-                    </div>	
-                    <div class="comment-list left-padding">
-                        <div class="single-comment justify-content-between d-flex">
-                            <div class="user justify-content-between d-flex">
-                                <div class="thumb">
-                                    <img src="{{ asset('assets/img/blog/c2.jpg') }}" alt="">
-                                </div>
-                                <div class="desc">
-                                    <h5><a href="">Elsie Cunningham</a></h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                    <p class="comment">
-                                        Never say goodbye till the end comes!
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="reply-btn">
-                                    <a href="" class="btn-reply text-uppercase">reply</a> 
-                            </div>
-                        </div>
-                    </div>	
-                    <div class="comment-list left-padding">
-                        <div class="single-comment justify-content-between d-flex">
-                            <div class="user justify-content-between d-flex">
-                                <div class="thumb">
-                                    <img src="{{ asset('assets/img/blog/c3.jpg') }}" alt="">
-                                </div>
-                                <div class="desc">
-                                    <h5><a href="">Annie Stephens</a></h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                    <p class="comment">
-                                        Never say goodbye till the end comes!
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="reply-btn">
-                                    <a href="" class="btn-reply text-uppercase">reply</a> 
-                            </div>
-                        </div>
-                    </div>	
-                    <div class="comment-list">
-                        <div class="single-comment justify-content-between d-flex">
-                            <div class="user justify-content-between d-flex">
-                                <div class="thumb">
-                                    <img src="{{ asset('assets/img/blog/c4.jpg') }}" alt="">
-                                </div>
-                                <div class="desc">
-                                    <h5><a href="">Maria Luna</a></h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                    <p class="comment">
-                                        Never say goodbye till the end comes!
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="reply-btn">
-                                    <a href="" class="btn-reply text-uppercase">reply</a> 
-                            </div>
-                        </div>
-                    </div>	
-                    <div class="comment-list">
-                        <div class="single-comment justify-content-between d-flex">
-                            <div class="user justify-content-between d-flex">
-                                <div class="thumb">
-                                    <img src="{{ asset('assets/img/blog/c5.jpg') }}" alt="">
-                                </div>
-                                <div class="desc">
-                                    <h5><a href="">Ina Hayes</a></h5>
-                                    <p class="date">December 4, 2017 at 3:12 pm </p>
-                                    <p class="comment">
-                                        Never say goodbye till the end comes!
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="reply-btn">
-                                    <a href="" class="btn-reply text-uppercase">reply</a> 
-                            </div>
-                        </div>
-                    </div>	                                             				
-                </div>
+                            </div>	                                          				
+                        @endforeach 
+                    </div>
+                @endif 
                 <div class="comment-form">
                     <h4>Leave a Reply</h4>
-                    <form>
-                        <div class="form-group form-inline">
-                            <div class="form-group col-lg-6 col-md-6 name">
-                            <input type="text" class="form-control" id="name" placeholder="Enter Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter Name'">
-                            </div>
-                            <div class="form-group col-lg-6 col-md-6 email">
-                            <input type="email" class="form-control" id="email" placeholder="Enter email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'">
-                            </div>										
-                        </div>
+                    <form action="{{route('comment.store')}}" method="post">
+                        @csrf
                         <div class="form-group">
-                            <input type="text" class="form-control" id="subject" placeholder="Subject" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Subject'">
+                            <textarea class="form-control mb-10" rows="5" name="content" placeholder="Messege" 
+                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
+                            <input type="hidden" name="post_id" value="{{$post->id}}">
+                            <input type="hidden" name="user_id" value="@if(Auth::user()) {{Auth::user()->id}} @endif">
+                            <input type="hidden" name="parent_id" id="reply">
                         </div>
-                        <div class="form-group">
-                            <textarea class="form-control mb-10" rows="5" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
-                        </div>
-                        <a href="" class="primary-btn primary_btn">Post Comment</a>	
+                        <button type="submit" class="btn primary-btn primary_btn">Post Comment</button>	
                     </form>
                 </div>
             </div>
-            @include('frontend.layouts.blog_right_sidebar');
+            @include('frontend.layouts.blog_right_sidebar')
         </div>
     </div>
 </section>

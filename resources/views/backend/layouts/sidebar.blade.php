@@ -96,7 +96,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('ratting.index') }}"
-                        class="nav-link {{ request()->is('admin/ratting*') ? 'active' : '' }}">
+                        class="nav-link {{ request()->is('admin/rattings*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-star-half-alt"></i>
                         <p>User ratting</p>
                     </a>

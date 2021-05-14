@@ -15,6 +15,7 @@ use App\Http\Controllers\FaqsController;
 use App\Http\Controllers\PackagesController;
 use App\Http\Controllers\RattingsController;
 use App\Http\Controllers\BlogsController;
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\FooterLinksController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ShowSinglesController;
@@ -49,8 +50,14 @@ Route::get('/post/{id}/show', [ShowSinglesController::class, 'showPost'])->name(
 Route::post('/sendmessage', [ContactController::class, 'sendEmailContact'])->name('contact.send');
 Route::post('/sendemail', [CustomersController::class, 'storeCustomer'])->name('sendemail');
 
+//comment
+Route::post('/comment/store', [CommentsController::class, 'store'])->name('comment.store')->middleware('auth');
+Route::post('/comment/{id}/update', [CommentsController::class, 'update'])->name('comment.update')->middleware('auth');
+
 //admin 
 Route::middleware('auth')->prefix('/admin')->group(function(){
+
+
     //user
     Route::name('user.')->group(function(){
         Route::get('/users', [UserController::class, 'index'])->name('index');
@@ -83,6 +90,7 @@ Route::middleware('auth')->prefix('/admin')->group(function(){
         Route::get('/orders', [OrderController::class, 'index'])->name('index');
         Route::prefix('/order')->group(function(){
             Route::post('/store', [OrderController::class, 'store'])->name('store');
+            Route::get('/{id}/show', [OrderController::class, 'show'])->name('show');
             Route::post('/{id}/destroy', [OrderController::class, 'destroy'])->name('destroy');
             Route::post('/{id}/update', [OrderController::class, 'update'])->name('update');
         });
@@ -96,6 +104,7 @@ Route::middleware('auth')->prefix('/admin')->group(function(){
             Route::post('/store', [AboutUsController::class, 'store'])->name('store');
             Route::post('/{id}/destroy', [AboutUsController::class, 'destroy'])->name('destroy');
             Route::post('/{id}/update', [AboutUsController::class, 'update'])->name('update');
+            Route::post('/{id}/updateStatus', [AboutUsController::class, 'updateStatus'])->name('updateStatus');
             Route::get('/{id}/edit', [AboutUsController::class, 'edit'])->name('edit');
         });
     });
@@ -117,6 +126,7 @@ Route::middleware('auth')->prefix('/admin')->group(function(){
             Route::post('/store', [CategoryController::class, 'store'])->name('store');
             Route::post('/{id}/destroy', [CategoryController::class, 'destroy'])->name('destroy');
             Route::post('/{id}/update', [CategoryController::class, 'update'])->name('update');
+            Route::post('/{id}/updateStatus', [CategoryController::class, 'updateStatus'])->name('updateStatus');
             Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('edit');
         });
     });
@@ -135,6 +145,7 @@ Route::middleware('auth')->prefix('/admin')->group(function(){
             Route::post('store', [FaqsController::class, 'store'])->name('store');
             Route::post('{id}/destroy', [FaqsController::class, 'destroy'])->name('destroy');
             Route::post('{id}/update', [FaqsController::class, 'update'])->name('update');
+            Route::post('{id}/updateStatus', [FaqsController::class, 'updateStatus'])->name('updateStatus');
             Route::get('{id}/edit', [FaqsController::class, 'edit'])->name('edit');
         });
     });
@@ -164,7 +175,7 @@ Route::middleware('auth')->prefix('/admin')->group(function(){
 
     //ratting
     Route::name('ratting.')->group(function(){
-        Route::get('/admin/rattings', [RattingsController::class, 'index'])->name('index');
+        Route::get('/rattings', [RattingsController::class, 'index'])->name('index');
         Route::prefix('/ratting')->group(function(){
             Route::get('/create', [RattingsController::class, 'create'])->name('create');
             Route::post('/store', [RattingsController::class, 'store'])->name('store');
@@ -182,6 +193,7 @@ Route::middleware('auth')->prefix('/admin')->group(function(){
             Route::post('/store', [PackagesController::class, 'store'])->name('store');
             Route::post('/{id}/destroy', [PackagesController::class, 'destroy'])->name('destroy');
             Route::post('/{id}/update', [PackagesController::class, 'update'])->name('update');
+            Route::post('/{id}/updateStatus', [PackagesController::class, 'updateStatus'])->name('updateStatus');
             Route::get('/{id}/edit', [PackagesController::class, 'edit'])->name('edit');
         });
     });

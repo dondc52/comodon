@@ -14,7 +14,6 @@
                                     <li><a href="{{ $children->link_content }}"></a>{{ $children->link_name }}</a></li>
                                 @endforeach
                             </ul>
-
                         </aside>
                     </div>
                 @endforeach

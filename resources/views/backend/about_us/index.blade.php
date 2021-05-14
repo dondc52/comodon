@@ -45,9 +45,13 @@
                         @endif
                     </td>
                     <td>
-                        @if ($row->status == 1)
-                            On
-                        @endif  
+                        <form action="{{ route('about_us.updateStatus', $row->id) }}" method="post">
+                            @csrf
+                            <div class="custom-control col-6 custom-switch form-check mx-auto">
+                                <input type="checkbox" class="custom-control-input status" id="switch{{$row->id}}" name="status" value="1" {{$row->status == 1 ? 'checked' : ''}}>
+                                <label class="custom-control-label" for="switch{{$row->id}}"></label>
+                            </div>
+                        </form> 
                     </td>
                     <td width="10%">
                         <a class="btn btn-warning text-white" href="{{ route('about_us.edit', $row->id) }}"><i class="fas fa-edit"></i></a>
