@@ -9,5 +9,11 @@ $(document).ready(function () {
     if($(".alertorder").length){
         window.location.href = '#linkflashorder';
     }
+
+    $('.btn-reply').click(function(){
+        var parent_id = $(this).next().val();
+        $('#parentIdReply').val(parent_id);
+        window.location.href = '#commentForm';
+    });
     
 });

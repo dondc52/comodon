@@ -39,7 +39,7 @@
                                 <li><a href="{{route('blog')}}?auth={{$post->user_id}}">{{$user->name}}<i class="lnr lnr-user"></i></a></li>
                                 <li><a href="">{{date('d-m-Y', strtotime($post->created_at))}}<i class="lnr lnr-calendar-full"></i></a></li>
                                 <li><a href="">{{$post->view_number}} Views<i class="lnr lnr-eye"></i></a></li>
-                                <li><a href="">@if($comments) {{$comments->count()}} @endif Comments<i class="lnr lnr-bubble"></i></a></li>
+                                <li><a href="">@if($comments) {{$countCmt}} @endif Comments<i class="lnr lnr-bubble"></i></a></li>
                             </ul>
                             <ul class="social-links">
                                 <li><a href=""><i class="fa fa-facebook"></i></a></li>
@@ -97,7 +97,7 @@
                 </div>
                 @if ($comments)
                     <div class="comments-area">
-                        <h4>{{$comments->count()}} Comments</h4>
+                        <h4>{{$countCmt}} Comments</h4>
                         @foreach ($comments as $row)
                             <div class="comment-list">
                                 <div class="single-comment justify-content-between d-flex">
@@ -116,14 +116,41 @@
                                         </div>
                                     </div>
                                     <div class="reply-btn">
-                                            <a href="" class="btn-reply text-uppercase">reply</a> 
+                                        <button class="btn-reply text-uppercase btn">reply</button>
+                                        <input type="hidden" value="{{$row->id}}"> 
                                     </div>
                                 </div>
-                            </div>	                                          				
+                            </div>
+                            @if ($row->children)
+                                @foreach ($row->children as $children)
+                                    <div class="comment-list left-padding">
+                                        <div class="single-comment justify-content-between d-flex">
+                                            <div class="user justify-content-between d-flex">
+                                                <div class="thumb">
+                                                    @if ($children->image)
+                                                        <img src="{{ asset('images/'. $children->image) }}" alt="">
+                                                    @else 
+                                                        <img src="{{ asset('assets/img/blog/c1.jpg') }}" alt="">
+                                                    @endif 
+                                                </div>
+                                                <div class="desc">
+                                                    <h5><a href="{{route('blog')}}?auth={{$children->user->id}}">{{$children->user->name}}</a></h5>
+                                                    <p class="date">{{$children->updated_at}}</p>
+                                                    <p class="comment">{{$children->content}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="reply-btn">
+                                                <button class="btn-reply text-uppercase btn">reply</button>
+                                                <input type="hidden" value="{{$row->id}}"> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif                                           				
                         @endforeach 
                     </div>
                 @endif 
-                <div class="comment-form">
+                <div id="commentForm" class="comment-form">
                     <h4>Leave a Reply</h4>
                     <form action="{{route('comment.store')}}" method="post">
                         @csrf
@@ -132,7 +159,7 @@
                             onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required=""></textarea>
                             <input type="hidden" name="post_id" value="{{$post->id}}">
                             <input type="hidden" name="user_id" value="@if(Auth::user()) {{Auth::user()->id}} @endif">
-                            <input type="hidden" name="parent_id" id="reply">
+                            <input type="hidden" name="parent_id" id="parentIdReply">
                         </div>
                         <button type="submit" class="btn primary-btn primary_btn">Post Comment</button>	
                     </form>

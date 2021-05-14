@@ -10,9 +10,11 @@
                                 <h4>{{ $linkItem->link_name }}</h4>
                             </div>
                             <ul>
-                                @foreach ($linkItem->children as $children)
-                                    <li><a href="{{ $children->link_content }}"></a>{{ $children->link_name }}</a></li>
-                                @endforeach
+                                @if ($linkItem->children)
+                                    @foreach ($linkItem->children as $children)
+                                        <li><a href="{{ $children->link_content }}"></a>{{ $children->link_name }}</a></li>
+                                    @endforeach
+                                @endif
                             </ul>
                         </aside>
                     </div>

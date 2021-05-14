@@ -17,11 +17,17 @@ class ShowSinglesController extends Controller
         $next = Post::where('id', '>', $id)->where('cat_id', '=', $post->cat_id)->orderBy('id')->first();
         $prev = Post::where('id', '<', $id)->where('cat_id', '=', $post->cat_id)->orderByDesc('id')->first();
 
+        $countCmt = Comment::where('post_id', $id)->count();
+
         $comments = Comment::join('users', 'users.id', '=', 'comments.user_id')
                         ->where('comments.post_id', $id)
-                        ->select(['comments.*', 'users.name', 'users.image'])->get();
+                        ->where('comments.parent_id', 0)
+                        ->select(['comments.*', 'users.name', 'users.image'])
+                        ->with('children')->get();
 
         // return $comments;
+
+        // return Comment::all()[0]->user->name;
 
         return view('frontend.single_blog', [
             'post' => $post,
@@ -30,6 +36,7 @@ class ShowSinglesController extends Controller
             'next' => $next,
             'prev' => $prev,
             'comments' => $comments,
+            'countCmt' => $countCmt,
         ]);
     }
 
