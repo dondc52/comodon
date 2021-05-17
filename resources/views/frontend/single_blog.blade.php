@@ -141,10 +141,36 @@
                                             </div>
                                             <div class="reply-btn">
                                                 <button class="btn-reply text-uppercase btn">reply</button>
-                                                <input type="hidden" value="{{$row->id}}"> 
+                                                <input type="hidden" value="{{$children->id}}"> 
                                             </div>
                                         </div>
                                     </div>
+                                    @if ($children->children)
+                                        @foreach ($children->children as $children1)
+                                        <div class="comment-list left-padding">
+                                            <div class="single-comment justify-content-between d-flex children1">
+                                                <div class="user justify-content-between d-flex">
+                                                    <div class="thumb">
+                                                        @if ($children1->image)
+                                                            <img src="{{ asset('images/'. $children1->image) }}" alt="">
+                                                        @else 
+                                                            <img src="{{ asset('assets/img/blog/c1.jpg') }}" alt="">
+                                                        @endif 
+                                                    </div>
+                                                    <div class="desc">
+                                                        <h5><a href="{{route('blog')}}?auth={{$children1->user->id}}">{{$children1->user->name}}</a></h5>
+                                                        <p class="date">{{$children1->updated_at}}</p>
+                                                        <p class="comment">{{$children1->content}}</p>
+                                                    </div>
+                                                </div>
+                                                <div class="reply-btn">
+                                                    <button class="btn-reply text-uppercase btn">reply</button>
+                                                    <input type="hidden" value="{{$children->id}}"> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endforeach 
+                                    @endif 
                                 @endforeach
                             @endif                                           				
                         @endforeach 
